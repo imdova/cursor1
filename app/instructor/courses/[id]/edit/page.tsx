@@ -74,132 +74,152 @@ export default function EditCoursePage() {
         <p className="text-gray-600">Update your course information</p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Course Title */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Course Title
-            </label>
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+        <form onSubmit={handleSubmit} className="divide-y divide-gray-200">
+          {/* Basic Information */}
+          <div className="p-8">
+            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
+              <span className="w-1 h-6 bg-blue-600 rounded-full mr-3"></span>
+              Basic Information
+            </h3>
+            
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Course Title <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                  required
+                />
+              </div>
 
-          {/* Category */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Category
-            </label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            >
-              <option value="">Select a category</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.name}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Difficulty Level */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Difficulty Level
-            </label>
-            <div className="flex space-x-4">
-              {(['Beginner', 'Intermediate', 'Advanced'] as const).map((level) => (
-                <button
-                  key={level}
-                  type="button"
-                  onClick={() => setFormData((prev) => ({ ...prev, level }))}
-                  className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-colors ${
-                    formData.level === level
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-blue-500'
-                  }`}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Category <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white appearance-none cursor-pointer"
+                  required
                 >
-                  {level}
-                </button>
-              ))}
-            </div>
-          </div>
+                  <option value="">Select a category</option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-          {/* Description */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Description
-            </label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              rows={8}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-4">
+                  Difficulty Level <span className="text-red-500">*</span>
+                </label>
+                <div className="flex space-x-4">
+                  {(['Beginner', 'Intermediate', 'Advanced'] as const).map((level) => (
+                    <button
+                      key={level}
+                      type="button"
+                      onClick={() => setFormData((prev) => ({ ...prev, level }))}
+                      className={`flex-1 px-6 py-4 rounded-lg font-semibold transition-all duration-200 ${
+                        formData.level === level
+                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg transform scale-105'
+                          : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-blue-500 hover:bg-gray-50'
+                      }`}
+                    >
+                      {level}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Description <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  rows={8}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white resize-none"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           {/* Pricing */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Price ($)
-              </label>
-              <input
-                type="number"
-                name="price"
-                value={formData.price}
-                onChange={handleInputChange}
-                min="0"
-                step="0.01"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Original Price ($) <span className="text-gray-500 font-normal">(optional)</span>
-              </label>
-              <input
-                type="number"
-                name="originalPrice"
-                value={formData.originalPrice}
-                onChange={handleInputChange}
-                min="0"
-                step="0.01"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+          <div className="p-8 bg-gray-50">
+            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
+              <span className="w-1 h-6 bg-blue-600 rounded-full mr-3"></span>
+              Pricing
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white p-6 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all duration-200">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Price ($) <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">$</span>
+                  <input
+                    type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    min="0"
+                    step="0.01"
+                    className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all duration-200">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Original Price ($) <span className="text-gray-500 font-normal text-xs">(optional)</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">$</span>
+                  <input
+                    type="number"
+                    name="originalPrice"
+                    value={formData.originalPrice}
+                    onChange={handleInputChange}
+                    min="0"
+                    step="0.01"
+                    className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+          <div className="p-8 bg-gray-50 flex justify-end space-x-4">
             <button
               type="button"
               onClick={() => router.push('/instructor/courses')}
-              className="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+              className="px-8 py-3 border-2 border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-white hover:border-gray-400 transition-all duration-200 shadow-sm hover:shadow-md"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Save Changes
             </button>
           </div>
         </form>
+      </div>
       </div>
     </div>
   );

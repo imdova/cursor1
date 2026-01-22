@@ -196,34 +196,37 @@ export default function QuestionsPage() {
       </div>
 
       {showAddForm && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
-            {editingQuestion ? 'Edit Question' : 'Add New Question'}
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="bg-white rounded-xl shadow-lg border-2 border-gray-200 overflow-hidden mb-6">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-b border-gray-200">
+            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+              <span className="mr-3">{editingQuestion ? '✏️' : '➕'}</span>
+              {editingQuestion ? 'Edit Question' : 'Add New Question'}
+            </h2>
+          </div>
+          <form onSubmit={handleSubmit} className="p-8 space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Question Text *
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Question Text <span className="text-red-500">*</span>
               </label>
               <textarea
                 name="questionText"
                 value={formData.questionText}
                 onChange={handleInputChange}
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white resize-none"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Question Type *
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Question Type <span className="text-red-500">*</span>
               </label>
               <select
                 name="questionType"
                 value={formData.questionType}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white appearance-none cursor-pointer"
                 required
               >
                 <option value="multiple-choice">Multiple Choice</option>
@@ -234,45 +237,49 @@ export default function QuestionsPage() {
             </div>
 
             {(formData.questionType === 'multiple-choice' || formData.questionType === 'true-false') && (
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Options *
+              <div className="bg-gray-50 p-6 rounded-lg border-2 border-gray-200">
+                <label className="block text-sm font-semibold text-gray-700 mb-4">
+                  Options <span className="text-red-500">*</span>
                 </label>
-                {formData.options?.map((option, index) => (
-                  <div key={index} className="flex items-center space-x-2 mb-2">
-                    <input
-                      type="text"
-                      value={option}
-                      onChange={(e) => handleOptionChange(index, e.target.value)}
-                      placeholder={`Option ${index + 1}`}
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                    <input
-                      type="radio"
-                      name="correctAnswer"
-                      value={option}
-                      checked={formData.correctAnswer === option}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, correctAnswer: e.target.value }))}
-                      className="w-5 h-5"
-                    />
-                    <span className="text-sm text-gray-600">Correct</span>
-                    {formData.options && formData.options.length > 2 && (
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveOption(index)}
-                        className="text-red-600 hover:text-red-700"
-                      >
-                        ✕
-                      </button>
-                    )}
-                  </div>
-                ))}
+                <div className="space-y-3">
+                  {formData.options?.map((option, index) => (
+                    <div key={index} className="flex items-center space-x-3 bg-white p-4 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all duration-200">
+                      <input
+                        type="text"
+                        value={option}
+                        onChange={(e) => handleOptionChange(index, e.target.value)}
+                        placeholder={`Option ${index + 1}`}
+                        className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                        required
+                      />
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="radio"
+                          name="correctAnswer"
+                          value={option}
+                          checked={formData.correctAnswer === option}
+                          onChange={(e) => setFormData((prev) => ({ ...prev, correctAnswer: e.target.value }))}
+                          className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer"
+                        />
+                        <span className="text-sm font-semibold text-gray-700">Correct</span>
+                      </div>
+                      {formData.options && formData.options.length > 2 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveOption(index)}
+                          className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg font-semibold transition-colors"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
                 {formData.questionType === 'multiple-choice' && (
                   <button
                     type="button"
                     onClick={handleAddOption}
-                    className="mt-2 text-blue-600 hover:text-blue-700 font-semibold"
+                    className="mt-4 px-4 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg font-semibold transition-colors"
                   >
                     + Add Option
                   </button>
@@ -282,15 +289,15 @@ export default function QuestionsPage() {
 
             {formData.questionType === 'short-answer' && (
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Correct Answer *
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Correct Answer <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   name="correctAnswer"
                   value={formData.correctAnswer}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white"
                   required
                 />
               </div>
@@ -298,7 +305,7 @@ export default function QuestionsPage() {
 
             {formData.questionType === 'essay' && (
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Sample Answer (for grading reference)
                 </label>
                 <textarea
@@ -306,15 +313,15 @@ export default function QuestionsPage() {
                   value={formData.correctAnswer}
                   onChange={handleInputChange}
                   rows={5}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white resize-none"
                 />
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Points *
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-gray-50 p-6 rounded-lg border-2 border-gray-200">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Points <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -322,14 +329,14 @@ export default function QuestionsPage() {
                   value={formData.points}
                   onChange={handleInputChange}
                   min="1"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Explanation (shown after quiz)
               </label>
               <textarea
@@ -338,24 +345,24 @@ export default function QuestionsPage() {
                 onChange={handleInputChange}
                 rows={3}
                 placeholder="Explain why this is the correct answer..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 hover:bg-white placeholder-gray-400 resize-none"
               />
             </div>
 
-            <div className="flex justify-end space-x-4">
+            <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
               <button
                 type="button"
                 onClick={() => {
                   setShowAddForm(false);
                   setEditingQuestion(null);
                 }}
-                className="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                className="px-8 py-3 border-2 border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-white hover:border-gray-400 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 {editingQuestion ? 'Update Question' : 'Add Question'}
               </button>
