@@ -2,24 +2,75 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 interface SidebarItem {
   name: string;
   href: string;
   icon: string;
+  children?: { name: string; href: string }[];
 }
 
 const sidebarItems: SidebarItem[] = [
   { name: 'Dashboard', href: '/instructor/dashboard', icon: '📊' },
-  { name: 'My Courses', href: '/instructor/courses', icon: '📚' },
-  { name: 'Quizzes', href: '/instructor/quizzes', icon: '📝' },
-  { name: 'Events', href: '/instructor/events', icon: '📅' },
+  {
+    name: 'My Courses',
+    href: '/instructor/courses',
+    icon: '📚',
+    children: [
+      { name: 'All Courses', href: '/instructor/courses' },
+      { name: 'Create Course', href: '/instructor/courses/new' },
+    ],
+  },
+  {
+    name: 'Quizzes',
+    href: '/instructor/quizzes',
+    icon: '📝',
+    children: [
+      { name: 'All Quizzes', href: '/instructor/quizzes' },
+      { name: 'Create Quiz', href: '/instructor/quizzes/new' },
+    ],
+  },
+  {
+    name: 'Events',
+    href: '/instructor/events',
+    icon: '📅',
+    children: [
+      { name: 'Events Overview', href: '/instructor/events' },
+      { name: 'Manage Events', href: '/instructor/events/manage' },
+      { name: 'Create Event', href: '/instructor/events/new' },
+    ],
+  },
   { name: 'Analytics', href: '/instructor/analytics', icon: '📈' },
   { name: 'Earnings', href: '/instructor/earnings', icon: '💰' },
 ];
 
 export default function InstructorSidebar() {
   const pathname = usePathname();
+  const [openMenus, setOpenMenus] = useState<Set<string>>(new Set());
+  const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+
+  const toggleMenu = (itemName: string) => {
+    const newOpenMenus = new Set(openMenus);
+    if (newOpenMenus.has(itemName)) {
+      newOpenMenus.delete(itemName);
+    } else {
+      newOpenMenus.add(itemName);
+    }
+    setOpenMenus(newOpenMenus);
+  };
+
+  const isMenuOpen = (itemName: string) => {
+    return openMenus.has(itemName) || hoveredMenu === itemName;
+  };
+
+  const isActive = (href: string, children?: { name: string; href: string }[]) => {
+    if (pathname === href) return true;
+    if (children) {
+      return children.some((child) => pathname === child.href || pathname.startsWith(child.href + '/'));
+    }
+    return pathname.startsWith(href + '/');
+  };
 
   return (
     <div className="w-64 bg-white border-r border-gray-200 min-h-screen flex flex-col">
@@ -37,23 +88,71 @@ export default function InstructorSidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 p-4 overflow-y-auto">
         <ul className="space-y-2">
           {sidebarItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+            const hasChildren = item.children && item.children.length > 0;
+            const menuIsOpen = isMenuOpen(item.name);
+            const itemIsActive = isActive(item.href, item.children);
+
             return (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                    isActive
-                      ? 'bg-blue-50 text-blue-600 font-semibold'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  <span className="text-xl">{item.icon}</span>
-                  <span>{item.name}</span>
-                </Link>
+              <li
+                key={item.name}
+                className="relative"
+                onMouseEnter={() => hasChildren && setHoveredMenu(item.name)}
+                onMouseLeave={() => setHoveredMenu(null)}
+              >
+                <div className="relative">
+                  <Link
+                    href={item.href}
+                    className={`flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+                      itemIsActive
+                        ? 'bg-blue-50 text-blue-600 font-semibold'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3 flex-1">
+                      <span className="text-xl">{item.icon}</span>
+                      <span>{item.name}</span>
+                    </div>
+                    {hasChildren && (
+                      <span
+                        className={`transform transition-transform text-xs ${
+                          menuIsOpen ? 'rotate-180' : ''
+                        }`}
+                      >
+                        ▼
+                      </span>
+                    )}
+                  </Link>
+                </div>
+
+                {/* Dropdown Menu */}
+                {hasChildren && menuIsOpen && (
+                  <ul
+                    className="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4"
+                    onMouseEnter={() => setHoveredMenu(item.name)}
+                    onMouseLeave={() => setHoveredMenu(null)}
+                  >
+                    {item.children.map((child) => {
+                      const childIsActive = pathname === child.href || pathname.startsWith(child.href + '/');
+                      return (
+                        <li key={child.name}>
+                          <Link
+                            href={child.href}
+                            className={`block px-4 py-2 rounded-lg text-sm transition-colors ${
+                              childIsActive
+                                ? 'bg-blue-50 text-blue-600 font-semibold'
+                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                            }`}
+                          >
+                            {child.name}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </li>
             );
           })}
