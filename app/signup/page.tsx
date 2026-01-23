@@ -44,9 +44,12 @@ export default function SignupPage() {
       <div className="max-w-md w-full">
         {/* Logo and Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 mb-4">
-            <span className="text-3xl font-bold text-green-600">m</span>
-            <span className="text-2xl font-bold text-gray-900">medicova</span>
+          <Link href="/" className="inline-flex items-center justify-center mb-4">
+            <img
+              src="/images/logo-green.png"
+              alt="Medicova"
+              className="h-12 w-auto"
+            />
           </Link>
           <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
           <p className="mt-2 text-gray-600">Start your learning journey today</p>

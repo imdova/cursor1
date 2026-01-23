@@ -6,7 +6,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-white text-xl font-bold mb-4">Medicova</h3>
+            <Link href="/" className="inline-block mb-4">
+              <img
+                src="/images/logo-white.png"
+                alt="Medicova"
+                className="h-10 w-auto"
+              />
+            </Link>
             <p className="text-sm">
               Learn new skills and advance your career with our comprehensive online courses.
             </p>
