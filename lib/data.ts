@@ -7,11 +7,11 @@ export const categories: Category[] = [
     icon: '💻',
     courseCount: 245,
     subCategories: [
-      { id: '1-1', name: 'React', courseCount: 85 },
-      { id: '1-2', name: 'Vue.js', courseCount: 42 },
-      { id: '1-3', name: 'Angular', courseCount: 38 },
-      { id: '1-4', name: 'Node.js', courseCount: 56 },
-      { id: '1-5', name: 'Full Stack', courseCount: 24 },
+      { id: '1-1', name: 'React', courseCount: 85, icon: '⚛️' },
+      { id: '1-2', name: 'Vue.js', courseCount: 42, icon: '🟢' },
+      { id: '1-3', name: 'Angular', courseCount: 38, icon: '🔴' },
+      { id: '1-4', name: 'Node.js', courseCount: 56, icon: '🟢' },
+      { id: '1-5', name: 'Full Stack', courseCount: 24, icon: '🔗' },
     ],
   },
   {
