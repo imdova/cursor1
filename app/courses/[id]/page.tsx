@@ -24,29 +24,29 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
     <div className="min-h-screen bg-white">
       {/* Course Title Section */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">{course.title}</h1>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">{course.title}</h1>
           
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
             <div className="flex items-center">
-              <span className="mr-2">📅</span>
-              <span>{new Date(course.lastUpdated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(',', ',')}</span>
+              <span className="mr-1 sm:mr-2">📅</span>
+              <span className="whitespace-nowrap">{new Date(course.lastUpdated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(',', ',')}</span>
             </div>
             <div className="flex items-center">
               <img
                 src={course.instructorImage || `https://i.pravatar.cc/40?img=1`}
                 alt={course.instructor}
-                className="w-8 h-8 rounded-full mr-2"
+                className="w-6 h-6 sm:w-8 sm:h-8 rounded-full mr-1 sm:mr-2"
               />
-              <span>{course.instructor}</span>
+              <span className="truncate max-w-[120px] sm:max-w-none">{course.instructor}</span>
             </div>
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
+            <span className="px-2 sm:px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold whitespace-nowrap">
               {course.category}
             </span>
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
+            <span className="hidden sm:inline px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
               Healthcare Management
             </span>
-            <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold flex items-center">
+            <span className="px-2 sm:px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold flex items-center whitespace-nowrap">
               <span className="mr-1">▶</span>
               Recorded
             </span>
@@ -58,8 +58,8 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
             {/* Video Player */}
@@ -73,11 +73,11 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
                   allowFullScreen
                 ></iframe>
               </div>
-              <div className="absolute top-4 right-4 flex space-x-2">
-                <button className="bg-black bg-opacity-50 text-white p-2 rounded hover:bg-opacity-70">
+              <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex space-x-2">
+                <button className="bg-black bg-opacity-50 text-white p-1.5 sm:p-2 rounded hover:bg-opacity-70 text-sm sm:text-base">
                   🔗
                 </button>
-                <button className="bg-black bg-opacity-50 text-white p-2 rounded hover:bg-opacity-70">
+                <button className="bg-black bg-opacity-50 text-white p-1.5 sm:p-2 rounded hover:bg-opacity-70 text-sm sm:text-base">
                   ⬇
                 </button>
               </div>
@@ -87,8 +87,8 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
             <CourseTabs />
 
             {/* Course Overview */}
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Course Overview</h2>
+            <section className="mb-6 sm:mb-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Course Overview</h2>
               <div className="prose max-w-none">
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Welcome to <strong>Healthcare Quality Management</strong>, a foundational course designed for future healthcare leaders. This comprehensive program provides you with the essential knowledge and skills needed to understand, implement, and manage quality improvement initiatives in healthcare settings.
@@ -105,10 +105,10 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
 
             {/* What You Will Learn */}
             {course.whatYouWillLearn && course.whatYouWillLearn.length > 0 && (
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">What You Will Learn In This Course</h2>
-                <p className="text-sm text-gray-600 mb-4">After this course you will be able to</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <section className="mb-6 sm:mb-8">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">What You Will Learn In This Course</h2>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">After this course you will be able to</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {course.whatYouWillLearn.map((item, index) => (
                     <div key={index} className="flex items-start">
                       <span className="text-green-600 mr-3 mt-1 text-xl">✓</span>
@@ -125,10 +125,10 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
 
             {/* Who Can Attend */}
             {course.requirements && course.requirements.length > 0 && (
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Who can attend this course?</h2>
-                <p className="text-sm text-gray-600 mb-4">You must have these to attend this course</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <section className="mb-6 sm:mb-8">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Who can attend this course?</h2>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">You must have these to attend this course</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {['Healthcare Professionals', 'Doctors', 'Nurses', 'Healthcare Administrators', 'Quality Assurance Staff', 'Medical Students'].map((role, index) => (
                     <div key={index} className="flex items-start">
                       <span className="text-green-600 mr-3 mt-1 text-xl">✓</span>
@@ -151,8 +151,8 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
             )}
 
             {/* Knowledge & Skills */}
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Knowledge & Skills You Will Learn</h2>
+            <section className="mb-6 sm:mb-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Knowledge & Skills You Will Learn</h2>
               <div className="bg-gray-100 rounded-lg p-4 inline-block">
                 <span className="text-gray-700 font-semibold">cphq</span>
               </div>
@@ -181,14 +181,14 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
             </section>
 
             {/* Related Courses */}
-            <section className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">Learners who took in this course also enrolled in</h2>
-                <div className="flex space-x-2">
-                  <button className="w-8 h-8 rounded-full border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
+            <section className="mb-6 sm:mb-8">
+              <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 flex-1">Learners who took in this course also enrolled in</h2>
+                <div className="flex space-x-2 flex-shrink-0">
+                  <button className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gray-300 hover:bg-gray-100 flex items-center justify-center text-sm">
                     ←
                   </button>
-                  <button className="w-8 h-8 rounded-full border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
+                  <button className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gray-300 hover:bg-gray-100 flex items-center justify-center text-sm">
                     →
                   </button>
                 </div>
@@ -238,36 +238,36 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPagePro
               </div>
 
               {/* Secure Payment */}
-              <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Secure Payment</h3>
-                <div className="flex items-center space-x-2 mb-6">
-                  <span className="text-2xl">💳</span>
-                  <span className="text-2xl">💳</span>
-                  <span className="text-2xl">💳</span>
-                  <span className="text-2xl">💳</span>
+              <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Secure Payment</h3>
+                <div className="flex items-center space-x-2 mb-4 sm:mb-6">
+                  <span className="text-xl sm:text-2xl">💳</span>
+                  <span className="text-xl sm:text-2xl">💳</span>
+                  <span className="text-xl sm:text-2xl">💳</span>
+                  <span className="text-xl sm:text-2xl">💳</span>
                 </div>
-                <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center">
+                <button className="w-full bg-green-600 text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center text-sm sm:text-base">
                   Enroll in Course
                   <span className="ml-2">→</span>
                 </button>
               </div>
 
               {/* Related Search */}
-              <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Related Search</h3>
-                <div className="bg-gray-100 rounded-lg p-3 inline-block">
-                  <span className="text-gray-700 font-semibold">cphq</span>
+              <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Related Search</h3>
+                <div className="bg-gray-100 rounded-lg p-2 sm:p-3 inline-block">
+                  <span className="text-sm sm:text-base text-gray-700 font-semibold">cphq</span>
                 </div>
               </div>
 
               {/* Not Sure Where to Begin */}
-              <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 text-center">
-                <div className="text-6xl mb-4">❓</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Not sure where to begin?</h3>
-                <p className="text-sm text-gray-600 mb-4">
+              <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 sm:p-6 text-center">
+                <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">❓</div>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">Not sure where to begin?</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
                   Discover the career most suitable for you and get started in the field with a step-by-step plan.
                 </p>
-                <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                <button className="w-full bg-green-600 text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors text-sm sm:text-base">
                   Get Your Plan
                 </button>
               </div>

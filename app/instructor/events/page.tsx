@@ -14,84 +14,84 @@ export default function EventsOverviewPage() {
   const totalRevenue = events.reduce((sum, e) => sum + (e.price * e.currentAttendees), 0);
 
   return (
-    <div className="p-8">
-      <div className="mb-8 flex justify-between items-center">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Events Overview</h1>
-          <p className="text-gray-600">Manage and track your events</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Events Overview</h1>
+          <p className="text-sm sm:text-base text-gray-600">Manage and track your events</p>
         </div>
         <Link
           href="/instructor/events/new"
-          className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+          className="w-full sm:w-auto bg-green-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center text-sm sm:text-base"
         >
           + Create New Event
         </Link>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Total Events</p>
-              <p className="text-3xl font-bold text-gray-900">{events.length}</p>
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Events</p>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900">{events.length}</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <span className="text-2xl">📅</span>
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span className="text-xl sm:text-2xl">📅</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Upcoming Events</p>
-              <p className="text-3xl font-bold text-gray-900">{upcomingEvents.length}</p>
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">Upcoming Events</p>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900">{upcomingEvents.length}</p>
             </div>
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <span className="text-2xl">🎯</span>
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <span className="text-xl sm:text-2xl">🎯</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Total Attendees</p>
-              <p className="text-3xl font-bold text-gray-900">{totalAttendees}</p>
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Attendees</p>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900">{totalAttendees}</p>
             </div>
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <span className="text-2xl">👥</span>
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+              <span className="text-xl sm:text-2xl">👥</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Total Revenue</p>
-              <p className="text-3xl font-bold text-gray-900">${totalRevenue.toFixed(2)}</p>
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Revenue</p>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900">${totalRevenue.toFixed(2)}</p>
             </div>
-            <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-              <span className="text-2xl">💰</span>
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <span className="text-xl sm:text-2xl">💰</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 mb-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
-        <div className="flex flex-wrap gap-4">
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200 mb-6 sm:mb-8">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Quick Actions</h2>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
           <Link
             href="/instructor/events/new"
-            className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+            className="w-full sm:w-auto bg-green-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center text-sm sm:text-base"
           >
             + Create New Event
           </Link>
           <Link
             href="/instructor/events/manage"
-            className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+            className="w-full sm:w-auto bg-gray-100 text-gray-700 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors text-center text-sm sm:text-base"
           >
             Manage Events
           </Link>
@@ -99,9 +99,9 @@ export default function EventsOverviewPage() {
       </div>
 
       {/* Upcoming Events */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">Upcoming Events</h2>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 sm:mb-8">
+        <div className="p-4 sm:p-6 border-b border-gray-200">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Upcoming Events</h2>
         </div>
         {upcomingEvents.length === 0 ? (
           <div className="p-12 text-center">
@@ -161,29 +161,29 @@ export default function EventsOverviewPage() {
 
       {/* Recent Activity */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">Recent Activity</h2>
+        <div className="p-4 sm:p-6 border-b border-gray-200">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Recent Activity</h2>
         </div>
-        <div className="p-6 space-y-4">
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-              <span>✓</span>
+        <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+          <div className="flex items-start sm:items-center space-x-3 sm:space-x-4">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-sm sm:text-base">✓</span>
             </div>
-            <div className="flex-1">
-              <p className="font-semibold text-gray-900">New registration</p>
-              <p className="text-sm text-gray-600">John Doe registered for "Web Development Workshop"</p>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-gray-900 text-sm sm:text-base">New registration</p>
+              <p className="text-xs sm:text-sm text-gray-600 truncate">John Doe registered for "Web Development Workshop"</p>
             </div>
-            <span className="text-sm text-gray-500">2 hours ago</span>
+            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap flex-shrink-0">2h ago</span>
           </div>
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-              <span>📝</span>
+          <div className="flex items-start sm:items-center space-x-3 sm:space-x-4">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-sm sm:text-base">📝</span>
             </div>
-            <div className="flex-1">
-              <p className="font-semibold text-gray-900">Event created</p>
-              <p className="text-sm text-gray-600">You created "Data Science Bootcamp"</p>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-gray-900 text-sm sm:text-base">Event created</p>
+              <p className="text-xs sm:text-sm text-gray-600 truncate">You created "Data Science Bootcamp"</p>
             </div>
-            <span className="text-sm text-gray-500">1 day ago</span>
+            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap flex-shrink-0">1d ago</span>
           </div>
         </div>
       </div>

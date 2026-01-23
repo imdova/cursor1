@@ -63,27 +63,40 @@ export default function SearchPage() {
     return filtered;
   }, [searchQuery, selectedCategory, selectedLevel, priceRange, sortBy]);
 
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Search Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-6">Search Courses</h1>
-          <div className="bg-white rounded-lg shadow-sm p-4">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Search Courses</h1>
+          <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4">
             <input
               type="text"
               placeholder="Search for courses, instructors, or topics..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Mobile Filter Toggle */}
+        <div className="lg:hidden mb-4">
+          <button
+            onClick={() => setFiltersOpen(!filtersOpen)}
+            className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 flex items-center justify-between font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <span>Filters</span>
+            <span className={`transform transition-transform ${filtersOpen ? 'rotate-180' : ''}`}>▼</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-20">
+          <div className={`lg:col-span-1 ${filtersOpen ? 'block' : 'hidden lg:block'}`}>
+            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 lg:sticky lg:top-20">
               <h2 className="text-xl font-bold mb-6">Filters</h2>
 
               {/* Category Filter */}
@@ -167,14 +180,14 @@ export default function SearchPage() {
 
           {/* Results */}
           <div className="lg:col-span-3">
-            <div className="flex justify-between items-center mb-6">
-              <p className="text-gray-600">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-4 sm:mb-6">
+              <p className="text-sm sm:text-base text-gray-600">
                 {filteredCourses.length} course{filteredCourses.length !== 1 ? 's' : ''} found
               </p>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
               >
                 <option value="relevance">Sort by Relevance</option>
                 <option value="price-low">Price: Low to High</option>

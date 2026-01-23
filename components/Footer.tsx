@@ -19,8 +19,8 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-white font-semibold mb-4">Categories</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Categories</h4>
+            <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
               <li><Link href="/courses?category=web" className="hover:text-white transition-colors">Web Development</Link></li>
               <li><Link href="/courses?category=data" className="hover:text-white transition-colors">Data Science</Link></li>
               <li><Link href="/courses?category=mobile" className="hover:text-white transition-colors">Mobile Development</Link></li>
@@ -29,8 +29,8 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Company</h4>
+            <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
               <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
               <li><Link href="/careers" className="hover:text-white transition-colors">Careers</Link></li>
@@ -39,8 +39,8 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-white font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Support</h4>
+            <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
               <li><Link href="/help" className="hover:text-white transition-colors">Help Center</Link></li>
               <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
               <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+        <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
           <p>&copy; 2024 Medicova. All rights reserved.</p>
         </div>
       </div>

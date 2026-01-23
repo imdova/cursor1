@@ -26,25 +26,25 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
               Learn Without Limits
             </h1>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
               Start, switch, or advance your career with thousands of courses, Professional Certificates, and degrees from world-class instructors.
             </p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 px-4">
               <Link
                 href="/search"
-                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="w-full sm:w-auto bg-white text-blue-600 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center"
               >
                 Explore Courses
               </Link>
               <Link
                 href="/courses"
-                className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+                className="w-full sm:w-auto bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors text-center"
               >
                 Browse All
               </Link>
@@ -54,10 +54,10 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <section className="py-16 bg-white">
+      <section className="py-8 sm:py-12 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Explore Top Categories</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Explore Top Categories</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
             {featuredCategories.map((category) => (
               <CategoryCard key={category.id} category={category} />
             ))}
@@ -74,10 +74,10 @@ export default function Home() {
       />
 
       {/* Featured Courses Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold">Featured Courses</h2>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-12 gap-4">
+            <h2 className="text-2xl sm:text-3xl font-bold">Featured Courses</h2>
             <Link
               href="/courses"
               className="text-blue-600 hover:text-blue-700 font-semibold"
@@ -85,7 +85,7 @@ export default function Home() {
               View All →
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {featuredCourses.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
@@ -102,28 +102,28 @@ export default function Home() {
       />
 
       {/* Why Choose Us Section */}
-      <section className="py-16 bg-white">
+      <section className="py-8 sm:py-12 lg:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Medicova?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Why Choose Medicova?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center">
-              <div className="text-5xl mb-4">🎓</div>
-              <h3 className="text-xl font-semibold mb-2">Expert Instructors</h3>
-              <p className="text-gray-600">
+              <div className="text-4xl sm:text-5xl mb-4">🎓</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">Expert Instructors</h3>
+              <p className="text-sm sm:text-base text-gray-600">
                 Learn from industry experts with years of real-world experience
               </p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">📚</div>
-              <h3 className="text-xl font-semibold mb-2">Comprehensive Content</h3>
-              <p className="text-gray-600">
+              <div className="text-4xl sm:text-5xl mb-4">📚</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">Comprehensive Content</h3>
+              <p className="text-sm sm:text-base text-gray-600">
                 Access thousands of courses covering all major topics and skills
               </p>
             </div>
-            <div className="text-center">
-              <div className="text-5xl mb-4">💼</div>
-              <h3 className="text-xl font-semibold mb-2">Career Advancement</h3>
-              <p className="text-gray-600">
+            <div className="text-center sm:col-span-2 md:col-span-1">
+              <div className="text-4xl sm:text-5xl mb-4">💼</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">Career Advancement</h3>
+              <p className="text-sm sm:text-base text-gray-600">
                 Get the skills you need to advance your career and achieve your goals
               </p>
             </div>

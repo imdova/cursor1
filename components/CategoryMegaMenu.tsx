@@ -27,7 +27,7 @@ export default function CategoryMegaMenu() {
       </Link>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-[900px] bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden z-50">
+        <div className="hidden md:block absolute top-full left-0 mt-2 w-[900px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden z-50">
           <div className="grid grid-cols-3 gap-0">
             {/* Categories List */}
             <div className="bg-gray-50 border-r border-gray-200">
@@ -64,33 +64,13 @@ export default function CategoryMegaMenu() {
                           )}
                         </div>
                       </div>
-                      
-                      {/* Subcategories */}
-                      {isHovered && category.subCategories && category.subCategories.length > 0 && (
-                        <div className="bg-gray-100 border-t border-gray-200">
-                          {category.subCategories.map((subCategory) => (
-                            <Link
-                              key={subCategory.id}
-                              href={`/courses?category=${category.name}&subcategory=${subCategory.name}`}
-                              className="block px-4 py-2.5 pl-12 hover:bg-white transition-colors group"
-                            >
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-gray-700 group-hover:text-green-600 font-medium">
-                                  {subCategory.name}
-                                </span>
-                                <span className="text-xs text-gray-500">{subCategory.courseCount}</span>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   );
                 })}
               </div>
             </div>
 
-            {/* Featured Courses for Selected Category */}
+            {/* Subcategories and Featured Courses */}
             <div className="col-span-2 p-6">
               {hoveredCategory ? (
                 (() => {
@@ -101,74 +81,103 @@ export default function CategoryMegaMenu() {
 
                   return (
                     <div>
-                      <div className="mb-4">
-                        <h3 className="font-bold text-gray-900 text-lg flex items-center space-x-2">
-                          <span>{selectedCategory?.icon}</span>
-                          <span>Featured {selectedCategory?.name} Courses</span>
-                        </h3>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {selectedCategory?.courseCount} courses available
-                        </p>
-                      </div>
-                      {categoryCourses.length > 0 ? (
-                        <div className="space-y-4">
-                          {categoryCourses.map((course) => (
-                            <Link
-                              key={course.id}
-                              href={`/courses/${course.id}`}
-                              className="flex items-start space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
-                            >
-                              <img
-                                src={course.image}
-                                alt={course.title}
-                                className="w-24 h-16 object-cover rounded"
-                              />
-                              <div className="flex-1">
-                                <h4 className="font-semibold text-gray-900 text-sm group-hover:text-green-600 transition-colors line-clamp-2">
-                                  {course.title}
-                                </h4>
-                                <p className="text-xs text-gray-500 mt-1">{course.instructor}</p>
-                                <div className="flex items-center space-x-2 mt-2">
-                                  <span className="text-yellow-500 text-xs">⭐ {course.rating}</span>
-                                  <span className="text-gray-400">•</span>
-                                  <span className="text-xs text-gray-500">
-                                    {course.studentCount.toLocaleString()} students
-                                  </span>
+                      {/* Subcategories Section */}
+                      {selectedCategory?.subCategories && selectedCategory.subCategories.length > 0 && (
+                        <div className="mb-6">
+                          <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide mb-3">
+                            Subcategories
+                          </h3>
+                          <div className="grid grid-cols-2 gap-2">
+                            {selectedCategory.subCategories.map((subCategory) => (
+                              <Link
+                                key={subCategory.id}
+                                href={`/courses?category=${selectedCategory.name}&subcategory=${subCategory.name}`}
+                                className="flex items-center space-x-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-200 hover:border-green-300"
+                              >
+                                <span className="text-lg">{subCategory.icon}</span>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm text-gray-700 group-hover:text-green-600 font-medium truncate">
+                                    {subCategory.name}
+                                  </p>
+                                  <p className="text-xs text-gray-500">{subCategory.courseCount} courses</p>
                                 </div>
-                                <div className="mt-2">
-                                  <span className="font-bold text-green-600 text-sm">
-                                    ${course.price}
-                                  </span>
-                                  {course.originalPrice && (
-                                    <>
-                                      <span className="text-xs text-gray-400 line-through ml-2">
-                                        ${course.originalPrice}
-                                      </span>
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                            </Link>
-                          ))}
-                          <Link
-                            href={`/courses?category=${selectedCategory?.name}`}
-                            className="block text-center py-3 text-green-600 font-semibold hover:bg-green-50 rounded-lg transition-colors text-sm"
-                          >
-                            View All {selectedCategory?.name} Courses →
-                          </Link>
-                        </div>
-                      ) : (
-                        <div className="text-center py-12">
-                          <p className="text-gray-500">No courses available in this category yet.</p>
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       )}
+
+                      {/* Featured Courses Section */}
+                      <div className="border-t border-gray-200 pt-6">
+                        <div className="mb-4">
+                          <h3 className="font-bold text-gray-900 text-lg flex items-center space-x-2">
+                            <span>{selectedCategory?.icon}</span>
+                            <span>Featured {selectedCategory?.name} Courses</span>
+                          </h3>
+                          <p className="text-sm text-gray-600 mt-1">
+                            {selectedCategory?.courseCount} courses available
+                          </p>
+                        </div>
+                        {categoryCourses.length > 0 ? (
+                          <div className="space-y-4">
+                            {categoryCourses.map((course) => (
+                              <Link
+                                key={course.id}
+                                href={`/courses/${course.id}`}
+                                className="flex items-start space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                              >
+                                <img
+                                  src={course.image}
+                                  alt={course.title}
+                                  className="w-24 h-16 object-cover rounded"
+                                />
+                                <div className="flex-1">
+                                  <h4 className="font-semibold text-gray-900 text-sm group-hover:text-green-600 transition-colors line-clamp-2">
+                                    {course.title}
+                                  </h4>
+                                  <p className="text-xs text-gray-500 mt-1">{course.instructor}</p>
+                                  <div className="flex items-center space-x-2 mt-2">
+                                    <span className="text-yellow-500 text-xs">⭐ {course.rating}</span>
+                                    <span className="text-gray-400">•</span>
+                                    <span className="text-xs text-gray-500">
+                                      {course.studentCount.toLocaleString()} students
+                                    </span>
+                                  </div>
+                                  <div className="mt-2">
+                                    <span className="font-bold text-green-600 text-sm">
+                                      ${course.price}
+                                    </span>
+                                    {course.originalPrice && (
+                                      <>
+                                        <span className="text-xs text-gray-400 line-through ml-2">
+                                          ${course.originalPrice}
+                                        </span>
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
+                              </Link>
+                            ))}
+                            <Link
+                              href={`/courses?category=${selectedCategory?.name}`}
+                              className="block text-center py-3 text-green-600 font-semibold hover:bg-green-50 rounded-lg transition-colors text-sm"
+                            >
+                              View All {selectedCategory?.name} Courses →
+                            </Link>
+                          </div>
+                        ) : (
+                          <div className="text-center py-12">
+                            <p className="text-gray-500">No courses available in this category yet.</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   );
                 })()
               ) : (
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center">
-                    <p className="text-gray-500 text-sm">Hover over a category to see featured courses</p>
+                    <p className="text-gray-500 text-sm">Hover over a category to see subcategories and featured courses</p>
                   </div>
                 </div>
               )}

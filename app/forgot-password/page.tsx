@@ -14,19 +14,19 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         {/* Logo and Header */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center justify-center mb-4">
+        <div className="text-center mb-6 sm:mb-8">
+          <Link href="/" className="inline-flex items-center justify-center mb-3 sm:mb-4">
             <img
               src="/images/logo-green.png"
               alt="Medicova"
-              className="h-12 w-auto"
+              className="h-10 sm:h-12 w-auto"
             />
           </Link>
-          <h2 className="text-3xl font-bold text-gray-900">Forgot your password?</h2>
-          <p className="mt-2 text-gray-600">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Forgot your password?</h2>
+          <p className="mt-2 text-sm sm:text-base text-gray-600">
             {isSubmitted
               ? "We've sent you a password reset link"
               : "Don't worry, we'll help you reset it"}
@@ -35,7 +35,7 @@ export default function ForgotPasswordPage() {
 
         {/* Reset Form Card */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-          <div className="p-8">
+          <div className="p-6 sm:p-8">
             {!isSubmitted ? (
               <>
                 <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">

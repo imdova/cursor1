@@ -40,24 +40,24 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         {/* Logo and Header */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center justify-center mb-4">
+        <div className="text-center mb-6 sm:mb-8">
+          <Link href="/" className="inline-flex items-center justify-center mb-3 sm:mb-4">
             <img
               src="/images/logo-green.png"
               alt="Medicova"
-              className="h-12 w-auto"
+              className="h-10 sm:h-12 w-auto"
             />
           </Link>
-          <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
-          <p className="mt-2 text-gray-600">Start your learning journey today</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Create your account</h2>
+          <p className="mt-2 text-sm sm:text-base text-gray-600">Start your learning journey today</p>
         </div>
 
         {/* Signup Form Card */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-          <div className="p-8">
+          <div className="p-6 sm:p-8">
             {/* Social Signup Buttons */}
             <div className="space-y-3 mb-6">
               <button

@@ -48,6 +48,7 @@ export interface SubCategory {
   id: string;
   name: string;
   courseCount: number;
+  icon: string;
 }
 
 export interface Category {
