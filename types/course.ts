@@ -44,9 +44,16 @@ export interface Review {
   date: string;
 }
 
+export interface SubCategory {
+  id: string;
+  name: string;
+  courseCount: number;
+}
+
 export interface Category {
   id: string;
   name: string;
   icon: string;
   courseCount: number;
+  subCategories?: SubCategory[];
 }

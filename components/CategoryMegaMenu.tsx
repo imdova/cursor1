@@ -38,24 +38,52 @@ export default function CategoryMegaMenu() {
                 {categories.map((category) => {
                   const categoryCourses = getCoursesByCategory(category.name);
                   const hasCourses = categoryCourses.length > 0;
+                  const isHovered = hoveredCategory === category.id;
                   
                   return (
                     <div
                       key={category.id}
-                      className={`p-4 border-b border-gray-200 cursor-pointer transition-colors ${
-                        hoveredCategory === category.id
+                      className={`border-b border-gray-200 transition-colors ${
+                        isHovered
                           ? 'bg-white shadow-sm'
                           : 'hover:bg-white'
                       }`}
                       onMouseEnter={() => hasCourses && setHoveredCategory(category.id)}
                     >
-                      <div className="flex items-center space-x-3">
-                        <span className="text-2xl">{category.icon}</span>
-                        <div className="flex-1">
-                          <p className="font-semibold text-gray-900 text-sm">{category.name}</p>
-                          <p className="text-xs text-gray-500">{category.courseCount} courses</p>
+                      <div className="p-4 cursor-pointer">
+                        <div className="flex items-center space-x-3">
+                          <span className="text-2xl">{category.icon}</span>
+                          <div className="flex-1">
+                            <p className="font-semibold text-gray-900 text-sm">{category.name}</p>
+                            <p className="text-xs text-gray-500">{category.courseCount} courses</p>
+                          </div>
+                          {category.subCategories && category.subCategories.length > 0 && (
+                            <span className={`text-xs text-gray-400 transition-transform ${isHovered ? 'rotate-90' : ''}`}>
+                              ▶
+                            </span>
+                          )}
                         </div>
                       </div>
+                      
+                      {/* Subcategories */}
+                      {isHovered && category.subCategories && category.subCategories.length > 0 && (
+                        <div className="bg-gray-100 border-t border-gray-200">
+                          {category.subCategories.map((subCategory) => (
+                            <Link
+                              key={subCategory.id}
+                              href={`/courses?category=${category.name}&subcategory=${subCategory.name}`}
+                              className="block px-4 py-2.5 pl-12 hover:bg-white transition-colors group"
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-gray-700 group-hover:text-green-600 font-medium">
+                                  {subCategory.name}
+                                </span>
+                                <span className="text-xs text-gray-500">{subCategory.courseCount}</span>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   );
                 })}

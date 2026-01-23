@@ -1,14 +1,110 @@
-import { Course, Category } from '@/types/course';
+import { Course, Category, SubCategory } from '@/types/course';
 
 export const categories: Category[] = [
-  { id: '1', name: 'Web Development', icon: '💻', courseCount: 245 },
-  { id: '2', name: 'Data Science', icon: '📊', courseCount: 189 },
-  { id: '3', name: 'Mobile Development', icon: '📱', courseCount: 156 },
-  { id: '4', name: 'Design', icon: '🎨', courseCount: 203 },
-  { id: '5', name: 'Business', icon: '💼', courseCount: 178 },
-  { id: '6', name: 'Marketing', icon: '📈', courseCount: 134 },
-  { id: '7', name: 'Photography', icon: '📷', courseCount: 98 },
-  { id: '8', name: 'Music', icon: '🎵', courseCount: 87 },
+  {
+    id: '1',
+    name: 'Web Development',
+    icon: '💻',
+    courseCount: 245,
+    subCategories: [
+      { id: '1-1', name: 'React', courseCount: 85 },
+      { id: '1-2', name: 'Vue.js', courseCount: 42 },
+      { id: '1-3', name: 'Angular', courseCount: 38 },
+      { id: '1-4', name: 'Node.js', courseCount: 56 },
+      { id: '1-5', name: 'Full Stack', courseCount: 24 },
+    ],
+  },
+  {
+    id: '2',
+    name: 'Data Science',
+    icon: '📊',
+    courseCount: 189,
+    subCategories: [
+      { id: '2-1', name: 'Python', courseCount: 72 },
+      { id: '2-2', name: 'Machine Learning', courseCount: 45 },
+      { id: '2-3', name: 'Data Analysis', courseCount: 38 },
+      { id: '2-4', name: 'Deep Learning', courseCount: 24 },
+      { id: '2-5', name: 'R Programming', courseCount: 10 },
+    ],
+  },
+  {
+    id: '3',
+    name: 'Mobile Development',
+    icon: '📱',
+    courseCount: 156,
+    subCategories: [
+      { id: '3-1', name: 'iOS Development', courseCount: 48 },
+      { id: '3-2', name: 'Android Development', courseCount: 52 },
+      { id: '3-3', name: 'React Native', courseCount: 32 },
+      { id: '3-4', name: 'Flutter', courseCount: 18 },
+      { id: '3-5', name: 'Swift', courseCount: 6 },
+    ],
+  },
+  {
+    id: '4',
+    name: 'Design',
+    icon: '🎨',
+    courseCount: 203,
+    subCategories: [
+      { id: '4-1', name: 'UI/UX Design', courseCount: 68 },
+      { id: '4-2', name: 'Graphic Design', courseCount: 52 },
+      { id: '4-3', name: 'Web Design', courseCount: 45 },
+      { id: '4-4', name: 'Figma', courseCount: 28 },
+      { id: '4-5', name: 'Adobe XD', courseCount: 10 },
+    ],
+  },
+  {
+    id: '5',
+    name: 'Business',
+    icon: '💼',
+    courseCount: 178,
+    subCategories: [
+      { id: '5-1', name: 'Entrepreneurship', courseCount: 42 },
+      { id: '5-2', name: 'Finance', courseCount: 38 },
+      { id: '5-3', name: 'Management', courseCount: 35 },
+      { id: '5-4', name: 'Leadership', courseCount: 28 },
+      { id: '5-5', name: 'Project Management', courseCount: 35 },
+    ],
+  },
+  {
+    id: '6',
+    name: 'Marketing',
+    icon: '📈',
+    courseCount: 134,
+    subCategories: [
+      { id: '6-1', name: 'Digital Marketing', courseCount: 48 },
+      { id: '6-2', name: 'SEO', courseCount: 32 },
+      { id: '6-3', name: 'Social Media', courseCount: 28 },
+      { id: '6-4', name: 'Content Marketing', courseCount: 18 },
+      { id: '6-5', name: 'Email Marketing', courseCount: 8 },
+    ],
+  },
+  {
+    id: '7',
+    name: 'Photography',
+    icon: '📷',
+    courseCount: 98,
+    subCategories: [
+      { id: '7-1', name: 'Portrait Photography', courseCount: 24 },
+      { id: '7-2', name: 'Landscape Photography', courseCount: 18 },
+      { id: '7-3', name: 'Photo Editing', courseCount: 28 },
+      { id: '7-4', name: 'Lightroom', courseCount: 15 },
+      { id: '7-5', name: 'Photoshop', courseCount: 13 },
+    ],
+  },
+  {
+    id: '8',
+    name: 'Music',
+    icon: '🎵',
+    courseCount: 87,
+    subCategories: [
+      { id: '8-1', name: 'Music Production', courseCount: 32 },
+      { id: '8-2', name: 'Guitar', courseCount: 18 },
+      { id: '8-3', name: 'Piano', courseCount: 15 },
+      { id: '8-4', name: 'Music Theory', courseCount: 12 },
+      { id: '8-5', name: 'DJing', courseCount: 10 },
+    ],
+  },
 ];
 
 export const courses: Course[] = [
