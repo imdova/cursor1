@@ -6,9 +6,11 @@ import { useState } from 'react';
 
 interface CourseCardProps {
   course: Course;
+  detailsPath?: string;
 }
 
-export default function CourseCard({ course }: CourseCardProps) {
+export default function CourseCard({ course, detailsPath }: CourseCardProps) {
+  const courseDetailsPath = detailsPath || `/courses/${course.id}`;
   const [isSaved, setIsSaved] = useState(false);
   
   const discountPercentage = course.originalPrice
@@ -49,7 +51,7 @@ export default function CourseCard({ course }: CourseCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
       {/* Image/Video Thumbnail Area */}
-      <Link href={`/courses/${course.id}`} className="block relative">
+      <Link href={courseDetailsPath} className="block relative">
         <div className="relative h-48 w-full bg-gray-200 overflow-hidden">
           <img
             src={course.image}
@@ -91,7 +93,7 @@ export default function CourseCard({ course }: CourseCardProps) {
       {/* Course Information Area */}
       <div className="p-4">
         {/* Course Title */}
-        <Link href={`/courses/${course.id}`}>
+        <Link href={courseDetailsPath}>
           <h3 className="font-bold text-lg mb-3 line-clamp-2 text-gray-900 hover:text-green-600 transition-colors">
             {course.title}
           </h3>

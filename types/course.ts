@@ -12,10 +12,12 @@ export interface Course {
   studentCount: number;
   image: string;
   category: string;
+  subCategory?: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
   duration: string;
   language: string;
   lastUpdated: string;
+  createdAt?: string;
   curriculum?: CourseSection[];
   reviews?: Review[];
   whatYouWillLearn?: string[];
