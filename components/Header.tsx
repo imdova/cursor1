@@ -48,6 +48,9 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
+            <Link href="/admin/dashboard" className="px-4 py-2 hover:bg-green-700 rounded transition-colors">
+              Admin
+            </Link>
             <Link href="/instructor/dashboard" className="px-4 py-2 hover:bg-green-700 rounded transition-colors">
               Instructor
             </Link>
@@ -120,6 +123,13 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
+              </Link>
+              <Link
+                href="/admin/dashboard"
+                className="px-4 py-2 hover:bg-green-700 rounded transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Admin
               </Link>
               <Link
                 href="/instructor/dashboard"
