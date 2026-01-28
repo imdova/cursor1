@@ -257,7 +257,7 @@ export interface Installment {
   index: number;
   total: number;
   amount: number;
-  dueDate: string;
+  dueDate?: string;
   paidDate?: string;
   status: InstallmentStatus;
 }
