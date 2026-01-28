@@ -20,6 +20,8 @@ const sidebarItems: SidebarItem[] = [
     children: [
       { name: 'Leads', href: '/admin/crm/leads' },
       { name: 'Lead Pipeline', href: '/admin/crm/pipeline' },
+      { name: 'Active Pipeline', href: '/admin/crm/active-pipeline' },
+      { name: 'Payments', href: '/admin/crm/payments' },
     ],
   },
   {
@@ -161,7 +163,7 @@ export default function AdminSidebar() {
       <div className="p-4 border-t border-gray-200 bg-white">
         <Link
           href="/admin/settings"
-          className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors mb-2 ${
+          className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors mb-1 ${
             pathname === '/admin/settings'
               ? 'bg-[#e8e8f5] text-[#030256] font-semibold'
               : 'text-gray-700 hover:bg-gray-50'
@@ -169,6 +171,17 @@ export default function AdminSidebar() {
         >
           <span className="text-xl">⚙️</span>
           <span>Settings</span>
+        </Link>
+        <Link
+          href="/admin/settings/whatsapp-templates/edit"
+          className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+            pathname.startsWith('/admin/settings/whatsapp-templates')
+              ? 'bg-[#e8e8f5] text-[#030256] font-semibold'
+              : 'text-gray-700 hover:bg-gray-50'
+          }`}
+        >
+          <span className="text-xl">💬</span>
+          <span>WhatsApp Templates</span>
         </Link>
         
         <div className="mt-4 pt-4 border-t border-gray-200">

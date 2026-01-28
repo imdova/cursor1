@@ -19,6 +19,9 @@ export interface CRMLead {
   courseInterest?: string;
   pipelineStage: PipelineStage;
   primaryAction?: string;
+  /** Active Pipeline: STATUS & PAYMENT */
+  enrollmentStatus?: 'ENROLLED' | 'WAITING FOR PAYMENT' | 'NEW DISCOVERY';
+  paymentSummary?: 'Fully Paid' | '2/3 Paid' | '1/2 Paid' | 'No payment record';
 }
 
 export const pipelineStages: { id: PipelineStage; label: string; color: string; dot: string }[] = [
@@ -73,8 +76,8 @@ export const crmLeads: CRMLead[] = [
   },
   {
     id: '3',
-    name: 'Fatima Zahra',
-    email: 'fatima.z@example.com',
+    name: 'Morgan Lee',
+    email: 'mlee@edu.com',
     phone: '+20 100 345 678',
     phoneMasked: '+20 100 *** 678',
     source: 'FB Feed',
@@ -87,6 +90,8 @@ export const crmLeads: CRMLead[] = [
     courseInterest: 'Python Bootcamp',
     pipelineStage: 'NEW INQUIRIES',
     primaryAction: 'Send Follow-up',
+    enrollmentStatus: 'NEW DISCOVERY',
+    paymentSummary: 'No payment record',
   },
   {
     id: '4',
@@ -154,8 +159,10 @@ export const crmLeads: CRMLead[] = [
     lastActive: '15m ago',
     tags: [{ label: 'SCHOLARSHIP', variant: 'blue' }, { label: 'DATA SCIENCE', variant: 'gray' }],
     courseInterest: 'Data Science',
-    pipelineStage: 'NEW INQUIRIES',
+    pipelineStage: 'ENROLLED',
     primaryAction: 'Issue Certificate',
+    enrollmentStatus: 'ENROLLED',
+    paymentSummary: 'Fully Paid',
   },
   {
     id: '8',
@@ -172,8 +179,29 @@ export const crmLeads: CRMLead[] = [
     lastActive: '2h ago',
     tags: [{ label: 'WEBINAR ATTENDEE', variant: 'green' }, { label: 'PYTHON COURSE', variant: 'gray' }],
     courseInterest: 'Python',
-    pipelineStage: 'CONTACTED',
-    primaryAction: 'Send Course Details',
+    pipelineStage: 'WAITING FOR PAYMENT',
+    primaryAction: 'Record Payment',
+    enrollmentStatus: 'WAITING FOR PAYMENT',
+    paymentSummary: '2/3 Paid',
+  },
+  {
+    id: '9',
+    name: 'Taylor Kim',
+    email: 't.kim@outlook.com',
+    phone: '+1 555 333 444',
+    phoneMasked: '+1 555 *** 444',
+    source: 'Webinar',
+    assignedTo: { name: 'Marina Magdy' },
+    dateAdded: 'Jan 17, 2024',
+    status: 'INTERESTED',
+    score: 70,
+    lastActive: '3h ago',
+    tags: [{ label: 'MBA', variant: 'blue' }, { label: 'FULL-TIME', variant: 'gray' }],
+    courseInterest: 'MBA',
+    pipelineStage: 'ENROLLED',
+    primaryAction: 'Record Payment',
+    enrollmentStatus: 'ENROLLED',
+    paymentSummary: '1/2 Paid',
   },
 ];
 
@@ -194,3 +222,98 @@ export const assignedUsers = [
   { name: 'Rania Samy', initials: 'RS' },
   { name: 'Kariman Tarek', initials: 'KT' },
 ];
+
+// Active Pipeline: enrollment + payment status
+export type EnrollmentStatus = 'ENROLLED' | 'WAITING FOR PAYMENT' | 'NEW DISCOVERY';
+export type PaymentSummary = 'Fully Paid' | '2/3 Paid' | '1/2 Paid' | 'No payment record';
+
+export const activePipelineFilterPills = [
+  { id: 'hot', label: 'My Hot Leads', icon: '⭐', active: true },
+  { id: 'fb', label: 'Facebook Campaigns', icon: '📢' },
+  { id: 'followup', label: 'Needs Follow-up', icon: '📅' },
+  { id: 'intl', label: 'International Students', icon: '🎓' },
+  { id: 'scholarship', label: 'Scholarship Applied', icon: '📄' },
+] as const;
+
+// Payments
+export type PaymentMethod = 'Bank Transfer' | 'Cash' | 'Online (Stripe)';
+export type PaymentRecordStatus = 'PAID' | 'PARTIAL' | 'PENDING';
+export type InstallmentStatus = 'PAID' | 'DUE' | 'SCHEDULED';
+
+export interface PaymentRecord {
+  id: string;
+  displayId: string;
+  studentId: string;
+  studentName: string;
+  courseName?: string;
+  studentAvatar?: string;
+  totalCourseFee: number;
+  paymentMethod: PaymentMethod;
+  status: PaymentRecordStatus;
+  installments: Installment[];
+}
+
+export interface Installment {
+  index: number;
+  total: number;
+  amount: number;
+  dueDate: string;
+  paidDate?: string;
+  status: InstallmentStatus;
+}
+
+export const paymentRecords: PaymentRecord[] = [
+  {
+    id: 'pr1',
+    displayId: '99401',
+    studentId: '2',
+    studentName: 'Alex Rivera',
+    courseName: 'Python',
+    totalCourseFee: 2400,
+    paymentMethod: 'Bank Transfer',
+    status: 'PARTIAL',
+    installments: [
+      { index: 1, total: 4, amount: 600, paidDate: 'Sep 12, 2023', status: 'PAID' },
+      { index: 2, total: 4, amount: 600, paidDate: 'Oct 12, 2023', status: 'PAID' },
+      { index: 3, total: 4, amount: 600, dueDate: 'Nov 12, 2023', status: 'DUE' },
+      { index: 4, total: 4, amount: 600, dueDate: 'Dec 12, 2023', status: 'SCHEDULED' },
+    ],
+  },
+  {
+    id: 'pr2',
+    displayId: '88219',
+    studentId: '7',
+    studentName: 'Jamie Smith',
+    courseName: 'Data Science Certification',
+    totalCourseFee: 1800,
+    paymentMethod: 'Cash',
+    status: 'PAID',
+    installments: [
+      { index: 1, total: 2, amount: 900, paidDate: 'Jan 10, 2024', status: 'PAID' },
+      { index: 2, total: 2, amount: 900, paidDate: 'Jan 15, 2024', status: 'PAID' },
+    ],
+  },
+  {
+    id: 'pr3',
+    displayId: '44012',
+    studentId: '3',
+    studentName: 'Morgan Lee',
+    courseName: 'Python Bootcamp',
+    totalCourseFee: 3500,
+    paymentMethod: 'Online (Stripe)',
+    status: 'PENDING',
+    installments: [
+      { index: 1, total: 3, amount: 1166.67, dueDate: 'Jan 28, 2024', status: 'DUE' },
+      { index: 2, total: 3, amount: 1166.67, dueDate: 'Feb 28, 2024', status: 'SCHEDULED' },
+      { index: 3, total: 3, amount: 1166.66, dueDate: 'Mar 28, 2024', status: 'SCHEDULED' },
+    ],
+  },
+];
+
+export const paymentFilterTabs = [
+  'All Payments',
+  'Overdue Installments',
+  'Pending Verification',
+  'Bank Transfers',
+  'Fully Paid',
+] as const;
