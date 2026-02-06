@@ -1,19 +1,21 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Course } from '@/types/course';
+import Link from "next/link";
+import type { Course } from "@/types/course";
+import { ROUTES } from "@/constants";
+import { StarRating } from "@/components/ui";
 
 interface PopularCourseCardProps {
   course: Course;
 }
 
 export default function PopularCourseCard({ course }: PopularCourseCardProps) {
-  const detailsPath = `/courses/${course.id}`;
+  const detailsPath = ROUTES.COURSE_DETAIL(course.id);
   const priceEGP = course.priceEGP ?? course.price;
   const originalEGP = course.originalPriceEGP ?? course.originalPrice;
   const lectureCount = course.lectureCount ?? 0;
-  const freq = course.lectureFrequency ?? '1 Lecture-Weekly';
-  const delivery = course.deliveryMode ?? 'Online-Zoom';
+  const freq = course.lectureFrequency ?? "1 Lecture-Weekly";
+  const delivery = course.deliveryMode ?? "Online-Zoom";
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -25,7 +27,7 @@ export default function PopularCourseCard({ course }: PopularCourseCardProps) {
             className="w-full h-full object-cover"
           />
           {course.isBestSeller && (
-            <div className="absolute top-2 left-2 bg-[#030256] text-white px-2.5 py-1 rounded text-xs font-semibold">
+            <div className="absolute top-2 left-2 bg-primary text-white px-2.5 py-1 rounded text-xs font-semibold">
               Best Seller
             </div>
           )}
@@ -33,23 +35,15 @@ export default function PopularCourseCard({ course }: PopularCourseCardProps) {
       </Link>
       <div className="p-4">
         <Link href={detailsPath}>
-          <h3 className="font-bold text-base mb-2 line-clamp-2 text-[#030256] hover:text-[#04036a] transition-colors">
+          <h3 className="font-bold text-base mb-2 line-clamp-2 text-primary hover:text-primary-hover transition-colors">
             {course.title}
           </h3>
         </Link>
-        <div className="flex items-center gap-1 mb-2">
-          {[...Array(5)].map((_, i) => (
-            <span
-              key={i}
-              className={i < Math.floor(course.rating) ? 'text-yellow-400' : 'text-gray-300'}
-            >
-              ★
-            </span>
-          ))}
-          <span className="text-xs text-gray-600 ml-1">
-            ({course.reviewCount.toLocaleString()} Reviews)
-          </span>
-        </div>
+        <StarRating
+          rating={course.rating}
+          reviewCount={course.reviewCount}
+          className="mb-2"
+        />
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600 mb-3">
           <span className="flex items-center">
             <span className="mr-1">📖</span>
@@ -80,7 +74,7 @@ export default function PopularCourseCard({ course }: PopularCourseCardProps) {
         </div>
         <Link
           href={detailsPath}
-          className="block w-full text-center bg-[#f59e0b] hover:bg-[#d97706] text-white py-2.5 px-4 rounded-lg font-semibold transition-colors text-sm"
+          className="block w-full text-center bg-amber-500 hover:bg-amber-600 text-white py-2.5 px-4 rounded-lg font-semibold transition-colors text-sm"
         >
           Details →
         </Link>

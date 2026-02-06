@@ -1,4 +1,5 @@
-import InstructorSidebar from '@/components/instructor/InstructorSidebar';
+import InstructorSidebar from "@/components/instructor/InstructorSidebar";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 export default function InstructorLayout({
   children,
@@ -6,11 +7,8 @@ export default function InstructorLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <InstructorSidebar />
-      <main className="flex-1">
-        {children}
-      </main>
-    </div>
+    <DashboardLayout sidebar={<InstructorSidebar />} mainClassName="flex-1">
+      {children}
+    </DashboardLayout>
   );
 }

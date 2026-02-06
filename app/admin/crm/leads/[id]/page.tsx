@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import { useState } from 'react';
-import { crmLeads, leadStatusStyles } from '@/lib/crmData';
-import LogActivityModal from '@/components/crm/LogActivityModal';
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { useState } from "react";
+import { crmLeads, leadStatusStyles } from "@/lib/crmData";
+import LogActivityModal from "@/components/crm/LogActivityModal";
 
 function getInitials(name: string) {
   const parts = name.trim().split(/\s+/);
@@ -15,18 +15,23 @@ function getInitials(name: string) {
 export default function LeadProfilePage() {
   const params = useParams();
   const id = params?.id as string;
-  const [activeTab, setActiveTab] = useState<'all' | 'calls' | 'messages'>('all');
-  const [note, setNote] = useState('');
+  const [activeTab, setActiveTab] = useState<"all" | "calls" | "messages">(
+    "all"
+  );
+  const [note, setNote] = useState("");
   const [logActivityOpen, setLogActivityOpen] = useState(false);
 
   const lead = crmLeads.find((l) => l.id === id);
-  const firstName = lead?.name.trim().split(/\s+/)[0] || lead?.name || 'there';
+  const firstName = lead?.name.trim().split(/\s+/)[0] || lead?.name || "there";
   if (!lead) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-gray-600">Lead not found.</p>
-          <Link href="/admin/crm/leads" className="mt-4 inline-block text-[#030256] font-semibold">
+          <Link
+            href="/admin/crm/leads"
+            className="mt-4 inline-block text-admin-primary font-semibold"
+          >
             ← Back to Leads
           </Link>
         </div>
@@ -35,9 +40,9 @@ export default function LeadProfilePage() {
   }
 
   const tabs = [
-    { id: 'all' as const, label: 'All Interactions' },
-    { id: 'calls' as const, label: 'Calls' },
-    { id: 'messages' as const, label: 'Messages' },
+    { id: "all" as const, label: "All Interactions" },
+    { id: "calls" as const, label: "Calls" },
+    { id: "messages" as const, label: "Messages" },
   ];
 
   return (
@@ -45,7 +50,10 @@ export default function LeadProfilePage() {
       {/* Breadcrumbs */}
       <div className="bg-white border-b border-gray-200 px-6 py-3">
         <nav className="flex items-center gap-2 text-sm">
-          <Link href="/admin/crm/leads" className="text-gray-500 hover:text-[#030256]">
+          <Link
+            href="/admin/crm/leads"
+            className="text-gray-500 hover:text-admin-primary"
+          >
             Leads
           </Link>
           <span className="text-gray-400">/</span>
@@ -63,7 +71,9 @@ export default function LeadProfilePage() {
                   {getInitials(lead.name)}
                 </div>
                 <h1 className="text-xl font-bold text-gray-900">{lead.name}</h1>
-                <p className="text-sm text-gray-500 mt-0.5">Lead ID: #{88000 + (parseInt(lead.id, 10) || 0)}</p>
+                <p className="text-sm text-gray-500 mt-0.5">
+                  Lead ID: #{88000 + (parseInt(lead.id, 10) || 0)}
+                </p>
                 <span
                   className={`mt-2 inline-flex px-3 py-1 rounded-full text-xs font-semibold ${
                     leadStatusStyles[lead.status]
@@ -90,7 +100,7 @@ export default function LeadProfilePage() {
               </div>
               <button
                 type="button"
-                className="w-full mt-6 py-2.5 border-2 border-[#030256] text-[#030256] font-semibold rounded-lg hover:bg-[#030256] hover:text-white transition-colors"
+                className="w-full mt-6 py-2.5 border-2 border-admin-primary text-admin-primary font-semibold rounded-lg hover:bg-admin-primary hover:text-white transition-colors"
               >
                 Edit Profile
               </button>
@@ -104,7 +114,7 @@ export default function LeadProfilePage() {
                 <span className="text-4xl">💼</span>
               </div>
               <p className="font-bold text-gray-900">
-                {lead.courseInterest || 'Not specified'}
+                {lead.courseInterest || "Not specified"}
               </p>
               <div className="mt-3 grid grid-cols-2 gap-2 text-sm text-gray-600">
                 <div>Intake</div>
@@ -119,7 +129,9 @@ export default function LeadProfilePage() {
 
           {/* Middle - Communication History */}
           <div className="lg:col-span-1 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Communication History</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-4">
+              Communication History
+            </h2>
             <div className="flex gap-2 mb-6">
               {tabs.map((t) => (
                 <button
@@ -128,8 +140,8 @@ export default function LeadProfilePage() {
                   onClick={() => setActiveTab(t.id)}
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     activeTab === t.id
-                      ? 'bg-blue-50 text-[#030256]'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      ? "bg-admin-primary/10 text-admin-primary"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
                   {t.label}
@@ -151,28 +163,38 @@ export default function LeadProfilePage() {
                   </div>
                   <div className="bg-gray-100 rounded-lg p-3 flex-1">
                     <p className="text-sm text-gray-700">
-                      Hello {firstName}, I&apos;ve sent you the brochure for the{' '}
-                      {lead.courseInterest || 'program'}. Let me know if you have any questions.
+                      Hello {firstName}, I&apos;ve sent you the brochure for the{" "}
+                      {lead.courseInterest || "program"}. Let me know if you
+                      have any questions.
                     </p>
                     <p className="text-xs text-gray-500 mt-1">✔ Delivered</p>
                   </div>
-                  <span className="text-xs text-gray-500 shrink-0">10:24 AM</span>
+                  <span className="text-xs text-gray-500 shrink-0">
+                    10:24 AM
+                  </span>
                 </div>
                 <div className="flex gap-4 relative pl-10">
                   <div className="absolute left-0 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm shrink-0">
                     📞
                   </div>
                   <div className="bg-gray-100 rounded-lg p-3 flex-1">
-                    <p className="text-sm font-medium text-gray-700">Call Recording</p>
+                    <p className="text-sm font-medium text-gray-700">
+                      Call Recording
+                    </p>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[#030256]">▶</span>
+                      <span className="text-admin-primary">▶</span>
                       <span className="text-sm text-gray-600">5m 22s</span>
-                      <a href="#" className="text-sm text-[#030256] hover:underline">
+                      <a
+                        href="#"
+                        className="text-sm text-admin-primary hover:underline"
+                      >
                         Download
                       </a>
                     </div>
                   </div>
-                  <span className="text-xs text-gray-500 shrink-0">09:15 AM</span>
+                  <span className="text-xs text-gray-500 shrink-0">
+                    09:15 AM
+                  </span>
                 </div>
                 <div className="flex gap-2 items-center pt-2">
                   <span className="px-2 py-0.5 rounded-full bg-gray-200 text-xs font-medium text-gray-600">
@@ -188,7 +210,9 @@ export default function LeadProfilePage() {
                       Hi {firstName}, reminder about our call tomorrow at 9 AM.
                     </p>
                   </div>
-                  <span className="text-xs text-gray-500 shrink-0">4:45 PM</span>
+                  <span className="text-xs text-gray-500 shrink-0">
+                    4:45 PM
+                  </span>
                 </div>
               </div>
             </div>
@@ -197,11 +221,11 @@ export default function LeadProfilePage() {
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
               />
               <button
                 type="button"
-                className="w-10 h-10 rounded-full bg-[#030256] text-white flex items-center justify-center hover:bg-[#04036a] transition-colors"
+                className="w-10 h-10 rounded-full bg-admin-primary text-white flex items-center justify-center hover:bg-admin-primary-hover transition-colors"
               >
                 ➤
               </button>
@@ -218,7 +242,7 @@ export default function LeadProfilePage() {
                 <button
                   type="button"
                   onClick={() => setLogActivityOpen(true)}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#030256] text-white font-medium rounded-lg hover:bg-[#04036a] transition-colors"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 bg-admin-primary text-white font-medium rounded-lg hover:bg-admin-primary-hover transition-colors"
                 >
                   <span>📞</span>
                   Call via VOIP
@@ -249,7 +273,7 @@ export default function LeadProfilePage() {
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Add a private note about this lead..."
                 rows={4}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] resize-y"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-y"
               />
               <button
                 type="button"
@@ -279,17 +303,18 @@ export default function LeadProfilePage() {
                       cy="48"
                       r="40"
                       fill="none"
-                      stroke="#030256"
+                      stroke="#0f49bd"
                       strokeWidth="8"
                       strokeDasharray={`${(lead.score / 100) * 251.2} 251.2`}
                     />
                   </svg>
-                  <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-[#030256]">
+                  <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-admin-primary">
                     {lead.score}%
                   </span>
                 </div>
                 <p className="text-sm text-gray-600 mt-2 text-center">
-                  {lead.score >= 70 ? 'High Intent' : 'Medium Intent'} Based on activity
+                  {lead.score >= 70 ? "High Intent" : "Medium Intent"} Based on
+                  activity
                 </p>
               </div>
             </div>

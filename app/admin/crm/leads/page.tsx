@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 import {
   crmLeads,
   leadStatusStyles,
@@ -11,25 +11,30 @@ import {
   type CRMLead,
   type LeadStatus,
   type PipelineStage,
-} from '@/lib/crmData';
-import LogActivityModal from '@/components/crm/LogActivityModal';
+} from "@/lib/crmData";
+import LogActivityModal from "@/components/crm/LogActivityModal";
 
-const AVATAR_COLORS = ['bg-blue-400', 'bg-purple-400', 'bg-red-400', 'bg-amber-400'];
+const AVATAR_COLORS = [
+  "bg-blue-400",
+  "bg-purple-400",
+  "bg-red-400",
+  "bg-amber-400",
+];
 
 function getInitials(name: string) {
   return name
-    .split(' ')
+    .split(" ")
     .map((n) => n[0])
-    .join('')
+    .join("")
     .toUpperCase()
     .slice(0, 2);
 }
 
 export default function CRMLeadsPage() {
-  const [search, setSearch] = useState('');
-  const [leadStage, setLeadStage] = useState<string>('All Stages');
-  const [assignedTo, setAssignedTo] = useState<string>('Everyone');
-  const [courseInterest, setCourseInterest] = useState<string>('All Courses');
+  const [search, setSearch] = useState("");
+  const [leadStage, setLeadStage] = useState<string>("All Stages");
+  const [assignedTo, setAssignedTo] = useState<string>("Everyone");
+  const [courseInterest, setCourseInterest] = useState<string>("All Courses");
   const [page, setPage] = useState(1);
   const [logActivityLead, setLogActivityLead] = useState<CRMLead | null>(null);
 
@@ -38,9 +43,15 @@ export default function CRMLeadsPage() {
       !search ||
       lead.name.toLowerCase().includes(search.toLowerCase()) ||
       lead.email.toLowerCase().includes(search.toLowerCase());
-    const matchStage = leadStage === 'All Stages' || lead.status === leadStage || lead.pipelineStage === leadStage;
-    const matchAssigned = assignedTo === 'Everyone' || lead.assignedTo.name === assignedTo;
-    const matchCourse = courseInterest === 'All Courses' || lead.courseInterest === courseInterest;
+    const matchStage =
+      leadStage === "All Stages" ||
+      lead.status === leadStage ||
+      lead.pipelineStage === leadStage;
+    const matchAssigned =
+      assignedTo === "Everyone" || lead.assignedTo.name === assignedTo;
+    const matchCourse =
+      courseInterest === "All Courses" ||
+      lead.courseInterest === courseInterest;
     return matchSearch && matchStage && matchAssigned && matchCourse;
   });
 
@@ -56,7 +67,9 @@ export default function CRMLeadsPage() {
       <div className="bg-white border-b border-gray-200 px-6 py-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Lead Management</h1>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Lead Management
+            </h1>
             <p className="text-sm text-gray-600 mt-1">
               Manage and track your educational academy prospects
             </p>
@@ -71,7 +84,7 @@ export default function CRMLeadsPage() {
             </button>
             <Link
               href="/admin/crm/leads/new"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#030256] text-white rounded-lg font-medium hover:bg-[#04036a] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
             >
               <span>+</span>
               New Lead
@@ -91,14 +104,20 @@ export default function CRMLeadsPage() {
               <select
                 value={leadStage}
                 onChange={(e) => setLeadStage(e.target.value)}
-                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
               >
                 <option>All Stages</option>
-                {(['WARM', 'INTERESTED', 'COLD', 'FOLLOWING'] as LeadStatus[]).map((s) => (
-                  <option key={s} value={s}>{s}</option>
+                {(
+                  ["WARM", "INTERESTED", "COLD", "FOLLOWING"] as LeadStatus[]
+                ).map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
                 ))}
                 {pipelineStages.map((s) => (
-                  <option key={s.id} value={s.id}>{s.label}</option>
+                  <option key={s.id} value={s.id}>
+                    {s.label}
+                  </option>
                 ))}
               </select>
             </div>
@@ -109,11 +128,13 @@ export default function CRMLeadsPage() {
               <select
                 value={assignedTo}
                 onChange={(e) => setAssignedTo(e.target.value)}
-                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
               >
                 <option>Everyone</option>
                 {assignedUsers.map((u) => (
-                  <option key={u.name} value={u.name}>{u.name}</option>
+                  <option key={u.name} value={u.name}>
+                    {u.name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -124,26 +145,32 @@ export default function CRMLeadsPage() {
               <select
                 value={courseInterest}
                 onChange={(e) => setCourseInterest(e.target.value)}
-                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
               >
                 <option>All Courses</option>
                 {coursesOfInterest.map((c) => (
-                  <option key={c} value={c}>{c}</option>
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
           <div className="flex-1 flex items-end">
             <div className="relative w-full">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                🔍
+              </span>
               <input
                 type="text"
                 placeholder="Search leads..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">☰</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                ☰
+              </span>
             </div>
           </div>
         </div>
@@ -195,10 +222,12 @@ export default function CRMLeadsPage() {
                           {getInitials(lead.name)}
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900 group-hover:text-[#030256]">
+                          <p className="font-semibold text-gray-900 group-hover:text-admin-primary">
                             {lead.name}
                           </p>
-                          <p className="text-sm text-gray-500">{lead.phoneMasked || lead.phone}</p>
+                          <p className="text-sm text-gray-500">
+                            {lead.phoneMasked || lead.phone}
+                          </p>
                         </div>
                       </Link>
                     </td>
@@ -213,10 +242,14 @@ export default function CRMLeadsPage() {
                         <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs font-medium text-gray-600">
                           {getInitials(lead.assignedTo.name)}
                         </div>
-                        <span className="text-sm text-gray-700">{lead.assignedTo.name}</span>
+                        <span className="text-sm text-gray-700">
+                          {lead.assignedTo.name}
+                        </span>
                       </div>
                     </td>
-                    <td className="py-4 px-4 text-sm text-gray-600">{lead.dateAdded}</td>
+                    <td className="py-4 px-4 text-sm text-gray-600">
+                      {lead.dateAdded}
+                    </td>
                     <td className="py-4 px-4">
                       <span
                         className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ${
@@ -230,21 +263,21 @@ export default function CRMLeadsPage() {
                       <div className="flex items-center gap-1">
                         <button
                           type="button"
-                          className="w-8 h-8 rounded-full bg-blue-50 text-[#030256] flex items-center justify-center hover:bg-blue-100 transition-colors"
+                          className="w-8 h-8 rounded-full bg-admin-primary/10 text-admin-primary flex items-center justify-center hover:bg-admin-primary/20 transition-colors"
                           title="Call"
                         >
                           📞
                         </button>
                         <button
                           type="button"
-                          className="w-8 h-8 rounded-full bg-blue-50 text-[#030256] flex items-center justify-center hover:bg-blue-100 transition-colors"
+                          className="w-8 h-8 rounded-full bg-admin-primary/10 text-admin-primary flex items-center justify-center hover:bg-admin-primary/20 transition-colors"
                           title="Chat"
                         >
                           💬
                         </button>
                         <button
                           type="button"
-                          className="w-8 h-8 rounded-full bg-blue-50 text-[#030256] flex items-center justify-center hover:bg-blue-100 transition-colors"
+                          className="w-8 h-8 rounded-full bg-admin-primary/10 text-admin-primary flex items-center justify-center hover:bg-admin-primary/20 transition-colors"
                           title="Email"
                         >
                           ✉
@@ -252,7 +285,7 @@ export default function CRMLeadsPage() {
                         <button
                           type="button"
                           onClick={() => setLogActivityLead(lead)}
-                          className="w-8 h-8 rounded-full bg-blue-50 text-[#030256] flex items-center justify-center hover:bg-blue-100 transition-colors"
+                          className="w-8 h-8 rounded-full bg-admin-primary/10 text-admin-primary flex items-center justify-center hover:bg-admin-primary/20 transition-colors"
                           title="Log Activity"
                         >
                           📋
@@ -279,15 +312,18 @@ export default function CRMLeadsPage() {
               >
                 ←
               </button>
-              {Array.from({ length: Math.min(3, totalPages) }, (_, i) => i + 1).map((p) => (
+              {Array.from(
+                { length: Math.min(3, totalPages) },
+                (_, i) => i + 1
+              ).map((p) => (
                 <button
                   key={p}
                   type="button"
                   onClick={() => setPage(p)}
                   className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${
                     page === p
-                      ? 'bg-[#030256] text-white'
-                      : 'border border-gray-300 text-gray-600 hover:bg-gray-100'
+                      ? "bg-admin-primary text-white"
+                      : "border border-gray-300 text-gray-600 hover:bg-gray-100"
                   }`}
                 >
                   {p}

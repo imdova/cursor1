@@ -1,10 +1,15 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import type { CRMLead } from '@/lib/crmData';
-import { coursesOfInterest } from '@/lib/crmData';
+import { useState } from "react";
+import type { CRMLead } from "@/lib/crmData";
+import { coursesOfInterest } from "@/lib/crmData";
 
-const PIPELINE_STAGES = ['CONTACTED', 'QUALIFIED', 'PROPOSAL', 'NEGOTIATION'] as const;
+const PIPELINE_STAGES = [
+  "CONTACTED",
+  "QUALIFIED",
+  "PROPOSAL",
+  "NEGOTIATION",
+] as const;
 
 interface LogActivityModalProps {
   lead: CRMLead;
@@ -12,12 +17,19 @@ interface LogActivityModalProps {
   onSave: () => void;
 }
 
-export default function LogActivityModal({ lead, onClose, onSave }: LogActivityModalProps) {
+export default function LogActivityModal({
+  lead,
+  onClose,
+  onSave,
+}: LogActivityModalProps) {
   const [customerName] = useState(lead.name);
-  const [courseInterest, setCourseInterest] = useState(lead.courseInterest || '');
-  const [pipelineStage, setPipelineStage] = useState<(typeof PIPELINE_STAGES)[number]>('CONTACTED');
-  const [callNotes, setCallNotes] = useState('');
-  const [followUp, setFollowUp] = useState('');
+  const [courseInterest, setCourseInterest] = useState(
+    lead.courseInterest || ""
+  );
+  const [pipelineStage, setPipelineStage] =
+    useState<(typeof PIPELINE_STAGES)[number]>("CONTACTED");
+  const [callNotes, setCallNotes] = useState("");
+  const [followUp, setFollowUp] = useState("");
   const [markComplete, setMarkComplete] = useState(true);
 
   const handleSave = () => {
@@ -32,7 +44,9 @@ export default function LogActivityModal({ lead, onClose, onSave }: LogActivityM
       >
         <div className="p-6 border-b border-gray-200 flex items-start justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Log Activity & Create Deal</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              Log Activity & Create Deal
+            </h2>
             <p className="text-sm text-gray-600 mt-1">
               Record call details and move lead through the pipeline
             </p>
@@ -53,7 +67,9 @@ export default function LogActivityModal({ lead, onClose, onSave }: LogActivityM
                 Customer Name
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">👤</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  👤
+                </span>
                 <input
                   type="text"
                   value={customerName}
@@ -67,18 +83,24 @@ export default function LogActivityModal({ lead, onClose, onSave }: LogActivityM
                 Course of Interest
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🎓</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  🎓
+                </span>
                 <select
                   value={courseInterest}
                   onChange={(e) => setCourseInterest(e.target.value)}
-                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                 >
                   <option value="">Select course</option>
                   {coursesOfInterest.map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
                   ))}
                 </select>
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">▼</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  ▼
+                </span>
               </div>
             </div>
             <div>
@@ -93,8 +115,8 @@ export default function LogActivityModal({ lead, onClose, onSave }: LogActivityM
                     onClick={() => setPipelineStage(stage)}
                     className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${
                       pipelineStage === stage
-                        ? 'border-[#030256] bg-[#030256] text-white'
-                        : 'border-gray-300 text-gray-600 hover:bg-gray-50'
+                        ? "border-admin-primary bg-admin-primary text-white"
+                        : "border-gray-300 text-gray-600 hover:bg-gray-50"
                     }`}
                   >
                     {stage}
@@ -114,7 +136,7 @@ export default function LogActivityModal({ lead, onClose, onSave }: LogActivityM
                 onChange={(e) => setCallNotes(e.target.value)}
                 placeholder="Summary of the conversation..."
                 rows={4}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] resize-none"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-none"
               />
             </div>
             <div>
@@ -122,15 +144,19 @@ export default function LogActivityModal({ lead, onClose, onSave }: LogActivityM
                 Follow-up Meeting
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">📅</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  📅
+                </span>
                 <input
                   type="text"
                   value={followUp}
                   onChange={(e) => setFollowUp(e.target.value)}
                   placeholder="mm/dd/yyyy, --:--"
-                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">📅</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  📅
+                </span>
               </div>
             </div>
             <div className="flex items-center justify-between">
@@ -144,12 +170,12 @@ export default function LogActivityModal({ lead, onClose, onSave }: LogActivityM
                 type="button"
                 onClick={() => setMarkComplete(!markComplete)}
                 className={`relative w-11 h-6 rounded-full transition-colors ${
-                  markComplete ? 'bg-[#030256]' : 'bg-gray-300'
+                  markComplete ? "bg-admin-primary" : "bg-gray-300"
                 }`}
               >
                 <span
                   className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-transform ${
-                    markComplete ? 'left-6' : 'left-1'
+                    markComplete ? "left-6" : "left-1"
                   }`}
                 />
               </button>
@@ -168,7 +194,7 @@ export default function LogActivityModal({ lead, onClose, onSave }: LogActivityM
           <button
             type="button"
             onClick={handleSave}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#030256] text-white font-medium rounded-lg hover:bg-[#04036a] transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white font-medium rounded-lg hover:bg-admin-primary-hover transition-colors"
           >
             <span>💾</span>
             Save Activity

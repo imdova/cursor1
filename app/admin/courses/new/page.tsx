@@ -293,7 +293,7 @@ export default function CreateCoursePage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Course created successfully!");
-    router.push("/instructor/courses");
+    router.push("/admin/courses");
   };
 
   // Calculate completeness metrics
@@ -338,7 +338,7 @@ export default function CreateCoursePage() {
                       <div
                         className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold ${
                           currentStep === step.number
-                            ? "bg-[#0f49bd] text-white"
+                            ? "bg-admin-primary text-white"
                             : "bg-gray-200 text-gray-500"
                         }`}
                       >
@@ -386,7 +386,7 @@ export default function CreateCoursePage() {
                             value={formData.title}
                             onChange={handleInputChange}
                             placeholder="e.g. Advanced Software Engineering Fundamentals."
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                             required
                           />
                         </div>
@@ -400,7 +400,7 @@ export default function CreateCoursePage() {
                               name="category"
                               value={formData.category}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                               required
                             >
                               <option value="">Select category</option>
@@ -419,7 +419,7 @@ export default function CreateCoursePage() {
                               name="subcategory"
                               value={formData.subcategory}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                               disabled={!formData.category}
                             >
                               <option value="">Select subcategory</option>
@@ -438,7 +438,7 @@ export default function CreateCoursePage() {
                               name="courseType"
                               value={formData.courseType}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                             >
                               <option value="">Select type</option>
                               {COURSE_TYPES.map((t) => (
@@ -460,7 +460,7 @@ export default function CreateCoursePage() {
                             onChange={handleInputChange}
                             placeholder="Provide a detailed overview of the course objectives and curriculum..."
                             rows={6}
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent resize-y"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-y"
                             required
                           />
                         </div>
@@ -477,7 +477,7 @@ export default function CreateCoursePage() {
                               onChange={handleInputChange}
                               min={0}
                               placeholder="0"
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                             />
                           </div>
                           <div>
@@ -491,7 +491,7 @@ export default function CreateCoursePage() {
                               onChange={handleInputChange}
                               min={0}
                               placeholder="0"
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                             />
                           </div>
                           <div>
@@ -504,7 +504,7 @@ export default function CreateCoursePage() {
                               value={formData.duration}
                               onChange={handleInputChange}
                               placeholder="e.g. 12 Weeks"
-                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                             />
                           </div>
                         </div>
@@ -520,7 +520,7 @@ export default function CreateCoursePage() {
                         <button
                           type="button"
                           onClick={() => setPricingExpanded((v) => !v)}
-                          className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0f49bd] rounded px-2 py-1"
+                          className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-admin-primary rounded px-2 py-1"
                           aria-expanded={pricingExpanded}
                           aria-label={
                             pricingExpanded
@@ -576,7 +576,7 @@ export default function CreateCoursePage() {
                               min={0}
                               step={0.01}
                               placeholder="0"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                             />
                           </div>
                           <div>
@@ -591,7 +591,7 @@ export default function CreateCoursePage() {
                               min={0}
                               step={0.01}
                               placeholder="0"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                             />
                           </div>
                           <div>
@@ -606,7 +606,7 @@ export default function CreateCoursePage() {
                               min={0}
                               max={100}
                               placeholder="0"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                             />
                           </div>
                         </div>
@@ -645,7 +645,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   step={0.01}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                                 />
                               </div>
                               <div>
@@ -660,7 +660,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   step={0.01}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                                 />
                               </div>
                               <div>
@@ -675,7 +675,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   max={100}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                                 />
                               </div>
                             </div>
@@ -712,7 +712,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   step={0.01}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                                 />
                               </div>
                               <div>
@@ -727,7 +727,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   step={0.01}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                                 />
                               </div>
                               <div>
@@ -742,7 +742,7 @@ export default function CreateCoursePage() {
                                   min={0}
                                   max={100}
                                   placeholder="0"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd]"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
                                 />
                               </div>
                             </div>
@@ -774,7 +774,7 @@ export default function CreateCoursePage() {
                           onChange={handleInputChange}
                           placeholder="List key learning outcomes (e.g. one per line or as bullet points)"
                           rows={4}
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent resize-y"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-y"
                         />
                       </div>
                       <div>
@@ -787,7 +787,7 @@ export default function CreateCoursePage() {
                           onChange={handleInputChange}
                           placeholder="Describe the target audience, prerequisites, or eligibility"
                           rows={3}
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent resize-y"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary resize-y"
                         />
                       </div>
                     </div>
@@ -803,7 +803,7 @@ export default function CreateCoursePage() {
                           value={formData.duration}
                           onChange={handleInputChange}
                           placeholder="e.g. 12 Weeks"
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                         />
                       </div>
                       <div>
@@ -816,7 +816,7 @@ export default function CreateCoursePage() {
                           value={formData.credits}
                           onChange={handleInputChange}
                           placeholder="e.g. 4"
-                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                         />
                       </div>
                     </div>
@@ -1081,7 +1081,7 @@ export default function CreateCoursePage() {
                     Save as Draft
                   </button>
                   <Link
-                    href="/instructor/courses"
+                    href="/admin/courses"
                     className="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50"
                   >
                     Cancel
@@ -1099,14 +1099,14 @@ export default function CreateCoursePage() {
                     <button
                       type="button"
                       onClick={handleNext}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0f49bd] text-white rounded-lg font-medium hover:bg-[#0c3a94]"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover"
                     >
                       Next Step: {steps[currentStep]?.name ?? "Structure"} →
                     </button>
                   ) : (
                     <button
                       type="submit"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0f49bd] text-white rounded-lg font-medium hover:bg-[#0c3a94]"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover"
                     >
                       Publish Course
                     </button>
@@ -1126,7 +1126,7 @@ export default function CreateCoursePage() {
                     <div
                       onDragOver={handleDragOver}
                       onDrop={handleDrop}
-                      className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#0f49bd] transition-colors cursor-pointer"
+                      className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-admin-primary transition-colors cursor-pointer"
                     >
                       {formData.thumbnailPreview ? (
                         <div className="space-y-3">
@@ -1154,7 +1154,7 @@ export default function CreateCoursePage() {
                           <div className="text-4xl text-gray-400 mb-2">🖼️</div>
                           <p className="text-sm text-gray-600">
                             Drag and drop or{" "}
-                            <span className="text-[#0f49bd] font-medium">
+                            <span className="text-admin-primary font-medium">
                               browse
                             </span>
                           </p>
@@ -1180,7 +1180,7 @@ export default function CreateCoursePage() {
                         name="language"
                         value={formData.language}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                       >
                         <option value="English">English</option>
                         <option value="Arabic">Arabic</option>
@@ -1196,7 +1196,7 @@ export default function CreateCoursePage() {
                         name="attendanceMode"
                         value={formData.attendanceMode}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                       >
                         <option value="">Select mode</option>
                         <option value="Online">Online</option>
@@ -1239,7 +1239,7 @@ export default function CreateCoursePage() {
                           }
                         }}
                         placeholder="Add tag and press Enter"
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0f49bd] focus:border-transparent"
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                       />
                       <button
                         type="button"
@@ -1269,7 +1269,7 @@ export default function CreateCoursePage() {
       {/* Footer info boxes */}
       <div className="max-w-6xl mx-auto px-6 mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="flex gap-3 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-          <span className="text-[#0f49bd] text-lg font-bold">i</span>
+          <span className="text-admin-primary text-lg font-bold">i</span>
           <div>
             <p className="text-sm font-medium text-gray-900">Validation Tip</p>
             <p className="text-sm text-gray-700">
@@ -1279,7 +1279,7 @@ export default function CreateCoursePage() {
           </div>
         </div>
         <div className="flex gap-3 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-          <span className="text-[#0f49bd]" aria-hidden>
+          <span className="text-admin-primary" aria-hidden>
             💡
           </span>
           <div>
@@ -1291,7 +1291,7 @@ export default function CreateCoursePage() {
           </div>
         </div>
         <div className="flex gap-3 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-          <span className="text-[#0f49bd]" aria-hidden>
+          <span className="text-admin-primary" aria-hidden>
             ↻
           </span>
           <div>

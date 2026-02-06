@@ -1,8 +1,13 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { crmLeads, pipelineStages, type CRMLead, type PipelineStage } from '@/lib/crmData';
+import { useState } from "react";
+import Link from "next/link";
+import {
+  crmLeads,
+  pipelineStages,
+  type CRMLead,
+  type PipelineStage,
+} from "@/lib/crmData";
 
 function getStageCount(stage: PipelineStage) {
   return crmLeads.filter((l) => l.pipelineStage === stage).length;
@@ -44,7 +49,7 @@ export default function CRMPipelinePage() {
             </button>
             <Link
               href="/admin/crm/leads/new"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#030256] text-white rounded-lg font-medium hover:bg-[#04036a] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-medium hover:bg-admin-primary-hover transition-colors"
             >
               <span>+</span>
               New Lead
@@ -65,14 +70,16 @@ export default function CRMPipelinePage() {
                 type="button"
                 onClick={() => setActiveStage(isActive ? null : stage.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors ${
-                  isActive ? 'bg-[#030256] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  isActive
+                    ? "bg-admin-primary text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 <span className={`w-2 h-2 rounded-full ${stage.dot}`} />
                 {stage.label}
                 <span
                   className={`px-2 py-0.5 rounded text-xs font-medium ${
-                    isActive ? 'bg-white/20' : 'bg-gray-200 text-gray-600'
+                    isActive ? "bg-white/20" : "bg-gray-200 text-gray-600"
                   }`}
                 >
                   {count}
@@ -109,8 +116,8 @@ export default function CRMPipelinePage() {
 }
 
 function LeadCard({ lead }: { lead: CRMLead }) {
-  const isWaiting = lead.pipelineStage === 'WAITING FOR PAYMENT';
-  const isEnrolled = lead.pipelineStage === 'ENROLLED';
+  const isWaiting = lead.pipelineStage === "WAITING FOR PAYMENT";
+  const isEnrolled = lead.pipelineStage === "ENROLLED";
 
   return (
     <Link
@@ -121,28 +128,28 @@ function LeadCard({ lead }: { lead: CRMLead }) {
         <div>
           <p className="font-semibold text-gray-900">{lead.name}</p>
           <p className="text-xs text-gray-500 mt-0.5">
-            {lead.pipelineStage === 'NEW INQUIRIES'
-              ? '3 hours ago'
-              : lead.pipelineStage === 'CONTACTED'
-                ? '2 days ago'
-                : '3 days ago'}
+            {lead.pipelineStage === "NEW INQUIRIES"
+              ? "3 hours ago"
+              : lead.pipelineStage === "CONTACTED"
+              ? "2 days ago"
+              : "3 days ago"}
           </p>
         </div>
         <span
           className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${
-            isEnrolled ? 'bg-green-500' : 'bg-[#030256]'
+            isEnrolled ? "bg-green-500" : "bg-admin-primary"
           }`}
         >
           💬
         </span>
       </div>
-      <p className="text-sm text-gray-600 mt-2">{lead.courseInterest || '—'}</p>
+      <p className="text-sm text-gray-600 mt-2">{lead.courseInterest || "—"}</p>
       <div className="mt-3">
         {isWaiting ? (
           <button
             type="button"
             onClick={(e) => e.preventDefault()}
-            className="w-full py-2 bg-[#030256] text-white text-sm font-medium rounded-lg hover:bg-[#04036a] transition-colors flex items-center justify-center gap-1"
+            className="w-full py-2 bg-admin-primary text-white text-sm font-medium rounded-lg hover:bg-admin-primary-hover transition-colors flex items-center justify-center gap-1"
           >
             <span>📄</span>
             Send Invoice
@@ -153,10 +160,12 @@ function LeadCard({ lead }: { lead: CRMLead }) {
           <button
             type="button"
             onClick={(e) => e.preventDefault()}
-            className="w-full py-2 bg-blue-50 text-[#030256] text-sm font-medium rounded-lg hover:bg-blue-100 transition-colors flex items-center justify-center gap-1"
+            className="w-full py-2 bg-blue-50 text-admin-primary text-sm font-medium rounded-lg hover:bg-admin-primary/10 transition-colors flex items-center justify-center gap-1"
           >
             <span>↩</span>
-            {lead.pipelineStage === 'NEW INQUIRIES' ? 'Quick Response' : 'Follow Up'}
+            {lead.pipelineStage === "NEW INQUIRIES"
+              ? "Quick Response"
+              : "Follow Up"}
           </button>
         )}
       </div>

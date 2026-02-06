@@ -1,25 +1,31 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { mockQuizzes } from '@/lib/quizData';
+import { useState } from "react";
+import Link from "next/link";
+import { mockQuizzes } from "@/lib/quizData";
 
 export default function AdminQuizzesPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("all");
 
   const filteredQuizzes = mockQuizzes.filter((quiz) => {
-    const matchesSearch = quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (quiz.courseName && quiz.courseName.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesStatus = selectedStatus === 'all' || 
-      (selectedStatus === 'published' && quiz.isPublished) ||
-      (selectedStatus === 'draft' && !quiz.isPublished);
+    const matchesSearch =
+      quiz.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (quiz.courseName &&
+        quiz.courseName.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesStatus =
+      selectedStatus === "all" ||
+      (selectedStatus === "published" && quiz.isPublished) ||
+      (selectedStatus === "draft" && !quiz.isPublished);
     return matchesSearch && matchesStatus;
   });
 
   const totalQuizzes = mockQuizzes.length;
-  const publishedQuizzes = mockQuizzes.filter(q => q.isPublished).length;
-  const totalQuestions = mockQuizzes.reduce((sum, q) => sum + q.questions.length, 0);
+  const publishedQuizzes = mockQuizzes.filter((q) => q.isPublished).length;
+  const totalQuestions = mockQuizzes.reduce(
+    (sum, q) => sum + q.questions.length,
+    0
+  );
   const averageDuration = Math.round(
     mockQuizzes.reduce((sum, q) => sum + q.duration, 0) / mockQuizzes.length
   );
@@ -29,12 +35,16 @@ export default function AdminQuizzesPage() {
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Quizzes Management</h1>
-            <p className="text-gray-600 mt-1">Manage all quizzes on the platform</p>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Quizzes Management
+            </h1>
+            <p className="text-gray-600 mt-1">
+              Manage all quizzes on the platform
+            </p>
           </div>
           <Link
             href="/admin/quizzes/new"
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+            className="px-4 py-2 bg-admin-primary text-white rounded-lg hover:bg-admin-primary-hover font-medium"
           >
             + New Quiz
           </Link>
@@ -44,21 +54,25 @@ export default function AdminQuizzesPage() {
         <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Search
+              </label>
               <input
                 type="text"
                 placeholder="Search quizzes..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Status
+              </label>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary"
               >
                 <option value="all">All Status</option>
                 <option value="published">Published</option>
@@ -76,7 +90,9 @@ export default function AdminQuizzesPage() {
           </div>
           <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
             <p className="text-sm text-gray-600 mb-1">Published</p>
-            <p className="text-2xl font-bold text-green-600">{publishedQuizzes}</p>
+            <p className="text-2xl font-bold text-green-600">
+              {publishedQuizzes}
+            </p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
             <p className="text-sm text-gray-600 mb-1">Total Questions</p>
@@ -84,7 +100,9 @@ export default function AdminQuizzesPage() {
           </div>
           <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
             <p className="text-sm text-gray-600 mb-1">Avg Duration</p>
-            <p className="text-2xl font-bold text-purple-600">{averageDuration} min</p>
+            <p className="text-2xl font-bold text-purple-600">
+              {averageDuration} min
+            </p>
           </div>
         </div>
 
@@ -92,8 +110,10 @@ export default function AdminQuizzesPage() {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">All Quizzes</h2>
-              <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
+              <h2 className="text-lg font-semibold text-gray-900">
+                All Quizzes
+              </h2>
+              <button className="px-4 py-2 bg-admin-primary text-white rounded-lg hover:bg-admin-primary-hover text-sm">
                 Export
               </button>
             </div>
@@ -133,12 +153,18 @@ export default function AdminQuizzesPage() {
                   <tr key={quiz.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
-                        <div className="text-sm font-medium text-gray-900">{quiz.title}</div>
-                        <div className="text-sm text-gray-500">{quiz.description}</div>
+                        <div className="text-sm font-medium text-gray-900">
+                          {quiz.title}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {quiz.description}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-sm text-gray-900">{quiz.courseName || 'N/A'}</span>
+                      <span className="text-sm text-gray-900">
+                        {quiz.courseName || "N/A"}
+                      </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {quiz.questions.length}
@@ -153,29 +179,33 @@ export default function AdminQuizzesPage() {
                       {quiz.maxAttempts}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                        quiz.isPublished
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {quiz.isPublished ? 'Published' : 'Draft'}
+                      <span
+                        className={`px-2 py-1 text-xs font-medium rounded-full ${
+                          quiz.isPublished
+                            ? "bg-green-100 text-green-800"
+                            : "bg-gray-100 text-gray-800"
+                        }`}
+                      >
+                        {quiz.isPublished ? "Published" : "Draft"}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
                         <Link
                           href={`/admin/quizzes/${quiz.id}`}
-                          className="text-green-600 hover:text-green-900"
+                          className="text-admin-primary hover:text-admin-primary-hover"
                         >
                           View
                         </Link>
                         <Link
                           href={`/admin/quizzes/${quiz.id}/edit`}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="text-admin-primary hover:text-admin-primary-hover"
                         >
                           Edit
                         </Link>
-                        <button className="text-red-600 hover:text-red-900">Delete</button>
+                        <button className="text-red-600 hover:text-red-900">
+                          Delete
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -196,8 +226,12 @@ export default function AdminQuizzesPage() {
               </span>
             </div>
             <div className="flex space-x-2">
-              <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">←</button>
-              <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">→</button>
+              <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+                ←
+              </button>
+              <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+                →
+              </button>
             </div>
           </div>
         </div>

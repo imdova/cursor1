@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import PopularCourseCard from './PopularCourseCard';
-import { getPopularCourses, POPULAR_FILTER_TABS } from '@/lib/data';
-import type { Course } from '@/types/course';
+import { useState, useMemo } from "react";
+import PopularCourseCard from "./PopularCourseCard";
+import { getPopularCourses, POPULAR_FILTER_TABS } from "@/lib/data";
+import type { Course } from "@/types/course";
 
 function filterByTab(courses: Course[], tab: string): Course[] {
-  if (tab === 'All') return courses;
+  if (tab === "All") return courses;
   return courses.filter((c) => {
     if (c.popularFilter === tab) return true;
     if (c.popularFilterTags?.includes(tab)) return true;
@@ -15,7 +15,7 @@ function filterByTab(courses: Course[], tab: string): Course[] {
 }
 
 export default function PopularCoursesSection() {
-  const [activeTab, setActiveTab] = useState<string>('All');
+  const [activeTab, setActiveTab] = useState<string>("All");
   const popularCourses = useMemo(() => getPopularCourses(), []);
   const filtered = useMemo(
     () => filterByTab(popularCourses, activeTab),
@@ -25,7 +25,7 @@ export default function PopularCoursesSection() {
   return (
     <section className="py-8 sm:py-12 lg:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#030256] mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">
           Popular courses
         </h2>
         <div className="flex flex-wrap gap-2 mb-8">
@@ -36,8 +36,8 @@ export default function PopularCoursesSection() {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors border ${
                 activeTab === tab
-                  ? 'bg-[#030256] text-white border-[#030256]'
-                  : 'bg-white text-[#030256] border-gray-300 hover:border-[#030256] hover:bg-gray-50'
+                  ? "bg-primary text-white border-primary"
+                  : "bg-white text-primary border-gray-300 hover:border-primary hover:bg-gray-50"
               }`}
             >
               {tab}

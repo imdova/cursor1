@@ -1,20 +1,22 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState } from 'react';
-import CategoryMegaMenu from './CategoryMegaMenu';
+import Link from "next/link";
+import { useState } from "react";
+import { ROUTES } from "@/constants";
+import { Container } from "@/components/ui";
+import CategoryMegaMenu from "./CategoryMegaMenu";
 
 export default function Header() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
   return (
     <header className="bg-white text-gray-900 sticky top-0 z-50 shadow-md border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container>
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-4 sm:space-x-6">
-            <Link href="/" className="flex items-center">
+            <Link href={ROUTES.HOME} className="flex items-center">
               <img
                 src="/images/logo.png"
                 alt="IMETS school of business"
@@ -23,15 +25,21 @@ export default function Header() {
             </Link>
             <nav className="hidden md:flex items-center space-x-1">
               <CategoryMegaMenu />
-              <Link href="/about" className="px-3 py-2 hover:bg-gray-100 rounded transition-colors">
+              <Link
+                href={ROUTES.ABOUT}
+                className="px-3 py-2 hover:bg-gray-100 rounded transition-colors"
+              >
                 About Us
               </Link>
-              <Link href="/contact" className="px-3 py-2 hover:bg-gray-100 rounded transition-colors">
+              <Link
+                href={ROUTES.CONTACT}
+                className="px-3 py-2 hover:bg-gray-100 rounded transition-colors"
+              >
                 Contact
               </Link>
             </nav>
           </div>
-          
+
           {/* Desktop Search */}
           <div className="hidden lg:flex flex-1 max-w-md mx-8">
             <input
@@ -39,7 +47,7 @@ export default function Header() {
               placeholder="What do you want to learn?"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 bg-gray-100 text-gray-900 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+              className="w-full px-4 py-2 bg-gray-100 text-gray-900 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
             <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-r-lg border border-l-0 border-gray-200 hover:bg-gray-200 transition-colors">
               🔍
@@ -48,16 +56,28 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/admin/dashboard" className="px-4 py-2 hover:bg-gray-100 rounded transition-colors">
+            <Link
+              href={ROUTES.ADMIN.DASHBOARD}
+              className="px-4 py-2 hover:bg-gray-100 rounded transition-colors"
+            >
               Admin
             </Link>
-            <Link href="/instructor/dashboard" className="px-4 py-2 hover:bg-gray-100 rounded transition-colors">
+            <Link
+              href={ROUTES.INSTRUCTOR.DASHBOARD}
+              className="px-4 py-2 hover:bg-gray-100 rounded transition-colors"
+            >
               Instructor
             </Link>
-            <Link href="/login" className="px-4 py-2 hover:bg-gray-100 rounded transition-colors">
+            <Link
+              href={ROUTES.LOGIN}
+              className="px-4 py-2 hover:bg-gray-100 rounded transition-colors"
+            >
               Log in
             </Link>
-            <Link href="/signup" className="px-4 py-2 bg-[#030256] hover:bg-[#04036a] text-white rounded transition-colors font-semibold">
+            <Link
+              href={ROUTES.SIGNUP}
+              className="px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded transition-colors font-semibold"
+            >
               Sign up
             </Link>
           </div>
@@ -76,7 +96,7 @@ export default function Header() {
               className="p-2 hover:bg-gray-100 rounded transition-colors text-gray-700"
               aria-label="Menu"
             >
-              {mobileMenuOpen ? '✕' : '☰'}
+              {mobileMenuOpen ? "✕" : "☰"}
             </button>
           </div>
         </div>
@@ -90,7 +110,7 @@ export default function Header() {
                 placeholder="What do you want to learn?"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-2 bg-gray-100 text-gray-900 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                className="flex-1 px-4 py-2 bg-gray-100 text-gray-900 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               />
               <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-r-lg border border-l-0 border-gray-200 hover:bg-gray-200 transition-colors">
                 🔍
@@ -104,35 +124,35 @@ export default function Header() {
           <div className="md:hidden border-t border-gray-200 py-4">
             <nav className="flex flex-col space-y-2">
               <Link
-                href="/courses"
+                href={ROUTES.COURSES}
                 className="px-4 py-2 hover:bg-gray-100 rounded transition-colors text-gray-900"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Explore Courses
               </Link>
               <Link
-                href="/about"
+                href={ROUTES.ABOUT}
                 className="px-4 py-2 hover:bg-gray-100 rounded transition-colors text-gray-900"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 About Us
               </Link>
               <Link
-                href="/contact"
+                href={ROUTES.CONTACT}
                 className="px-4 py-2 hover:bg-gray-100 rounded transition-colors text-gray-900"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
               </Link>
               <Link
-                href="/admin/dashboard"
+                href={ROUTES.ADMIN.DASHBOARD}
                 className="px-4 py-2 hover:bg-gray-100 rounded transition-colors text-gray-900"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Admin
               </Link>
               <Link
-                href="/instructor/dashboard"
+                href={ROUTES.INSTRUCTOR.DASHBOARD}
                 className="px-4 py-2 hover:bg-gray-100 rounded transition-colors text-gray-900"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -140,15 +160,15 @@ export default function Header() {
               </Link>
               <div className="border-t border-gray-200 pt-2 mt-2">
                 <Link
-                  href="/login"
+                  href={ROUTES.LOGIN}
                   className="block px-4 py-2 hover:bg-gray-100 rounded transition-colors text-gray-900"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Log in
                 </Link>
                 <Link
-                  href="/signup"
-                  className="block px-4 py-2 bg-[#030256] hover:bg-[#04036a] text-white rounded transition-colors font-semibold mt-2 text-center"
+                  href={ROUTES.SIGNUP}
+                  className="block px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded transition-colors font-semibold mt-2 text-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Sign up
@@ -157,7 +177,7 @@ export default function Header() {
             </nav>
           </div>
         )}
-      </div>
+      </Container>
     </header>
   );
 }

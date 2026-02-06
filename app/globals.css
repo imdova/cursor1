@@ -8,6 +8,9 @@
   --color-primary-hover: #04036a;
   --color-primary-light: #0a0a7d;
   --color-primary-muted: #e8e8f5;
+  /* Admin area theme */
+  --color-admin-primary: #0f49bd;
+  --color-admin-primary-hover: #0c3a94;
 }
 
 @theme inline {
@@ -19,6 +22,8 @@
   --color-primary-hover: #04036a;
   --color-primary-light: #0a0a7d;
   --color-primary-muted: #e8e8f5;
+  --color-admin-primary: #0f49bd;
+  --color-admin-primary-hover: #0c3a94;
 }
 
 @media (prefers-color-scheme: dark) {

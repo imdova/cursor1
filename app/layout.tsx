@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ConditionalLayout from "@/components/ConditionalLayout";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Medicova - Online Courses Platform",
-  description: "Learn new skills and advance your career with comprehensive online courses",
+  description:
+    "Learn new skills and advance your career with comprehensive online courses",
 };
 
 export default function RootLayout({

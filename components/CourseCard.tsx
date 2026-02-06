@@ -1,34 +1,32 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Course } from '@/types/course';
-import { useState } from 'react';
+import Link from "next/link";
+import { useState } from "react";
+import type { Course } from "@/types/course";
+import {
+  getCourseLessonCount,
+  getCourseWeeksLabel,
+  getDiscountPercentage,
+} from "@/lib/courses";
+import { ROUTES } from "@/constants";
+import { StarRating } from "@/components/ui";
 
 interface CourseCardProps {
   course: Course;
   detailsPath?: string;
 }
 
-export default function CourseCard({ course, detailsPath }: CourseCardProps) {
-  const courseDetailsPath = detailsPath || `/courses/${course.id}`;
-  const [isSaved, setIsSaved] = useState(false);
-  
-  const discountPercentage = course.originalPrice
-    ? Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)
-    : 0;
+const DEFAULT_INSTRUCTOR_IMAGE = "https://i.pravatar.cc/40?img=1";
 
-  const totalLessons = course.curriculum?.reduce((acc, section) => acc + section.lectures.length, 0) || 0;
-  
-  // Convert duration to weeks (assuming format like "24.5 hours" or "2 weeks")
-  const getWeeks = () => {
-    if (course.duration.includes('week')) {
-      return course.duration;
-    }
-    // If it's in hours, convert roughly (assuming 10 hours per week)
-    const hours = parseFloat(course.duration) || 0;
-    const weeks = Math.round((hours / 10) * 10) / 10;
-    return weeks === 0 ? '0 weeks' : `${weeks} weeks`;
-  };
+export default function CourseCard({ course, detailsPath }: CourseCardProps) {
+  const courseDetailsPath = detailsPath ?? ROUTES.COURSE_DETAIL(course.id);
+  const [isSaved, setIsSaved] = useState(false);
+  const discountPercentage = getDiscountPercentage(
+    course.price,
+    course.originalPrice
+  );
+  const totalLessons = getCourseLessonCount(course);
+  const weeksLabel = getCourseWeeksLabel(course.duration);
 
   const handleSave = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -58,10 +56,12 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
             alt={course.title}
             className="w-full h-full object-cover"
           />
-          
+
           {/* Recorded Tag - Top Left */}
           <div className="absolute top-2 left-2 bg-gray-100 bg-opacity-95 text-gray-700 px-2 py-1 rounded text-xs font-medium flex items-center">
-            <span className="mr-1 text-white bg-gray-400 rounded p-0.5">📹</span>
+            <span className="mr-1 text-white bg-gray-400 rounded p-0.5">
+              📹
+            </span>
             <span className="text-gray-700">recorded</span>
           </div>
 
@@ -71,8 +71,12 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
             className="absolute top-2 right-2 bg-white bg-opacity-90 hover:bg-opacity-100 p-1.5 rounded-full transition-all shadow-sm"
             aria-label="Save course"
           >
-            <span className={`text-lg ${isSaved ? 'text-red-500' : 'text-gray-600'}`}>
-              {isSaved ? '❤️' : '🤍'}
+            <span
+              className={`text-lg ${
+                isSaved ? "text-red-500" : "text-gray-600"
+              }`}
+            >
+              {isSaved ? "❤️" : "🤍"}
             </span>
           </button>
 
@@ -89,12 +93,12 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
           </div>
         </div>
       </Link>
-      
+
       {/* Course Information Area */}
       <div className="p-4">
         {/* Course Title */}
         <Link href={courseDetailsPath}>
-          <h3 className="font-bold text-lg mb-3 line-clamp-2 text-gray-900 hover:text-[#030256] transition-colors">
+          <h3 className="font-bold text-lg mb-3 line-clamp-2 text-gray-900 hover:text-primary transition-colors">
             {course.title}
           </h3>
         </Link>
@@ -103,25 +107,13 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
             <img
-              src={course.instructorImage || `https://i.pravatar.cc/40?img=1`}
+              src={course.instructorImage ?? DEFAULT_INSTRUCTOR_IMAGE}
               alt={course.instructor}
               className="w-6 h-6 rounded-full mr-2"
             />
             <span className="text-sm text-gray-700">{course.instructor}</span>
           </div>
-          <div className="flex items-center">
-            {[...Array(5)].map((_, i) => (
-              <span
-                key={i}
-                className={i < Math.floor(course.rating) ? 'text-yellow-400' : 'text-gray-300'}
-              >
-                ★
-              </span>
-            ))}
-            <span className="text-xs text-gray-600 ml-1">
-              ({course.reviewCount} Reviews)
-            </span>
-          </div>
+          <StarRating rating={course.rating} reviewCount={course.reviewCount} />
         </div>
 
         {/* Course Metrics */}
@@ -132,7 +124,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
           </div>
           <div className="flex items-center">
             <span className="mr-1.5 text-base">🕒</span>
-            <span>{getWeeks()}</span>
+            <span>{weeksLabel}</span>
           </div>
           <div className="flex items-center">
             <span className="mr-1.5 text-base">🎓</span>
@@ -143,7 +135,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
         {/* Pricing */}
         <div className="mb-4">
           {course.price === 0 ? (
-            <div className="text-2xl font-bold text-[#030256]">Free</div>
+            <div className="text-2xl font-bold text-primary">Free</div>
           ) : (
             <div>
               {course.originalPrice && (
@@ -169,7 +161,7 @@ export default function CourseCard({ course, detailsPath }: CourseCardProps) {
         <div className="flex items-center space-x-2">
           <button
             onClick={handleEnroll}
-            className="flex-1 bg-[#030256] text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-[#04036a] transition-colors flex items-center justify-center text-sm"
+            className="flex-1 bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary-hover transition-colors flex items-center justify-center text-sm"
           >
             Enroll
             <span className="ml-1">→</span>

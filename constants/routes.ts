@@ -1,0 +1,51 @@
+/**
+ * Centralized route paths for maintainability and type-safe navigation.
+ */
+export const ROUTES = {
+  HOME: "/",
+  ABOUT: "/about",
+  CONTACT: "/contact",
+  COURSES: "/courses",
+  COURSE_DETAIL: (id: string) => `/courses/${id}`,
+  SEARCH: "/search",
+  LOGIN: "/login",
+  SIGNUP: "/signup",
+  FORGOT_PASSWORD: "/forgot-password",
+
+  ADMIN: {
+    DASHBOARD: "/admin/dashboard",
+    REPORTS: "/admin/reports",
+    CRM_LEADS: "/admin/crm/leads",
+    CRM_LEAD_NEW: "/admin/crm/leads/new",
+    CRM_LEAD: (id: string) => `/admin/crm/leads/${id}`,
+    CRM_PIPELINE: "/admin/crm/pipeline",
+    CRM_ACTIVE_PIPELINE: "/admin/crm/active-pipeline",
+    CRM_PAYMENTS: "/admin/crm/payments",
+    COURSES: "/admin/courses",
+    QUIZZES: "/admin/quizzes",
+    STUDENTS: "/admin/students",
+    INSTRUCTORS: "/admin/instructors",
+    EVENTS: "/admin/events",
+    SETTINGS: "/admin/settings",
+    WHATSAPP_TEMPLATES: "/admin/settings/whatsapp-templates",
+    WHATSAPP_TEMPLATE_EDIT: "/admin/settings/whatsapp-templates/edit",
+  },
+
+  INSTRUCTOR: {
+    DASHBOARD: "/instructor/dashboard",
+    COURSES: "/instructor/courses",
+    COURSE_NEW: "/instructor/courses/new",
+    COURSE: (id: string) => `/instructor/courses/${id}`,
+    COURSE_EDIT: (id: string) => `/instructor/courses/${id}/edit`,
+    QUIZZES: "/instructor/quizzes",
+    QUIZ_NEW: "/instructor/quizzes/new",
+    QUIZ: (id: string) => `/instructor/quizzes/${id}`,
+    EVENTS: "/instructor/events",
+    EVENTS_MANAGE: "/instructor/events/manage",
+    EVENT_NEW: "/instructor/events/new",
+    ANALYTICS: "/instructor/analytics",
+    EARNINGS: "/instructor/earnings",
+    PROFILE: "/instructor/profile",
+    SETTINGS: "/instructor/settings",
+  },
+} as const;

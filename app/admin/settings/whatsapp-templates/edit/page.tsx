@@ -1,17 +1,22 @@
-'use client';
+"use client";
 
-import { useState, useCallback } from 'react';
-import Link from 'next/link';
+import { useState, useCallback } from "react";
+import Link from "next/link";
 
 const MAX_CHARS = 1024;
-const CATEGORIES = ['Payment Receipt', 'Enrollment Confirmation', 'Course Reminder', 'Certificate Ready'] as const;
+const CATEGORIES = [
+  "Payment Receipt",
+  "Enrollment Confirmation",
+  "Course Reminder",
+  "Certificate Ready",
+] as const;
 
 const VARIABLES = [
-  { key: '{{student_name}}', label: '{{student_name}}' },
-  { key: '{{amount_paid}}', label: '{{amount_paid}}' },
-  { key: '{{installment_no}}', label: '{{installment_no}}' },
-  { key: '{{course_name}}', label: '{{course_name}}' },
-  { key: '{{date}}', label: '{{date}}' },
+  { key: "{{student_name}}", label: "{{student_name}}" },
+  { key: "{{amount_paid}}", label: "{{amount_paid}}" },
+  { key: "{{installment_no}}", label: "{{installment_no}}" },
+  { key: "{{course_name}}", label: "{{course_name}}" },
+  { key: "{{date}}", label: "{{date}}" },
 ] as const;
 
 const DEFAULT_BODY = `Hello {{student_name}},
@@ -22,11 +27,11 @@ Best regards,
 IMETS Team`;
 
 const PREVIEW_VALUES: Record<string, string> = {
-  '{{student_name}}': 'Jamie Smith',
-  '{{amount_paid}}': '$450.00',
-  '{{installment_no}}': 'Installment 2 of 3',
-  '{{course_name}}': 'Data Science Certification',
-  '{{date}}': 'Oct 24, 2023',
+  "{{student_name}}": "Jamie Smith",
+  "{{amount_paid}}": "$450.00",
+  "{{installment_no}}": "Installment 2 of 3",
+  "{{course_name}}": "Data Science Certification",
+  "{{date}}": "Oct 24, 2023",
 };
 
 function interpolate(template: string, values: Record<string, string>) {
@@ -38,7 +43,9 @@ function interpolate(template: string, values: Record<string, string>) {
 }
 
 export default function EditWhatsAppTemplatePage() {
-  const [templateName, setTemplateName] = useState('Payment Receipt Notification');
+  const [templateName, setTemplateName] = useState(
+    "Payment Receipt Notification"
+  );
   const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [messageBody, setMessageBody] = useState(DEFAULT_BODY);
   const [bold, setBold] = useState(false);
@@ -47,17 +54,19 @@ export default function EditWhatsAppTemplatePage() {
 
   const charCount = messageBody.length;
 
-  const insertVariable = useCallback(
-    (variable: string) => {
-      setMessageBody((prev) => prev + variable);
-    },
-    []
-  );
+  const insertVariable = useCallback((variable: string) => {
+    setMessageBody((prev) => prev + variable);
+  }, []);
 
   const previewText = interpolate(messageBody, PREVIEW_VALUES);
   const highlightValues = Object.values(PREVIEW_VALUES);
   const previewParts = previewText.split(
-    new RegExp(`(${highlightValues.map((v) => v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g')
+    new RegExp(
+      `(${highlightValues
+        .map((v) => v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+        .join("|")})`,
+      "g"
+    )
   );
 
   return (
@@ -66,11 +75,14 @@ export default function EditWhatsAppTemplatePage() {
       <div className="border-b border-gray-200 bg-white px-6 lg:px-8 py-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <nav className="text-sm text-gray-500">
-            <Link href="/admin/settings" className="hover:text-[#030256]">
+            <Link href="/admin/settings" className="hover:text-admin-primary">
               Settings
             </Link>
             <span className="mx-1.5">/</span>
-            <Link href="/admin/settings/whatsapp-templates" className="hover:text-[#030256]">
+            <Link
+              href="/admin/settings/whatsapp-templates"
+              className="hover:text-admin-primary"
+            >
               WhatsApp Templates
             </Link>
             <span className="mx-1.5">/</span>
@@ -79,15 +91,20 @@ export default function EditWhatsAppTemplatePage() {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              className="px-4 py-2.5 border border-gray-300 rounded-lg text-[#030256] font-semibold hover:bg-gray-50 transition-colors"
+              className="px-4 py-2.5 border border-gray-300 rounded-lg text-admin-primary font-semibold hover:bg-gray-50 transition-colors"
             >
               Send Test Message
             </button>
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#030256] text-white rounded-lg font-semibold hover:bg-[#04036a] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-admin-primary text-white rounded-lg font-semibold hover:bg-admin-primary-hover transition-colors"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -118,7 +135,7 @@ export default function EditWhatsAppTemplatePage() {
                 type="text"
                 value={templateName}
                 onChange={(e) => setTemplateName(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256]"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary"
                 placeholder="e.g. Payment Receipt Notification"
               />
             </div>
@@ -131,15 +148,27 @@ export default function EditWhatsAppTemplatePage() {
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-[#030256] focus:border-[#030256] pr-10 bg-white"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-admin-primary focus:border-admin-primary pr-10 bg-white"
                 >
                   {CATEGORIES.map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
                   ))}
                 </select>
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </span>
               </div>
@@ -160,7 +189,9 @@ export default function EditWhatsAppTemplatePage() {
                   <button
                     type="button"
                     onClick={() => setBold(!bold)}
-                    className={`p-2 rounded ${bold ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
+                    className={`p-2 rounded ${
+                      bold ? "bg-gray-200" : "hover:bg-gray-200"
+                    }`}
                     title="Bold"
                   >
                     <span className="font-bold text-sm">B</span>
@@ -168,7 +199,9 @@ export default function EditWhatsAppTemplatePage() {
                   <button
                     type="button"
                     onClick={() => setItalic(!italic)}
-                    className={`p-2 rounded ${italic ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
+                    className={`p-2 rounded ${
+                      italic ? "bg-gray-200" : "hover:bg-gray-200"
+                    }`}
                     title="Italic"
                   >
                     <span className="italic text-sm">I</span>
@@ -176,7 +209,9 @@ export default function EditWhatsAppTemplatePage() {
                   <button
                     type="button"
                     onClick={() => setStrikethrough(!strikethrough)}
-                    className={`p-2 rounded ${strikethrough ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
+                    className={`p-2 rounded ${
+                      strikethrough ? "bg-gray-200" : "hover:bg-gray-200"
+                    }`}
                     title="Strikethrough"
                   >
                     <span className="text-sm line-through">S</span>
@@ -191,7 +226,9 @@ export default function EditWhatsAppTemplatePage() {
                 </div>
                 <textarea
                   value={messageBody}
-                  onChange={(e) => setMessageBody(e.target.value.slice(0, MAX_CHARS))}
+                  onChange={(e) =>
+                    setMessageBody(e.target.value.slice(0, MAX_CHARS))
+                  }
                   rows={10}
                   className="w-full px-4 py-3 resize-y focus:outline-none focus:ring-0 border-0"
                   placeholder="Enter your message..."
@@ -235,15 +272,25 @@ export default function EditWhatsAppTemplatePage() {
                   </div>
                 </div>
                 {/* WhatsApp chat */}
-                <div className="bg-[#e5ddd5]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M30 0L30 60M0 30L60 30\' stroke=\'%23d4c4b0\' stroke-width=\'0.5\' fill=\'none\'/%3E%3C/svg%3E")' }}>
+                <div
+                  className="bg-[#e5ddd5]"
+                  style={{
+                    backgroundImage:
+                      "url(\"data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%23d4c4b0' stroke-width='0.5' fill='none'/%3E%3C/svg%3E\")",
+                  }}
+                >
                   {/* Chat header */}
                   <div className="bg-[#075e54] flex items-center gap-2 px-3 py-2">
                     <span className="text-white">←</span>
                     <div className="w-8 h-8 rounded-full bg-[#e8f4f2] flex items-center justify-center">
-                      <span className="text-[#030256] font-bold text-xs">I</span>
+                      <span className="text-admin-primary font-bold text-xs">
+                        I
+                      </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-white text-sm truncate">IMETS school of business</p>
+                      <p className="font-semibold text-white text-sm truncate">
+                        IMETS school of business
+                      </p>
                       <p className="text-[#a8d4ce] text-xs">online</p>
                     </div>
                     <span className="text-white text-lg">📹</span>
@@ -258,7 +305,12 @@ export default function EditWhatsAppTemplatePage() {
                           <p className="text-gray-900 text-sm whitespace-pre-wrap leading-relaxed">
                             {previewParts.map((part, i) =>
                               highlightValues.includes(part) ? (
-                                <span key={i} className="text-[#030256] font-semibold">{part}</span>
+                                <span
+                                  key={i}
+                                  className="text-admin-primary font-semibold"
+                                >
+                                  {part}
+                                </span>
                               ) : (
                                 <span key={i}>{part}</span>
                               )
@@ -272,13 +324,27 @@ export default function EditWhatsAppTemplatePage() {
                         {/* Receipt attachment */}
                         <div className="bg-white border-t border-gray-100 px-3 py-2 flex items-center gap-2">
                           <div className="w-10 h-10 rounded bg-gray-100 flex items-center justify-center text-gray-500">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            <svg
+                              className="w-5 h-5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                              />
                             </svg>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-900 truncate">Receipt_#IMETS-89241...</p>
-                            <p className="text-xs text-gray-500">1.2 MB • PDF</p>
+                            <p className="text-sm font-medium text-gray-900 truncate">
+                              Receipt_#IMETS-89241...
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              1.2 MB • PDF
+                            </p>
                           </div>
                           <span className="text-gray-400">⬇</span>
                         </div>
@@ -304,7 +370,9 @@ export default function EditWhatsAppTemplatePage() {
             {/* Live preview label */}
             <div className="flex justify-center mt-4 items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500" />
-              <span className="text-sm text-gray-500 font-medium">LIVE PREVIEW</span>
+              <span className="text-sm text-gray-500 font-medium">
+                LIVE PREVIEW
+              </span>
             </div>
           </div>
         </div>
