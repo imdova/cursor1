@@ -3,7 +3,7 @@
 import "../../lesson/[lessonId]/lesson.css";
 import "./quiz.css";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useState, useRef, useCallback, useEffect } from "react";
 import {
   Search,
@@ -26,11 +26,22 @@ import {
   RotateCcw,
   Share2,
   X,
+  Clock,
+  List,
+  FileCheck,
+  RefreshCw,
+  HelpCircle,
 } from "lucide-react";
 import { ROUTES } from "@/constants";
 import { getQuizData } from "./quiz-data";
 import { getLessonData } from "../../lesson/[lessonId]/lesson-data";
 import type { SidebarModule } from "../../lesson/[lessonId]/lesson-data";
+import {
+  getLastAttempt,
+  getAttemptsUsed,
+  saveQuizAttempt,
+  MAX_ATTEMPTS,
+} from "./quiz-attempts";
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -57,6 +68,348 @@ function timeAgo(ts: number): string {
 }
 
 type ReviewFilter = "all" | "incorrect" | "correct";
+
+function QuizOrientationView({
+  quiz,
+  courseId,
+  quizId,
+  lessonData,
+  modules,
+  toggleModule,
+}: {
+  quiz: NonNullable<ReturnType<typeof getQuizData>>;
+  courseId: string;
+  quizId: string;
+  lessonData: ReturnType<typeof getLessonData> | null;
+  modules: SidebarModule[];
+  toggleModule: (id: string) => void;
+}) {
+  const [lastAttempt, setLastAttempt] =
+    useState<ReturnType<typeof getLastAttempt>>(null);
+  const [attemptsUsed, setAttemptsUsed] = useState(0);
+
+  useEffect(() => {
+    setLastAttempt(getLastAttempt(courseId, quizId));
+    setAttemptsUsed(getAttemptsUsed(courseId, quizId));
+  }, [courseId, quizId]);
+
+  const startUrl = `${ROUTES.STUDENT.COURSE_QUIZ(courseId, quizId)}?start=1`;
+  const passingPct = quiz.passingPct ?? 70;
+
+  return (
+    <div className="slp-page">
+      <header className="slp-topbar">
+        <Link href={ROUTES.STUDENT.COURSES} className="slp-logo">
+          <div className="slp-logo-icon">
+            <GraduationCap className="w-5 h-5" strokeWidth={2} />
+          </div>
+          <span className="slp-logo-text">IMETS Academy</span>
+        </Link>
+        <nav className="slp-nav">
+          <Link href={ROUTES.STUDENT.COURSES}>My Courses</Link>
+          <Link href={ROUTES.STUDENT.DASHBOARD}>Dashboard</Link>
+          <Link href={ROUTES.STUDENT.COURSES}>Resources</Link>
+        </nav>
+        <div className="slp-topbar-right">
+          <div className="slp-search-wrap">
+            <Search className="w-4 h-4 slp-search-icon" strokeWidth={2} />
+            <input
+              type="search"
+              placeholder="Search lessons..."
+              aria-label="Search lessons"
+            />
+          </div>
+          <button
+            type="button"
+            className="slp-icon-btn"
+            aria-label="Notifications"
+          >
+            <Bell className="w-5 h-5" strokeWidth={2} />
+          </button>
+          <button type="button" className="slp-profile">
+            <div className="slp-avatar" aria-hidden />
+            <ChevronDown className="w-4 h-4" strokeWidth={2} />
+          </button>
+        </div>
+      </header>
+
+      <nav className="slp-breadcrumb" aria-label="Breadcrumb">
+        <Link href={ROUTES.STUDENT.DASHBOARD}>Home</Link>
+        <span className="mx-2">/</span>
+        <Link href={ROUTES.STUDENT.COURSES}>My Courses</Link>
+        <span className="mx-2">/</span>
+        <Link href={ROUTES.STUDENT.COURSE_LESSON(courseId, "2-1")}>
+          {lessonData?.courseTitle ?? "Structural Engineering"}
+        </Link>
+        <span className="mx-2">/</span>
+        <span>Quiz Orientation</span>
+      </nav>
+
+      <div className="slp-main">
+        <aside className="slp-sidebar">
+          <div className="slp-sidebar-header">
+            <h2 className="slp-sidebar-title">Course Content</h2>
+            {lessonData && (
+              <>
+                <div className="slp-progress-bar">
+                  <div
+                    className="slp-progress-fill"
+                    style={{ width: `${lessonData.progressPct}%` }}
+                  />
+                </div>
+                <p className="slp-progress-text">
+                  {lessonData.progressPct}% Completed ·{" "}
+                  {lessonData.lessonsCompleted}/{lessonData.lessonsTotal}{" "}
+                  Lessons
+                </p>
+              </>
+            )}
+          </div>
+          <div className="slp-module-list">
+            {modules.map((mod) => (
+              <div
+                key={mod.id}
+                className={`slp-module ${mod.expanded ? "open" : ""}`}
+              >
+                <button
+                  type="button"
+                  className="slp-module-header"
+                  onClick={() => toggleModule(mod.id)}
+                >
+                  {mod.title}
+                  <ChevronRightIcon
+                    className="w-4 h-4 slp-module-chevron"
+                    strokeWidth={2}
+                  />
+                </button>
+                {mod.expanded &&
+                  mod.lessons.map((lesson) => (
+                    <Link
+                      key={lesson.id}
+                      href={ROUTES.STUDENT.COURSE_LESSON(courseId, lesson.slug)}
+                      className="slp-lesson"
+                    >
+                      {lesson.status === "completed" && (
+                        <Check
+                          className="w-4 h-4 slp-lesson-icon"
+                          strokeWidth={2}
+                        />
+                      )}
+                      {lesson.status === "in_progress" && (
+                        <Play
+                          className="w-4 h-4 slp-lesson-icon play"
+                          strokeWidth={2}
+                          fill="currentColor"
+                        />
+                      )}
+                      {lesson.status === "locked" && (
+                        <Lock
+                          className="w-4 h-4 slp-lesson-icon locked"
+                          strokeWidth={2}
+                        />
+                      )}
+                      <div className="slp-lesson-info">
+                        <p className="slp-lesson-title">{lesson.title}</p>
+                        <p className="slp-lesson-meta">
+                          {lesson.status === "completed" && "Completed"}
+                          {lesson.status === "in_progress" && "In Progress"}
+                        </p>
+                      </div>
+                      <span className="slp-lesson-duration">
+                        {lesson.duration}
+                      </span>
+                    </Link>
+                  ))}
+              </div>
+            ))}
+            <div className="slp-sidebar-quiz-section">
+              <span className="slp-sidebar-quiz slp-sidebar-quiz-active">
+                <ClipboardList
+                  className="w-4 h-4 slp-sidebar-quiz-icon"
+                  strokeWidth={2}
+                />
+                <div className="slp-lesson-info">
+                  <p className="slp-lesson-title">Mid-Term: Advanced Physics</p>
+                  <p className="slp-lesson-meta">Quiz Orientation</p>
+                </div>
+                <ChevronRightIcon
+                  className="w-4 h-4 slp-sidebar-quiz-arrow"
+                  strokeWidth={2}
+                />
+              </span>
+            </div>
+          </div>
+          <Link
+            href={ROUTES.STUDENT.COURSE_ROADMAP(courseId)}
+            className="slp-course-overview"
+          >
+            <ArrowLeft className="w-4 h-4" strokeWidth={2} />
+            Course Overview
+          </Link>
+        </aside>
+
+        <div className="slp-content sqo-content-wrap">
+          <div className="sqo-main">
+            <div className="sqo-overview-card">
+              <div className="sqo-overview-left">
+                <div className="sqo-module-icon">
+                  <HelpCircle className="w-10 h-10" strokeWidth={1.5} />
+                </div>
+                <span className="sqo-module-tag">MODULE 4</span>
+              </div>
+              <div className="sqo-overview-right">
+                <h1 className="sqo-overview-title">{quiz.title}</h1>
+                <p className="sqo-overview-desc">
+                  Professional Certification Quiz covering advanced structural
+                  analysis, design principles, and material mechanics.
+                </p>
+                <div className="sqo-cert">
+                  <Check className="w-4 h-4" strokeWidth={2} />
+                  Official Certification Exam
+                </div>
+              </div>
+            </div>
+
+            <div className="sqo-details-grid">
+              <div className="sqo-detail-card">
+                <Clock className="w-5 h-5 sqo-detail-icon" strokeWidth={2} />
+                <span className="sqo-detail-label">DURATION</span>
+                <span className="sqo-detail-value">
+                  {quiz.timeLimitMinutes} mins
+                </span>
+              </div>
+              <div className="sqo-detail-card">
+                <List className="w-5 h-5 sqo-detail-icon" strokeWidth={2} />
+                <span className="sqo-detail-label">QUESTIONS</span>
+                <span className="sqo-detail-value">
+                  {quiz.totalQuestions} items
+                </span>
+              </div>
+              <div className="sqo-detail-card">
+                <FileCheck
+                  className="w-5 h-5 sqo-detail-icon"
+                  strokeWidth={2}
+                />
+                <span className="sqo-detail-label">PASSING</span>
+                <span className="sqo-detail-value">{passingPct}%</span>
+              </div>
+              <div className="sqo-detail-card">
+                <RefreshCw
+                  className="w-5 h-5 sqo-detail-icon"
+                  strokeWidth={2}
+                />
+                <span className="sqo-detail-label">ATTEMPTS</span>
+                <span className="sqo-detail-value">
+                  {attemptsUsed} of {MAX_ATTEMPTS} used
+                </span>
+              </div>
+            </div>
+
+            <div className="sqo-two-col">
+              <div className="sqo-card sqo-tips-card">
+                <h2 className="sqo-card-title">
+                  <Lightbulb className="w-5 h-5" strokeWidth={2} />
+                  Smart Tips for Success
+                </h2>
+                <ul className="sqo-tips-list">
+                  <li>
+                    <Check className="w-4 h-4 sqo-tip-check" strokeWidth={2} />
+                    Ensure you have a reliable internet connection before
+                    starting. The timer won&apos;t pause.
+                  </li>
+                  <li>
+                    <Check className="w-4 h-4 sqo-tip-check" strokeWidth={2} />
+                    Avoid switching tabs or windows. Doing so may automatically
+                    trigger a quiz submission.
+                  </li>
+                  <li>
+                    <Check className="w-4 h-4 sqo-tip-check" strokeWidth={2} />
+                    You can flag difficult questions and return to them at the
+                    end if time permits.
+                  </li>
+                </ul>
+              </div>
+
+              <div className="sqo-card sqo-last-card">
+                <h2 className="sqo-card-title">
+                  <Clock className="w-5 h-5" strokeWidth={2} />
+                  Last Attempt
+                </h2>
+                {lastAttempt ? (
+                  <>
+                    <p className="sqo-last-date">
+                      {new Date(lastAttempt.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
+                    <span
+                      className={`sqo-last-status ${
+                        lastAttempt.passed ? "passed" : "failed"
+                      }`}
+                    >
+                      {lastAttempt.passed ? "PASSED" : "FAILED"}
+                    </span>
+                    <p className="sqo-last-score">{lastAttempt.scorePct}%</p>
+                    <p className="sqo-last-detail">
+                      {lastAttempt.passed
+                        ? "Above passing score"
+                        : `${
+                            passingPct - lastAttempt.scorePct
+                          }% below passing score`}
+                    </p>
+                    <div className="sqo-progress-wrap">
+                      <div className="sqo-progress-bar">
+                        <div
+                          className={`sqo-progress-fill ${
+                            lastAttempt.passed ? "passed" : "failed"
+                          }`}
+                          style={{ width: `${lastAttempt.scorePct}%` }}
+                        />
+                      </div>
+                      <div
+                        className="sqo-passing-marker"
+                        style={{ left: `${passingPct}%` }}
+                      />
+                    </div>
+                    {lastAttempt.recommendation && (
+                      <p className="sqo-recommendation">
+                        &ldquo;{lastAttempt.recommendation}&rdquo;
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <p className="sqo-no-attempt">
+                    No previous attempts. Start when ready.
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="sqo-cta-wrap">
+              <Link href={startUrl} className="sqo-start-btn">
+                Start Quiz Now
+                <ChevronRight className="w-4 h-4" strokeWidth={2} />
+              </Link>
+              <p className="sqo-honor">
+                By clicking start, you agree to the{" "}
+                <Link href="#" className="sqo-honor-link">
+                  Assessment Honor Code
+                </Link>
+                .
+              </p>
+            </div>
+            <footer className="sqo-footer">
+              © 2023 IMETS Academy. High-trust educational platform for
+              professional structural engineers.
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function QuizFeedbackView({
   quiz,
@@ -404,8 +757,10 @@ function QuizFeedbackView({
 
 export default function StudentQuizPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const courseId = typeof params.id === "string" ? params.id : "";
   const quizId = typeof params.quizId === "string" ? params.quizId : "";
+  const hasStarted = searchParams.get("start") === "1";
 
   const quiz = getQuizData(courseId, quizId);
   const lessonData = getLessonData(courseId, "2-1");
@@ -479,15 +834,29 @@ export default function StudentQuizPage() {
       if (answers[i] === q.correctIndex) correct++;
     });
     const initialTimer = 45 * 60 + 12;
+    const timeTakenSeconds = Math.max(0, initialTimer - timerRef.current);
+    const submittedAt = Date.now();
+    const pct = Math.round((correct / quiz.questions.length) * 100);
+    const passingPct = quiz.passingPct ?? 70;
+    const passed = pct >= passingPct;
     setSubmittedAnswers(answers);
     setScore({
       correct,
       total: quiz.questions.length,
-      timeTakenSeconds: Math.max(0, initialTimer - timerRef.current),
-      submittedAt: Date.now(),
+      timeTakenSeconds,
+      submittedAt,
     });
     setSubmitted(true);
-  }, [timerSeconds, submitted, quiz, answers]);
+    saveQuizAttempt(courseId, quizId, {
+      date: submittedAt,
+      scorePct: pct,
+      passed,
+      timeTakenSeconds,
+      recommendation: passed
+        ? undefined
+        : "Study the chapter on Reinforced Concrete Beams again before re-attempting.",
+    });
+  }, [timerSeconds, submitted, quiz, answers, courseId, quizId]);
 
   // Keyboard: Arrow Left / Right for Previous / Next
   useEffect(() => {
@@ -510,6 +879,19 @@ export default function StudentQuizPage() {
         <p style={{ padding: 24 }}>Quiz not found.</p>
         <Link href={ROUTES.STUDENT.COURSES}>Back to My Courses</Link>
       </div>
+    );
+  }
+
+  if (!hasStarted) {
+    return (
+      <QuizOrientationView
+        quiz={quiz}
+        courseId={courseId}
+        quizId={quizId}
+        lessonData={lessonData}
+        modules={modules}
+        toggleModule={toggleModule}
+      />
     );
   }
 
@@ -544,15 +926,29 @@ export default function StudentQuizPage() {
     quiz.questions.forEach((q, i) => {
       if (answers[i] === q.correctIndex) correct++;
     });
+    const timeTakenSeconds = Math.max(0, initialTimer - timerRef.current);
+    const submittedAt = Date.now();
+    const pct = Math.round((correct / total) * 100);
+    const passingPct = quiz.passingPct ?? 70;
+    const passed = pct >= passingPct;
     setSubmittedAnswers(answers);
     setScore({
       correct,
       total,
-      timeTakenSeconds: Math.max(0, initialTimer - timerRef.current),
-      submittedAt: Date.now(),
+      timeTakenSeconds,
+      submittedAt,
     });
     setSubmitted(true);
     setShowSubmitConfirm(false);
+    saveQuizAttempt(courseId, quizId, {
+      date: submittedAt,
+      scorePct: pct,
+      passed,
+      timeTakenSeconds,
+      recommendation: passed
+        ? undefined
+        : "Study the chapter on Reinforced Concrete Beams again before re-attempting.",
+    });
   };
   const handleSubmitCancel = () => setShowSubmitConfirm(false);
 

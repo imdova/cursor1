@@ -77,6 +77,72 @@
   border-radius: 8px;
 }
 
+/* Student Academic Transcript (below hero meta in 1st card) */
+.crm-transcript {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.crm-transcript-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+}
+
+.crm-transcript-desc {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 14px 0;
+}
+
+.crm-transcript-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.crm-transcript-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.crm-transcript-btn-primary {
+  background: var(--color-primary, #0f49bd);
+  color: #fff;
+}
+
+.crm-transcript-btn-primary:hover {
+  background: var(--color-primary-hover, #0c3a94);
+  color: #fff;
+}
+
+.crm-transcript-btn-secondary {
+  background: #fff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.crm-transcript-btn-secondary:hover {
+  background: #f9fafb;
+  border-color: var(--color-primary, #0f49bd);
+  color: var(--color-primary, #0f49bd);
+}
+
 .crm-hero-progress-card {
   background: #f9fafb;
   border: 1px solid #e5e7eb;

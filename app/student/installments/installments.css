@@ -1,0 +1,744 @@
+/**
+ * Student Installments / Payments - exact design match.
+ */
+
+.inst-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f3f4f6;
+}
+
+/* Header */
+.inst-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 32px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.inst-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #111827;
+}
+
+.inst-logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--color-primary, #0f49bd);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.inst-logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.inst-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inst-nav a {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.inst-nav a:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.inst-nav a.active {
+  color: var(--color-primary, #0f49bd);
+  background: transparent;
+  border-bottom: 2px solid var(--color-primary, #0f49bd);
+  border-radius: 0;
+}
+
+.inst-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inst-icon-btn {
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: #374151;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.inst-icon-btn:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.inst-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.inst-avatar:hover {
+  background: #d1d5db;
+  color: #111827;
+}
+
+.inst-avatar-inner {
+  line-height: 1;
+}
+
+.inst-main {
+  padding: 32px 32px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+}
+
+/* Enrolled course name */
+.inst-course-name {
+  margin-bottom: 24px;
+}
+
+.inst-course-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.inst-course-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Overdue banner */
+.inst-overdue {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.inst-overdue-icon {
+  flex-shrink: 0;
+  color: #dc2626;
+}
+
+.inst-overdue-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.inst-overdue-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #dc2626;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+}
+
+.inst-overdue-desc {
+  font-size: 14px;
+  color: #111827;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.inst-pay-now-btn {
+  flex-shrink: 0;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #dc2626;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.15s;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inst-pay-now-btn:hover {
+  background: #b91c1c;
+  color: #fff;
+}
+
+/* Summary cards - light gray background */
+.inst-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.inst-summary-four {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1100px) {
+  .inst-summary-four {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .inst-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .inst-summary-four {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inst-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.inst-card-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.inst-card-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 6px 0;
+  line-height: 1.2;
+}
+
+.inst-card-value-green {
+  color: #059669;
+}
+
+.inst-card-note {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inst-card-note-clock .inst-clock-icon {
+  color: #ea580c;
+}
+
+.inst-card-note-clock {
+  color: #374151;
+}
+
+/* Total Paid: progress bar with "50% Complete" in green on the right (same row) */
+.inst-progress-wrap {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.inst-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.inst-progress-fill {
+  height: 100%;
+  background: #059669;
+  border-radius: 999px;
+}
+
+.inst-progress-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #059669;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* Content + Sidebar */
+.inst-content-wrap {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .inst-content-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Payment Roadmap - light gray card, vertical timeline */
+.inst-roadmap {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.inst-roadmap-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.inst-roadmap-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 24px 0;
+}
+
+.inst-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.inst-timeline::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: 40px;
+  width: 2px;
+  background: #e5e7eb;
+  border-radius: 1px;
+}
+
+.inst-roadmap-item {
+  display: flex;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  z-index: 1;
+}
+
+.inst-roadmap-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.inst-roadmap-icon-wrap {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inst-roadmap-icon.paid {
+  color: #059669;
+  background: #d1fae5;
+}
+
+.inst-roadmap-icon.overdue {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+.inst-roadmap-icon.due {
+  color: var(--color-primary, #0f49bd);
+  background: #dbeafe;
+}
+
+.inst-roadmap-icon.upcoming {
+  color: #6b7280;
+  background: #f3f4f6;
+}
+
+.inst-roadmap-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.inst-roadmap-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.inst-roadmap-item-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.inst-roadmap-item-overdue .inst-roadmap-item-title {
+  color: #dc2626;
+}
+
+.inst-roadmap-amount {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.inst-roadmap-date {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 12px 0;
+}
+
+.inst-roadmap-item-overdue .inst-roadmap-date {
+  color: #dc2626;
+}
+
+.inst-roadmap-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inst-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.inst-badge.paid {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.inst-badge.upcoming {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.inst-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.inst-btn.immediate,
+.inst-btn-pay-immediately {
+  background: var(--color-primary, #0f49bd);
+  color: #fff;
+}
+
+.inst-btn.immediate:hover,
+.inst-btn-pay-immediately:hover {
+  background: var(--color-primary-hover, #0c3a94);
+  color: #fff;
+}
+
+.inst-btn.extension {
+  background: #fff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.inst-btn.extension:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Sidebar - light gray cards, payment methods in rectangular boxes */
+.inst-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inst-sidebar-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.inst-sidebar-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.inst-sidebar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.inst-manage-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary, #0f49bd);
+  text-decoration: none;
+}
+
+.inst-manage-link:hover {
+  text-decoration: underline;
+}
+
+.inst-methods-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.inst-method-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.inst-method-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.inst-method-icon {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.inst-method-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inst-method-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.inst-method-exp {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.inst-method-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #059669;
+  flex-shrink: 0;
+}
+
+.inst-add-method-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  background: #fff;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.inst-add-method-btn:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.inst-quick-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inst-quick-links li {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.inst-quick-links li:last-child {
+  border-bottom: none;
+}
+
+.inst-quick-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+}
+
+.inst-quick-link:hover {
+  color: var(--color-primary, #0f49bd);
+}
+
+.inst-quick-link svg {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.inst-help-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.inst-help-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.inst-help-title svg {
+  flex-shrink: 0;
+  color: var(--color-primary, #0f49bd);
+}
+
+.inst-help-text {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.inst-chat-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary, #0f49bd);
+  text-decoration: none;
+}
+
+.inst-chat-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer - centered, vertical line separators */
+.inst-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  padding: 24px 0 0;
+  margin-top: 32px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.inst-footer-copy {
+  margin: 0;
+}
+
+.inst-footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.inst-footer-links a {
+  color: #6b7280;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.inst-footer-links a:hover {
+  color: #111827;
+}
+
+.inst-footer-sep {
+  color: #d1d5db;
+  user-select: none;
+}

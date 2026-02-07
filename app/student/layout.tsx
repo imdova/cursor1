@@ -12,6 +12,7 @@ import {
   BookOpen,
   Calendar,
   Award,
+  FileText,
   Heart,
   User,
   Settings,
@@ -44,17 +45,42 @@ export default function StudentLayout({
     },
     { label: "My Courses", href: ROUTES.STUDENT.COURSES, icon: BookOpen },
     { label: "Schedule", href: ROUTES.STUDENT.SCHEDULE, icon: Calendar },
-    { label: "Certificates", href: ROUTES.STUDENT.CERTIFICATES, icon: Award },
+    {
+      label: "My Certificates",
+      href: ROUTES.STUDENT.CERTIFICATES,
+      icon: Award,
+    },
+    {
+      label: "Academic Transcripts",
+      href: ROUTES.STUDENT.TRANSCRIPTS,
+      icon: FileText,
+    },
   ];
 
   const personalNav = [
     { label: "Profile", href: ROUTES.STUDENT.PROFILE, icon: User },
-    { label: "Billing", href: ROUTES.STUDENT.BILLING, icon: CreditCard },
+    { label: "Payments", href: ROUTES.STUDENT.INSTALLMENTS, icon: CreditCard },
+    {
+      label: "Installments",
+      href: ROUTES.STUDENT.INSTALLMENTS,
+      icon: CreditCard,
+    },
     { label: "Settings", href: ROUTES.STUDENT.SETTINGS, icon: Settings },
   ];
 
   if (isLessonPage || isQuizPage) {
     return <div className="student-theme min-h-screen">{children}</div>;
+  }
+
+  const isInstallmentsPage = pathname === ROUTES.STUDENT.INSTALLMENTS;
+  const isTranscriptPage = pathname === ROUTES.STUDENT.TRANSCRIPT;
+
+  if (isTranscriptPage) {
+    return (
+      <div className="student-theme min-h-screen bg-[#f8fafc] flex flex-col">
+        <main className="flex-1 flex flex-col">{children}</main>
+      </div>
+    );
   }
 
   return (
@@ -91,7 +117,7 @@ export default function StudentLayout({
               const active = pathname === link.href;
               return (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className={active ? "active" : ""}
                 >
@@ -121,7 +147,7 @@ export default function StudentLayout({
           </div>
         </aside>
         <main className="student-portal-main">
-          {!isCoursesPage && (
+          {!isCoursesPage && !isInstallmentsPage && (
             <header className="student-portal-main-header">
               <div className="relative flex-1 max-w-md">
                 <Search

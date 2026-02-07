@@ -11,6 +11,7 @@ import {
   Plus,
   ChevronRight,
   Clock,
+  CreditCard,
 } from "lucide-react";
 import { ROUTES } from "@/constants";
 import {
@@ -99,6 +100,31 @@ export default function StudentDashboardPage() {
             />
           </div>
         ))}
+      </section>
+
+      {/* Fees & Installments */}
+      <section className="sd-installments">
+        <h3 className="sd-section-title">
+          <CreditCard className="w-5 h-5 text-gray-600" strokeWidth={2} />
+          Fees & Installments
+        </h3>
+        <Link
+          href={ROUTES.STUDENT.INSTALLMENTS}
+          className="sd-installments-card"
+        >
+          <div className="sd-installments-card-body">
+            <div className="sd-installments-title">
+              Manage your course fees and installments
+            </div>
+            <p className="sd-installments-desc">
+              View payment roadmap, settle balances, and manage payment methods.
+            </p>
+            <span className="sd-installments-link">
+              View installments
+              <ChevronRight className="w-4 h-4" strokeWidth={2} />
+            </span>
+          </div>
+        </Link>
       </section>
 
       {/* My Active Courses */}

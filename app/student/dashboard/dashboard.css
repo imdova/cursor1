@@ -227,6 +227,63 @@
   flex-shrink: 0;
 }
 
+/* Fees & Installments */
+.sd-installments {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.sd-installments-card {
+  display: block;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.sd-installments-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(15, 73, 189, 0.12);
+}
+
+.sd-installments-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sd-installments-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.sd-installments-desc {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.sd-installments-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-top: 4px;
+}
+
+.sd-installments-card:hover .sd-installments-link {
+  text-decoration: underline;
+}
+
 /* My Active Courses */
 .sd-courses {
   grid-column: 1;

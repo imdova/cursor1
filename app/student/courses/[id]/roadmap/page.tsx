@@ -15,6 +15,9 @@ import {
   Lock,
   ChevronDown,
   Camera,
+  Share2,
+  Send,
+  Building2,
 } from "lucide-react";
 import { ROUTES } from "@/constants";
 import { getRoadmapForCourse } from "./roadmap-data";
@@ -73,6 +76,53 @@ export default function CourseRoadmapPage() {
             <span className="crm-hero-dept">{roadmap.department}</span>
             <span>Instructor: {roadmap.instructor}</span>
             <span>{roadmap.semester}</span>
+          </div>
+          {/* Student Academic Transcript section */}
+          <div className="crm-transcript">
+            <h2 className="crm-transcript-title">
+              Student Academic Transcript
+            </h2>
+            <p className="crm-transcript-desc">
+              Your complete academic record for this course. View, download, or
+              share your transcript.
+            </p>
+            <div className="crm-transcript-actions">
+              <Link
+                href={ROUTES.STUDENT.TRANSCRIPT}
+                className="crm-transcript-btn crm-transcript-btn-primary"
+              >
+                <FileText className="w-4 h-4" strokeWidth={2} />
+                View Transcript
+              </Link>
+              <Link
+                href={`${ROUTES.STUDENT.TRANSCRIPT}#download`}
+                className="crm-transcript-btn crm-transcript-btn-secondary"
+              >
+                <Download className="w-4 h-4" strokeWidth={2} />
+                Download PDF
+              </Link>
+              <Link
+                href={ROUTES.STUDENT.TRANSCRIPT}
+                className="crm-transcript-btn crm-transcript-btn-secondary"
+              >
+                <Share2 className="w-4 h-4" strokeWidth={2} />
+                Share Transcript
+              </Link>
+              <Link
+                href={ROUTES.STUDENT.TRANSCRIPT}
+                className="crm-transcript-btn crm-transcript-btn-secondary"
+              >
+                <Send className="w-4 h-4" strokeWidth={2} />
+                Request Official Copy
+              </Link>
+              <Link
+                href={ROUTES.STUDENT.TRANSCRIPT}
+                className="crm-transcript-btn crm-transcript-btn-secondary"
+              >
+                <Building2 className="w-4 h-4" strokeWidth={2} />
+                Send to Institution
+              </Link>
+            </div>
           </div>
         </div>
         <div className="crm-hero-progress-card">

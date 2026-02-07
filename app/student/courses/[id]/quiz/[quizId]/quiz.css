@@ -1109,3 +1109,324 @@
   background: var(--color-primary-hover);
   color: #fff;
 }
+
+/* ========== Quiz Orientation (inside lessons view) ========== */
+.sqo-content-wrap {
+  padding: 24px 32px 32px;
+  overflow: auto;
+  background: #f8fafc;
+}
+
+.sqo-main {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.sqo-overview-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.sqo-overview-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.sqo-module-icon {
+  width: 72px;
+  height: 72px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.sqo-module-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+}
+
+.sqo-overview-right {
+  flex: 1;
+  min-width: 0;
+}
+
+.sqo-overview-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.sqo-overview-desc {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.sqo-cert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.sqo-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .sqo-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sqo-detail-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sqo-detail-icon {
+  color: var(--color-primary);
+}
+
+.sqo-detail-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.sqo-detail-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.sqo-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .sqo-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sqo-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.sqo-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+.sqo-card-title svg {
+  color: #f59e0b;
+}
+
+.sqo-tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sqo-tips-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.sqo-tips-list li:last-child {
+  margin-bottom: 0;
+}
+
+.sqo-tip-check {
+  color: #059669;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.sqo-last-date {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 8px 0;
+}
+
+.sqo-last-status {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.sqo-last-status.passed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.sqo-last-status.failed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.sqo-last-score {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.sqo-last-detail {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 12px 0;
+}
+
+.sqo-progress-wrap {
+  position: relative;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: visible;
+  margin-bottom: 12px;
+}
+
+.sqo-progress-bar {
+  height: 100%;
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.sqo-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s;
+}
+
+.sqo-progress-fill.passed {
+  background: #059669;
+}
+
+.sqo-progress-fill.failed {
+  background: #dc2626;
+}
+
+.sqo-passing-marker {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  background: #374151;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.sqo-recommendation {
+  font-size: 14px;
+  font-style: italic;
+  color: #6b7280;
+  margin: 0;
+}
+
+.sqo-no-attempt {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.sqo-cta-wrap {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.sqo-start-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.sqo-start-btn:hover {
+  background: var(--color-primary-hover);
+  color: #fff;
+}
+
+.sqo-honor {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 16px 0 0 0;
+}
+
+.sqo-honor-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.sqo-honor-link:hover {
+  color: var(--color-primary-hover);
+}
+
+.sqo-footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #6b7280;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+}
