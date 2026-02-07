@@ -25,7 +25,7 @@ import "./reports.css";
 
 const ICON_MAP: Record<
   ReportCardType["icon"],
-  React.ComponentType<{ className?: string }>
+  React.ComponentType<{ className?: string; strokeWidth?: number }>
 > = {
   dollar: DollarSign,
   atom: Atom,
