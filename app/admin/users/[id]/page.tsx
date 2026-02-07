@@ -63,6 +63,7 @@ import {
   Cell,
   LabelList,
 } from "recharts";
+import type { LabelProps } from "recharts";
 import { useParams } from "next/navigation";
 import { ROUTES } from "@/constants";
 import { getStaffMemberById } from "../users-data";
@@ -792,17 +793,18 @@ export default function UserOverviewPage() {
                           <LabelList
                             dataKey="actual"
                             position="right"
-                            content={({
-                              value,
-                              payload,
-                            }: {
-                              value?: number;
-                              payload?: { target?: number; actual?: number };
-                            }) => {
+                            content={(
+                              props: LabelProps & {
+                                payload?: { target?: number; actual?: number };
+                              }
+                            ) => {
                               const val =
-                                value ??
-                                (payload?.actual as number | undefined);
-                              const target = payload?.target;
+                                typeof props.value === "number"
+                                  ? props.value
+                                  : (props.payload?.actual as
+                                      | number
+                                      | undefined);
+                              const target = props.payload?.target;
                               if (target == null || typeof val !== "number")
                                 return "";
                               return `${Math.round((val / target) * 100)}%`;
@@ -922,15 +924,16 @@ export default function UserOverviewPage() {
                             <LabelList
                               dataKey="leads"
                               position="center"
-                              content={({
-                                value,
-                                payload,
-                              }: {
-                                value?: number;
-                                payload?: (typeof conversionFunnelStages)[0];
-                              }) => {
-                                const v = value ?? payload?.leads;
-                                const s = payload;
+                              content={(
+                                props: LabelProps & {
+                                  payload?: (typeof conversionFunnelStages)[0];
+                                }
+                              ) => {
+                                const v =
+                                  typeof props.value === "number"
+                                    ? props.value
+                                    : props.payload?.leads;
+                                const s = props.payload;
                                 if (s?.stage === "Enrolled")
                                   return `${v} Students`;
                                 return `${v} Leads`;
