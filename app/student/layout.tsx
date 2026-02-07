@@ -13,6 +13,7 @@ import {
   Calendar,
   Award,
   FileText,
+  ClipboardList,
   Heart,
   User,
   Settings,
@@ -46,6 +47,11 @@ export default function StudentLayout({
     { label: "My Courses", href: ROUTES.STUDENT.COURSES, icon: BookOpen },
     { label: "Schedule", href: ROUTES.STUDENT.SCHEDULE, icon: Calendar },
     {
+      label: "Assignments",
+      href: ROUTES.STUDENT.ASSIGNMENTS,
+      icon: ClipboardList,
+    },
+    {
       label: "My Certificates",
       href: ROUTES.STUDENT.CERTIFICATES,
       icon: Award,
@@ -74,6 +80,7 @@ export default function StudentLayout({
 
   const isInstallmentsPage = pathname === ROUTES.STUDENT.INSTALLMENTS;
   const isTranscriptPage = pathname === ROUTES.STUDENT.TRANSCRIPT;
+  const isAssignmentsPage = pathname === ROUTES.STUDENT.ASSIGNMENTS;
 
   if (isTranscriptPage) {
     return (
@@ -147,7 +154,7 @@ export default function StudentLayout({
           </div>
         </aside>
         <main className="student-portal-main">
-          {!isCoursesPage && !isInstallmentsPage && (
+          {!isCoursesPage && !isInstallmentsPage && !isAssignmentsPage && (
             <header className="student-portal-main-header">
               <div className="relative flex-1 max-w-md">
                 <Search
