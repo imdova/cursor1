@@ -885,13 +885,13 @@ export default function UserOverviewPage() {
                           <Tooltip
                             formatter={(
                               val: number | undefined,
-                              name: string,
-                              props?: {
+                              name: string | undefined,
+                              item?: {
                                 payload?: (typeof conversionFunnelStages)[0];
                               }
                             ) => {
-                              const p = props?.payload;
-                              if (!p) return [val ?? "", name];
+                              const p = item?.payload;
+                              if (!p) return [val ?? "", name ?? ""];
                               const detail =
                                 p.stage === "Enrolled"
                                   ? `${p.leads} Students`
@@ -919,7 +919,11 @@ export default function UserOverviewPage() {
                             <LabelList
                               dataKey="percent"
                               position="top"
-                              formatter={(v: number) => `${v}%`}
+                              formatter={(v) =>
+                                typeof v === "number"
+                                  ? `${v}%`
+                                  : String(v ?? "")
+                              }
                             />
                             <LabelList
                               dataKey="leads"
