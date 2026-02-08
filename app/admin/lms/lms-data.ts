@@ -222,6 +222,7 @@ export const studyMaterialsResources: StudyMaterialRow[] = [
     size: "1.2 MB",
     uploadDate: "Oct 24, 2023",
     targetGroup: "Full-time Students",
+    type: "pdf",
   },
   {
     id: "2",
@@ -231,6 +232,7 @@ export const studyMaterialsResources: StudyMaterialRow[] = [
     size: "8.5 MB",
     uploadDate: "Oct 25, 2023",
     targetGroup: "All Enrolled",
+    type: "pptx",
   },
   {
     id: "3",
@@ -240,6 +242,7 @@ export const studyMaterialsResources: StudyMaterialRow[] = [
     size: "442 KB",
     uploadDate: "Oct 26, 2023",
     targetGroup: "Corporate",
+    type: "xlsx",
   },
   {
     id: "4",
@@ -249,6 +252,7 @@ export const studyMaterialsResources: StudyMaterialRow[] = [
     size: "--",
     uploadDate: "Oct 28, 2023",
     targetGroup: "All Enrolled",
+    type: "url",
   },
 ];
 
@@ -448,7 +452,6 @@ export const allGroupsPool: AssignedGroupRow[] = [
 ];
 
 /** Study Materials Hub: uploaded resources */
-export type StudyMaterialCategory = "LECTURE NOTES" | "CASE STUDY" | "EXTERNAL LINK";
 export type StudyMaterialType = "pdf" | "pptx" | "xlsx" | "url";
 
 export interface StudyMaterialRow {
