@@ -1,0 +1,582 @@
+/* IMETS Master Admin Hub - Dashboard */
+
+/* Layout: main + right AI sidebar */
+.dashboard-hub-wrap {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.dashboard-hub-main {
+  flex: 1;
+  min-width: 0;
+  padding: 1.5rem;
+}
+
+.dashboard-hub-ai-sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  background: #fff;
+  border-left: 1px solid #e5e7eb;
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-hub-wrap {
+    flex-direction: column;
+  }
+  .dashboard-hub-ai-sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
+}
+
+/* Top header bar */
+.dashboard-hub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-hub-search {
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.dashboard-hub-search input {
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background: #fff;
+}
+
+.dashboard-hub-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dashboard-hub-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.dashboard-hub-profile-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-hub-ai-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Title section */
+.dashboard-hub-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-hub-title-row h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.dashboard-hub-title-row .subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.dashboard-hub-title-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dashboard-hub-date-card {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  color: #374151;
+}
+
+.dashboard-hub-export-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dashboard-hub-export-btn:hover {
+  background: #1d4ed8;
+}
+
+/* KPI row */
+.dashboard-hub-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-hub-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-hub-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-hub-kpi-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-hub-kpi-card .kpi-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dashboard-hub-kpi-card .kpi-change {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.dashboard-hub-kpi-card .kpi-change.green { color: #16a34a; }
+.dashboard-hub-kpi-card .kpi-change.blue { color: #2563eb; }
+
+.dashboard-hub-kpi-card .kpi-status {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #fef3c7;
+  color: #b45309;
+  margin-top: 0.25rem;
+}
+
+.dashboard-hub-kpi-card .kpi-subtitle {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.dashboard-hub-kpi-card .kpi-progress {
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.dashboard-hub-kpi-card .kpi-progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 9999px;
+  width: 70%;
+}
+
+/* Content cards */
+.dashboard-hub-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-hub-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-hub-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-hub-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* LMS donut */
+.dashboard-hub-lms-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-hub-lms-donut-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.dashboard-hub-lms-donut-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dashboard-hub-lms-stats {
+  font-size: 0.8125rem;
+  color: #374151;
+}
+
+.dashboard-hub-lms-stats strong { color: #111827; }
+
+.dashboard-hub-lms-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-top: 0.75rem;
+}
+
+/* Study groups */
+.dashboard-hub-batches-subtitle {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.dashboard-hub-batch-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.dashboard-hub-batch-item:last-child { border-bottom: none; }
+
+.dashboard-hub-batch-name { font-size: 0.875rem; font-weight: 500; color: #111827; }
+
+.dashboard-hub-batch-count { font-size: 0.8125rem; color: #2563eb; font-weight: 600; }
+
+.dashboard-hub-batch-bar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  margin-top: 0.25rem;
+  overflow: hidden;
+}
+
+.dashboard-hub-batch-bar-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 9999px;
+}
+
+/* Leads overview */
+.dashboard-hub-leads-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dashboard-hub-leads-metric {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.dashboard-hub-leads-value { font-size: 1.25rem; font-weight: 700; color: #111827; }
+
+.dashboard-hub-leads-sub { font-size: 0.75rem; color: #16a34a; }
+
+.dashboard-hub-leads-agents {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin-top: 0.75rem;
+}
+
+/* Top sales agents */
+.dashboard-hub-agents-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.dashboard-hub-agent-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.dashboard-hub-agent-avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.dashboard-hub-agent-conv { color: #16a34a; font-weight: 600; }
+
+/* Faculty card */
+.dashboard-hub-faculty-stats {
+  margin-bottom: 0.75rem;
+}
+
+.dashboard-hub-faculty-value {
+  font-size: 0.875rem;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.dashboard-hub-faculty-value strong { color: #111827; }
+
+.dashboard-hub-faculty-rating {
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.dashboard-hub-faculty-rating span { color: #f59e0b; }
+.dashboard-hub-faculty-rating .change { color: #16a34a; font-weight: 600; }
+
+.dashboard-hub-faculty-chart-label {
+  font-size: 0.6875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* Platform update card - blue */
+.dashboard-hub-platform-card {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+}
+
+.dashboard-hub-platform-card .dashboard-hub-card-title { color: #fff; }
+
+.dashboard-hub-platform-card p {
+  font-size: 0.875rem;
+  opacity: 0.95;
+  margin: 0.5rem 0 1rem;
+  line-height: 1.4;
+}
+
+.dashboard-hub-platform-card .read-more {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* AI Insights sidebar */
+.dashboard-hub-ai-section-title {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  margin: 1rem 0 0.75rem;
+}
+
+.dashboard-hub-ai-section-title:first-child { margin-top: 0; }
+
+.dashboard-hub-ai-alert {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid;
+  margin-bottom: 0.75rem;
+  background: #fef2f2;
+}
+
+.dashboard-hub-ai-alert.critical { border-left-color: #dc2626; }
+.dashboard-hub-ai-alert.capacity { border-left-color: #ea580c; background: #fff7ed; }
+
+.dashboard-hub-ai-alert-label {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.dashboard-hub-ai-alert-label.action { background: #fecaca; color: #b91c1c; }
+.dashboard-hub-ai-alert-label.capacity { background: #ffedd5; color: #c2410c; }
+
+.dashboard-hub-ai-alert-title { font-size: 0.875rem; font-weight: 600; color: #111827; margin-top: 0.25rem; }
+.dashboard-hub-ai-alert-desc { font-size: 0.8125rem; color: #374151; margin: 0.25rem 0 0.5rem; line-height: 1.4; }
+
+.dashboard-hub-ai-alert-btn {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.dashboard-hub-ai-recommendation {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: #eff6ff;
+  margin-bottom: 0.75rem;
+}
+
+.dashboard-hub-ai-recommendation-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 0.25rem;
+}
+
+.dashboard-hub-ai-recommendation-title { font-size: 0.875rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem; }
+
+.dashboard-hub-ai-recommendation-desc { font-size: 0.8125rem; color: #374151; margin-bottom: 0.75rem; line-height: 1.4; }
+
+.dashboard-hub-ai-recommendation-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dashboard-hub-ai-recommendation-btns .primary {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.dashboard-hub-ai-recommendation-btns .secondary {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: #fff;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.dashboard-hub-ai-benchmark {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.8125rem;
+  color: #374151;
+}
+
+.dashboard-hub-ai-benchmark-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dashboard-hub-ai-benchmark-dot.active { background: #2563eb; }
+.dashboard-hub-ai-benchmark-dot.inactive { background: #d1d5db; }
+
+.dashboard-hub-ai-benchmark-inner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.dashboard-hub-ai-benchmark-date { color: #6b7280; font-size: 0.75rem; }
