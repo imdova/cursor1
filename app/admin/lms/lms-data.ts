@@ -454,6 +454,7 @@ export type StudyMaterialType = "pdf" | "pptx" | "xlsx" | "url";
 export interface StudyMaterialRow {
   id: string;
   fileName: string;
+  fileType: StudyMaterialFileType;
   category: StudyMaterialCategory;
   size: string;
   uploadDate: string;
@@ -462,10 +463,10 @@ export interface StudyMaterialRow {
 }
 
 export const studyMaterialsData: StudyMaterialRow[] = [
-  { id: "sm1", fileName: "Course Syllabus 2024.pdf", category: "LECTURE NOTES", size: "1.2 MB", uploadDate: "Oct 24, 2023", targetGroup: "Full-time Students", type: "pdf" },
-  { id: "sm2", fileName: "Week 01 - Intro to Stats.pptx", category: "LECTURE NOTES", size: "8.5 MB", uploadDate: "Oct 25, 2023", targetGroup: "All Enrolled", type: "pptx" },
-  { id: "sm3", fileName: "Financial Forecast Model.xlsx", category: "CASE STUDY", size: "442 KB", uploadDate: "Oct 26, 2023", targetGroup: "Corporate", type: "xlsx" },
-  { id: "sm4", fileName: "Case Study Intro Video.url", category: "EXTERNAL LINK", size: "—", uploadDate: "Oct 28, 2023", targetGroup: "All Enrolled", type: "url" },
+  { id: "sm1", fileName: "Course Syllabus 2024.pdf", fileType: "PDF", category: "LECTURE NOTES", size: "1.2 MB", uploadDate: "Oct 24, 2023", targetGroup: "Full-time Students", type: "pdf" },
+  { id: "sm2", fileName: "Week 01 - Intro to Stats.pptx", fileType: "PPTX", category: "LECTURE NOTES", size: "8.5 MB", uploadDate: "Oct 25, 2023", targetGroup: "All Enrolled", type: "pptx" },
+  { id: "sm3", fileName: "Financial Forecast Model.xlsx", fileType: "XLSX", category: "CASE STUDY", size: "442 KB", uploadDate: "Oct 26, 2023", targetGroup: "Corporate", type: "xlsx" },
+  { id: "sm4", fileName: "Case Study Intro Video.url", fileType: "LINK", category: "EXTERNAL LINK", size: "—", uploadDate: "Oct 28, 2023", targetGroup: "All Enrolled", type: "url" },
 ];
 
 export const studyMaterialsTotal = 24;

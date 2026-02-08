@@ -204,6 +204,14 @@ export default function LMSCourseDetailsPage() {
     return "pdf";
   };
 
+  const getFileTypeLabel = (type: StudyMaterialType): "PDF" | "DOCX" | "PPTX" | "XLSX" | "LINK" => {
+    if (type === "pdf") return "PDF";
+    if (type === "pptx") return "PPTX";
+    if (type === "xlsx") return "XLSX";
+    if (type === "url") return "LINK";
+    return "PDF";
+  };
+
   const formatFileSize = (bytes: number): string => {
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
@@ -225,6 +233,7 @@ export default function LMSCourseDetailsPage() {
     const newRow: StudyMaterialRow = {
       id: `sm-${Date.now()}`,
       fileName: displayName,
+      fileType: getFileTypeLabel(type),
       category: "LECTURE NOTES",
       size: formatFileSize(addMaterialFile.size),
       uploadDate: formatUploadDate(),
