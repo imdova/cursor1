@@ -302,6 +302,16 @@
   color: #fff;
 }
 
+.mc-card-title-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.mc-card-title-link:hover .mc-card-title {
+  color: #2563eb;
+}
+
 .mc-card-title {
   font-size: 15px;
   font-weight: 600;

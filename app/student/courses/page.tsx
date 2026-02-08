@@ -171,7 +171,9 @@ function CourseCard({ course }: { course: MyCourseCard }) {
             </span>
           ))}
         </div>
-        <h2 className="mc-card-title">{course.title}</h2>
+        <Link href={ROUTES.STUDENT.COURSE_OVERVIEW(course.id)} className="mc-card-title-link">
+          <h2 className="mc-card-title">{course.title}</h2>
+        </Link>
         <p className="mc-card-instructor">
           <User className="w-4 h-4 shrink-0" strokeWidth={2} />
           {course.instructor}
@@ -201,7 +203,7 @@ function CourseCard({ course }: { course: MyCourseCard }) {
           <Link
             href={
               course.buttonLabel === "Resume Learning"
-                ? ROUTES.STUDENT.COURSE_LESSON(course.id, DEFAULT_LESSON_SLUG)
+                ? ROUTES.STUDENT.COURSE_OVERVIEW(course.id)
                 : "#"
             }
             className={`mc-card-btn ${course.buttonVariant}`}

@@ -70,7 +70,8 @@ export const ROUTES = {
   STUDENT: {
     DASHBOARD: "/student/dashboard",
     COURSES: "/student/courses",
-    COURSE_ROADMAP: (id: string) => `/student/courses/${id}/roadmap`,
+    COURSE_OVERVIEW: (id: string) => `/student/courses/${id}`,
+    COURSE_ROADMAP: (id: string) => `/student/courses/${id}`,
     COURSE_LESSON: (courseId: string, lessonId: string) =>
       `/student/courses/${courseId}/lesson/${lessonId}`,
     COURSE_QUIZ: (courseId: string, quizId: string) =>
