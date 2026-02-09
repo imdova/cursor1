@@ -144,9 +144,18 @@ export default function CRMLeadsPage() {
   const [assignedTo, setAssignedTo] = useState("Everyone");
   const [courseInterestFilter, setCourseInterestFilter] =
     useState("All Courses");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<ViewMode>("table");
   const [logActivityLead, setLogActivityLead] = useState<CRMLead | null>(null);
+
+  /** Parse lead dateAdded (e.g. "Jan 25, 2024") to Date for comparison */
+  function parseLeadDate(dateStr: string): Date | null {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    return isNaN(d.getTime()) ? null : d;
+  }
 
   const filtered = useMemo(() => {
     let list = crmLeads.filter((lead) => {
@@ -164,7 +173,13 @@ export default function CRMLeadsPage() {
       const matchCourse =
         courseInterestFilter === "All Courses" ||
         lead.courseInterest === courseInterestFilter;
-      if (!matchStage || !matchAssigned || !matchCourse) return false;
+      const leadDate = parseLeadDate(lead.dateAdded);
+      const matchDateFrom =
+        !dateFrom || (leadDate && leadDate >= new Date(dateFrom + "T00:00:00"));
+      const matchDateTo =
+        !dateTo || (leadDate && leadDate <= new Date(dateTo + "T23:59:59"));
+      if (!matchStage || !matchAssigned || !matchCourse || !matchDateFrom || !matchDateTo)
+        return false;
       switch (activeTab) {
         case "unassigned":
           return (
@@ -186,6 +201,8 @@ export default function CRMLeadsPage() {
     leadSourceFilter,
     assignedTo,
     courseInterestFilter,
+    dateFrom,
+    dateTo,
   ]);
 
   const totalPages = Math.ceil(filtered.length / PER_PAGE) || 1;
@@ -379,6 +396,32 @@ export default function CRMLeadsPage() {
                 </option>
               ))}
             </select>
+          </div>
+          <div className="lm-filter-group">
+            <label className="lm-filter-label" htmlFor="lm-date-from">
+              Date From
+            </label>
+            <input
+              id="lm-date-from"
+              type="date"
+              className="lm-filter-select lm-filter-date"
+              value={dateFrom}
+              onChange={(e) => setDateFrom(e.target.value)}
+              aria-label="Filter from date"
+            />
+          </div>
+          <div className="lm-filter-group">
+            <label className="lm-filter-label" htmlFor="lm-date-to">
+              Date To
+            </label>
+            <input
+              id="lm-date-to"
+              type="date"
+              className="lm-filter-select lm-filter-date"
+              value={dateTo}
+              onChange={(e) => setDateTo(e.target.value)}
+              aria-label="Filter to date"
+            />
           </div>
           <div className="lm-view-toggle">
             <button

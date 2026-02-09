@@ -75,7 +75,7 @@ export default function CourseDetailsOverview({ course }: CourseDetailsOverviewP
       </section>
 
       <section id="apply">
-        <LimitedOfferBanner />
+        <LimitedOfferBanner course={course} />
       </section>
     </div>
   );

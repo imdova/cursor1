@@ -282,6 +282,13 @@
   background-color: #fff;
 }
 
+.lm-filter-date {
+  min-width: 140px;
+  padding: 10px 12px;
+  background-image: none;
+  cursor: default;
+}
+
 .lm-search-inner {
   position: relative;
   flex: 1;
