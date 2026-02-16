@@ -1,24 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { courses } from "@/lib/data";
-import { Course } from "@/types/course";
 import CourseCurriculum from "@/components/CourseCurriculum";
 import CourseTabs from "@/components/CourseTabs";
+import Image from "next/image";
 
 export default function InstructorCourseDetailsPage() {
   const params = useParams();
   const router = useRouter();
   const courseId = params.id as string;
-  const [course, setCourse] = useState<Course | undefined>(undefined);
 
-  useEffect(() => {
-    const foundCourse = courses.find((c) => c.id === courseId);
-    setCourse(foundCourse);
-  }, [courseId]);
+  const course = courses.find((c) => c.id === courseId);
 
   if (!course) {
     return (
@@ -28,7 +23,7 @@ export default function InstructorCourseDetailsPage() {
           Course not found
         </h2>
         <p className="text-gray-600 mb-6">
-          The course you're looking for doesn't exist.
+          The course you&apos;re looking for doesn&apos;t exist.
         </p>
         <Link
           href="/instructor/courses"
@@ -43,12 +38,12 @@ export default function InstructorCourseDetailsPage() {
   const totalLectures =
     course.curriculum?.reduce(
       (acc, section) => acc + section.lectures.length,
-      0
+      0,
     ) || 0;
   const totalSections = course.curriculum?.length || 0;
   const discountPercentage = course.originalPrice
     ? Math.round(
-        ((course.originalPrice - course.price) / course.originalPrice) * 100
+        ((course.originalPrice - course.price) / course.originalPrice) * 100,
       )
     : 0;
 
@@ -124,9 +119,11 @@ export default function InstructorCourseDetailsPage() {
               </span>
             </div>
             <div className="flex items-center">
-              <img
+              <Image
                 src={course.instructorImage || `https://i.pravatar.cc/40?img=1`}
                 alt={course.instructor}
+                width={24}
+                height={24}
                 className="w-6 h-6 sm:w-8 sm:h-8 rounded-full mr-1 sm:mr-2"
               />
               <span className="truncate max-w-[120px] sm:max-w-none">
@@ -169,9 +166,11 @@ export default function InstructorCourseDetailsPage() {
                 className="relative w-full"
                 style={{ paddingBottom: "56.25%" }}
               >
-                <img
+                <Image
                   src={course.image}
                   alt={course.title}
+                  width={1200}
+                  height={675}
                   className="absolute top-0 left-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">

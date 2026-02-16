@@ -70,7 +70,6 @@ type Props = {
 
 export default function CategoryPageClient({
   categoryName,
-  categoryId,
   iconBg,
   subCategories,
   courses,
@@ -180,7 +179,7 @@ export default function CategoryPageClient({
           </Link>
           <div className="flex flex-wrap items-start gap-5">
             <div
-              className={`flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center ${iconBg}`}
+              className={`shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center ${iconBg}`}
               aria-hidden
             >
               <BookOpen className="h-7 w-7 sm:h-8 sm:w-8" strokeWidth={2} />
@@ -218,7 +217,7 @@ export default function CategoryPageClient({
         ) : (
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Left sidebar: filters */}
-            <aside className="lg:w-56 flex-shrink-0">
+            <aside className="lg:w-56 shrink-0">
               <div className="lg:sticky lg:top-24">
                 <button
                   type="button"

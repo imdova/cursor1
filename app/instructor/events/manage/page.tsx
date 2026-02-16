@@ -2,12 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { mockEvents } from '@/lib/eventData';
 import { Event } from '@/types/event';
 
 export default function ManageEventsPage() {
-  const router = useRouter();
   const [events, setEvents] = useState<Event[]>(mockEvents);
   const [filterStatus, setFilterStatus] = useState<string>('all');
 

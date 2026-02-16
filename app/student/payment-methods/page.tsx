@@ -18,7 +18,6 @@ import {
   ChevronRight,
   Check,
 } from "lucide-react";
-import { ROUTES } from "@/constants";
 
 type AddMethodTab = "card" | "bank" | "wallet";
 

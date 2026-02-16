@@ -4,16 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import type { SidebarProps } from "@/types/navigation";
+import Image from "next/image";
 
 function isPathActive(
   pathname: string,
   href: string,
-  children?: { href: string }[]
+  children?: { href: string }[],
 ): boolean {
   if (pathname === href) return true;
   if (children?.length) {
     return children.some(
-      (c) => pathname === c.href || pathname.startsWith(c.href + "/")
+      (c) => pathname === c.href || pathname.startsWith(c.href + "/"),
     );
   }
   return pathname.startsWith(href + "/");
@@ -58,7 +59,13 @@ export default function Sidebar({
     >
       <div className="p-6 border-b border-gray-200 bg-white">
         <Link href={logoHref} className="flex items-center space-x-3">
-          <img src={logoSrc} alt={logoAlt} className="h-10 w-auto" />
+          <Image
+            src={logoSrc}
+            alt={logoAlt}
+            className="h-10 w-auto"
+            width={100}
+            height={100}
+          />
           <div>
             <h2 className="font-bold text-gray-900">IMETS</h2>
             <p className="text-xs text-gray-500">{subtitle}</p>

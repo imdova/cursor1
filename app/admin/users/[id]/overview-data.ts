@@ -103,12 +103,10 @@ export function getPermissionsForUser(userId: string): PermissionRow[] {
   return defaultPermissions(userId);
 }
 
-export function getKPIForUser(_userId: string): UserKPI {
+export function getKPIForUser(): UserKPI {
   return defaultKPI();
 }
 
-export function getRecentActivityForUser(
-  _userId: string
-): RecentActivityItem[] {
+export function getRecentActivityForUser(): RecentActivityItem[] {
   return defaultRecentActivity();
 }

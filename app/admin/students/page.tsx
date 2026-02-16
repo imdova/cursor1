@@ -21,10 +21,10 @@ import {
   STUDENTS,
   STATUS_OPTIONS,
   COUNTRY_OPTIONS,
-  type Student,
   type StudentStatus,
 } from "./students-data";
 import "./students.css";
+import Image from "next/image";
 
 const PER_PAGE = 10;
 
@@ -246,7 +246,9 @@ export default function AdminStudentsPage() {
                       <td>
                         <div className="asm-student-cell">
                           {student.image ? (
-                            <img
+                            <Image
+                              width={40}
+                              height={40}
                               src={student.image}
                               alt=""
                               className="asm-avatar-img"

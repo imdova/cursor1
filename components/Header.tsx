@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Search, Menu, X } from "lucide-react";
+import { Search } from "lucide-react";
 import { ROUTES } from "@/constants";
 import { Container } from "@/components/ui";
 import CategoryMegaMenu from "./CategoryMegaMenu";
+import Image from "next/image";
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,9 +19,11 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-4 sm:space-x-6">
             <Link href={ROUTES.HOME} className="flex items-center">
-              <img
+              <Image
                 src="/images/logo.png"
                 alt="IMETS school of business"
+                width={100}
+                height={100}
                 className="h-8 sm:h-10 w-auto"
               />
             </Link>

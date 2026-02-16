@@ -47,7 +47,7 @@ export default function CertificateDesignPage() {
     "landscape"
   );
   const [zoom, setZoom] = useState(85);
-  const [templateName, setTemplateName] = useState(
+  const [templateName] = useState(
     "IMETS Certificate Builder Professional Template v2.1"
   );
   const [selectedElement, setSelectedElement] = useState<string | null>(
@@ -69,7 +69,7 @@ export default function CertificateDesignPage() {
   return (
     <div className="h-screen flex flex-col bg-gray-100">
       {/* Top Header */}
-      <header className="flex-shrink-0 bg-white border-b border-gray-200 px-4 py-3">
+      <header className="shrink-0 bg-white border-b border-gray-200 px-4 py-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <Link
@@ -145,7 +145,7 @@ export default function CertificateDesignPage() {
             >
               <ZoomOut className="h-4 w-4" strokeWidth={2} />
             </button>
-            <span className="min-w-[3rem] text-center text-sm font-medium text-gray-700">
+            <span className="min-w-12 text-center text-sm font-medium text-gray-700">
               {zoom}%
             </span>
             <button
@@ -191,7 +191,7 @@ export default function CertificateDesignPage() {
       {/* Main: sidebars + canvas */}
       <div className="flex-1 flex min-h-0">
         {/* Left: Elements Library */}
-        <aside className="w-64 flex-shrink-0 bg-white border-r border-gray-200 overflow-y-auto p-4">
+        <aside className="w-64 shrink-0 bg-white border-r border-gray-200 overflow-y-auto p-4">
           <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
             Elements Library
           </h2>
@@ -361,7 +361,7 @@ export default function CertificateDesignPage() {
         </main>
 
         {/* Right: Properties */}
-        <aside className="w-72 flex-shrink-0 bg-white border-l border-gray-200 overflow-y-auto p-4">
+        <aside className="w-72 shrink-0 bg-white border-l border-gray-200 overflow-y-auto p-4">
           <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
             Properties
           </h2>
@@ -517,7 +517,7 @@ export default function CertificateDesignPage() {
       </div>
 
       {/* Footer */}
-      <footer className="flex-shrink-0 bg-white border-t border-gray-200 px-4 py-2 flex items-center justify-between text-sm text-gray-500">
+      <footer className="shrink-0 bg-white border-t border-gray-200 px-4 py-2 flex items-center justify-between text-sm text-gray-500">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-green-500" />

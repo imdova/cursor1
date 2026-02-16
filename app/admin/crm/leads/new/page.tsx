@@ -50,7 +50,7 @@ export default function NewLeadPage() {
   const [location, setLocation] = useState("");
   const [specialty, setSpecialty] = useState<LeadSpecialty | "">("");
   const [courseInterests, setCourseInterests] = useState<string[]>([]);
-  const group = ""; // reserved (Group input removed from form)
+  // const group = ""; // reserved (Group input removed from form)
   const [leadSource, setLeadSource] = useState("Website");
   const [assignedTo, setAssignedTo] = useState("Sarah Jenkins (Admissions)");
   const [priority, setPriority] = useState<"cold" | "warm" | "hot">("warm");
@@ -356,7 +356,7 @@ export default function NewLeadPage() {
           </div>
 
           {/* Right sidebar - Real-Time Lead Scoring */}
-          <aside className="lg:w-80 flex-shrink-0">
+          <aside className="lg:w-80 shrink-0">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-6">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
                 Real-Time Lead Scoring

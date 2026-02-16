@@ -165,7 +165,7 @@ export default function CRMLeadsPage() {
   }
 
   const filtered = useMemo(() => {
-    let list = crmLeads.filter((lead) => {
+    const list = crmLeads.filter((lead) => {
       const matchSearch =
         !search ||
         lead.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -204,17 +204,7 @@ export default function CRMLeadsPage() {
       }
     });
     return list;
-  }, [
-    search,
-    activeTab,
-    leadStage,
-    leadSourceFilter,
-    assignedTo,
-    courseInterestFilter,
-    specialtyFilter,
-    dateFrom,
-    dateTo,
-  ]);
+  }, [search, activeTab, leadStage, assignedTo, courseInterestFilter, specialtyFilter, dateFrom, dateTo]);
 
   const totalPages = Math.ceil(filtered.length / PER_PAGE) || 1;
   const currentPage = Math.min(page, totalPages);

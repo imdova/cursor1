@@ -42,11 +42,11 @@ export default function UserActivityLogPage() {
   const staff = getStaffMemberById(id);
   const [searchTerm, setSearchTerm] = useState("");
   const [activityFilter, setActivityFilter] = useState("all");
-  const [dateRange, setDateRange] = useState("Oct 01, 2023 - Oct 24, 2023");
+  const [dateRange] = useState("Oct 01, 2023 - Oct 24, 2023");
   const [page, setPage] = useState(1);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<AuditLogEntry | null>(
-    null
+    null,
   );
 
   const filtered = useMemo(() => {
@@ -93,10 +93,10 @@ export default function UserActivityLogPage() {
     staff.role === "admin"
       ? "Senior Academic Admin"
       : staff.role === "instructor"
-      ? "Instructor"
-      : staff.role === "counselor"
-      ? "Counselor"
-      : "Finance Officer";
+        ? "Instructor"
+        : staff.role === "counselor"
+          ? "Counselor"
+          : "Finance Officer";
 
   return (
     <div className="ual-page">
@@ -128,8 +128,8 @@ export default function UserActivityLogPage() {
                     {staff.status === "active"
                       ? "ACTIVE"
                       : staff.status === "on-leave"
-                      ? "ON LEAVE"
-                      : "INACTIVE"}
+                        ? "ON LEAVE"
+                        : "INACTIVE"}
                   </span>
                 </div>
                 <p className="ual-profile-role">

@@ -9,7 +9,7 @@ export default function EventsOverviewPage() {
   const [events] = useState<Event[]>(mockEvents);
 
   const upcomingEvents = events.filter((e) => e.status === 'published' || e.status === 'draft');
-  const completedEvents = events.filter((e) => e.status === 'completed');
+  // const completedEvents = events.filter((e) => e.status === 'completed');
   const totalAttendees = events.reduce((sum, e) => sum + e.currentAttendees, 0);
   const totalRevenue = events.reduce((sum, e) => sum + (e.price * e.currentAttendees), 0);
 
@@ -166,24 +166,24 @@ export default function EventsOverviewPage() {
         </div>
         <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
           <div className="flex items-start sm:items-center space-x-3 sm:space-x-4">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center shrink-0">
               <span className="text-sm sm:text-base">✓</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-gray-900 text-sm sm:text-base">New registration</p>
-              <p className="text-xs sm:text-sm text-gray-600 truncate">John Doe registered for "Web Development Workshop"</p>
+              <p className="text-xs sm:text-sm text-gray-600 truncate">John Doe registered for &quot;Web Development Workshop&quot;</p>
             </div>
-            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap flex-shrink-0">2h ago</span>
+            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap shrink-0">2h ago</span>
           </div>
           <div className="flex items-start sm:items-center space-x-3 sm:space-x-4">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
               <span className="text-sm sm:text-base">📝</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-gray-900 text-sm sm:text-base">Event created</p>
-              <p className="text-xs sm:text-sm text-gray-600 truncate">You created "Data Science Bootcamp"</p>
+              <p className="text-xs sm:text-sm text-gray-600 truncate">You created &quot;Data Science Bootcamp&quot;</p>
             </div>
-            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap flex-shrink-0">1d ago</span>
+            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap shrink-0">1d ago</span>
           </div>
         </div>
       </div>

@@ -958,7 +958,7 @@ export default function StudentQuizPage() {
     const passed = quiz.passingPct != null ? pct >= quiz.passingPct : pct >= 70;
     const pointsEarned = Math.round((score.correct / score.total) * 20);
     const pointsMax = 20;
-    const incorrectCount = score.total - score.correct;
+    // const incorrectCount = score.total - score.correct;
     const correctIndices = quiz.questions
       .map((q, i) => (submittedAnswers[i] === q.correctIndex ? i : -1))
       .filter((i) => i >= 0);

@@ -14,12 +14,8 @@ import {
 } from "lucide-react";
 import { categories } from "@/lib/data";
 import CourseCompleteness from "@/components/CourseCompleteness";
-import {
-  CourseModule,
-  CourseLesson,
-  DiscountCoupon,
-  CourseFormData,
-} from "@/types/courseForm";
+import { CourseModule, CourseLesson, CourseFormData } from "@/types/courseForm";
+import Image from "next/image";
 
 const COURSE_TYPES = [
   "Certificate",
@@ -39,7 +35,7 @@ export default function CreateCoursePage() {
   const [tagInput, setTagInput] = useState("");
   const [pricingExpanded, setPricingExpanded] = useState(false);
   const [collapsedModules, setCollapsedModules] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [formData, setFormData] = useState<CourseFormData>({
     title: "",
@@ -89,12 +85,12 @@ export default function CreateCoursePage() {
     return cat?.subCategories ?? [];
   }, [formData.category]);
 
-  const progressPercentage = Math.round((currentStep / steps.length) * 100);
+  // const progressPercentage = Math.round((currentStep / steps.length) * 100);
 
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     const numericFields = [
@@ -181,7 +177,7 @@ export default function CreateCoursePage() {
     setFormData((prev) => ({
       ...prev,
       modules: prev.modules.map((m) =>
-        m.id === moduleId ? { ...m, title } : m
+        m.id === moduleId ? { ...m, title } : m,
       ),
     }));
   };
@@ -194,13 +190,13 @@ export default function CreateCoursePage() {
   };
 
   const addLesson = (moduleId: string) => {
-    const module = formData.modules.find((m) => m.id === moduleId);
-    if (!module) return;
+    const targetModule = formData.modules.find((m) => m.id === moduleId);
+    if (!targetModule) return;
 
     const newLesson: CourseLesson = {
-      id: `lesson-${Date.now()}`,
+      id: `lesson-${crypto.randomUUID()}`, // also fixing Date.now purity issue
       title: "",
-      order: module.lessons.length + 1,
+      order: targetModule.lessons.length + 1,
       contentType: "video",
       isPreview: false,
     };
@@ -208,7 +204,7 @@ export default function CreateCoursePage() {
     setFormData((prev) => ({
       ...prev,
       modules: prev.modules.map((m) =>
-        m.id === moduleId ? { ...m, lessons: [...m.lessons, newLesson] } : m
+        m.id === moduleId ? { ...m, lessons: [...m.lessons, newLesson] } : m,
       ),
     }));
   };
@@ -216,7 +212,7 @@ export default function CreateCoursePage() {
   const updateLesson = (
     moduleId: string,
     lessonId: string,
-    updates: Partial<CourseLesson>
+    updates: Partial<CourseLesson>,
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -225,10 +221,10 @@ export default function CreateCoursePage() {
           ? {
               ...m,
               lessons: m.lessons.map((l) =>
-                l.id === lessonId ? { ...l, ...updates } : l
+                l.id === lessonId ? { ...l, ...updates } : l,
               ),
             }
-          : m
+          : m,
       ),
     }));
   };
@@ -239,53 +235,53 @@ export default function CreateCoursePage() {
       modules: prev.modules.map((m) =>
         m.id === moduleId
           ? { ...m, lessons: m.lessons.filter((l) => l.id !== lessonId) }
-          : m
+          : m,
       ),
     }));
   };
 
-  const handleLessonFileUpload = (
-    moduleId: string,
-    lessonId: string,
-    file: File,
-    type: "video" | "pdf"
-  ) => {
-    updateLesson(moduleId, lessonId, {
-      contentType: type,
-      fileName: file.name,
-      contentUrl: URL.createObjectURL(file),
-    });
-  };
+  // const handleLessonFileUpload = (
+  //   moduleId: string,
+  //   lessonId: string,
+  //   file: File,
+  //   type: "video" | "pdf"
+  // ) => {
+  //   updateLesson(moduleId, lessonId, {
+  //     contentType: type,
+  //     fileName: file.name,
+  //     contentUrl: URL.createObjectURL(file),
+  //   });
+  // };
 
-  // Coupon Management
-  const addCoupon = () => {
-    const newCoupon: DiscountCoupon = {
-      id: `coupon-${Date.now()}`,
-      code: "",
-      discount: 0,
-      expiryDate: "",
-    };
-    setFormData((prev) => ({
-      ...prev,
-      coupons: [...prev.coupons, newCoupon],
-    }));
-  };
+  // // Coupon Management
+  // const addCoupon = () => {
+  //   const newCoupon: DiscountCoupon = {
+  //     id: `coupon-${Date.now()}`,
+  //     code: "",
+  //     discount: 0,
+  //     expiryDate: "",
+  //   };
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     coupons: [...prev.coupons, newCoupon],
+  //   }));
+  // };
 
-  const updateCoupon = (couponId: string, updates: Partial<DiscountCoupon>) => {
-    setFormData((prev) => ({
-      ...prev,
-      coupons: prev.coupons.map((c) =>
-        c.id === couponId ? { ...c, ...updates } : c
-      ),
-    }));
-  };
+  // const updateCoupon = (couponId: string, updates: Partial<DiscountCoupon>) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     coupons: prev.coupons.map((c) =>
+  //       c.id === couponId ? { ...c, ...updates } : c
+  //     ),
+  //   }));
+  // };
 
-  const deleteCoupon = (couponId: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      coupons: prev.coupons.filter((c) => c.id !== couponId),
-    }));
-  };
+  // const deleteCoupon = (couponId: string) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     coupons: prev.coupons.filter((c) => c.id !== couponId),
+  //   }));
+  // };
 
   const handleSaveDraft = () => {
     alert("Draft saved successfully!");
@@ -315,13 +311,13 @@ export default function CreateCoursePage() {
       acc +
       module.lessons.filter((l) => l.contentType === "video" && l.contentUrl)
         .length,
-    0
+    0,
   );
   const hasResources = formData.modules.some((m) =>
-    m.lessons.some((l) => l.contentType === "pdf" && l.contentUrl)
+    m.lessons.some((l) => l.contentType === "pdf" && l.contentUrl),
   );
   const hasPreview = formData.modules.some((m) =>
-    m.lessons.some((l) => l.isPreview)
+    m.lessons.some((l) => l.isPreview),
   );
 
   return (
@@ -584,7 +580,7 @@ export default function CreateCoursePage() {
                       </div>
                       {/* Row 1: EGP (always visible) */}
                       <div className="mb-4 flex flex-wrap items-start gap-4">
-                        <div className="flex items-center gap-2 min-w-[4.5rem] shrink-0 pt-6">
+                        <div className="flex items-center gap-2 min-w-18 shrink-0 pt-6">
                           <span
                             className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-amber-700"
                             aria-hidden
@@ -653,7 +649,7 @@ export default function CreateCoursePage() {
                       {pricingExpanded && (
                         <>
                           <div className="mb-4 flex flex-wrap items-start gap-4">
-                            <div className="flex items-center gap-2 min-w-[4.5rem] shrink-0 pt-6">
+                            <div className="flex items-center gap-2 min-w-18 shrink-0 pt-6">
                               <span
                                 className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"
                                 aria-hidden
@@ -720,7 +716,7 @@ export default function CreateCoursePage() {
                             </div>
                           </div>
                           <div className="flex flex-wrap items-start gap-4">
-                            <div className="flex items-center gap-2 min-w-[4.5rem] shrink-0 pt-6">
+                            <div className="flex items-center gap-2 min-w-18 shrink-0 pt-6">
                               <span
                                 className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-100 text-sky-700"
                                 aria-hidden
@@ -940,7 +936,7 @@ export default function CreateCoursePage() {
                                             if (confirm("Delete this lesson?"))
                                               deleteLesson(
                                                 module.id,
-                                                lesson.id
+                                                lesson.id,
                                               );
                                           }}
                                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md shrink-0 transition-colors"
@@ -1046,9 +1042,11 @@ export default function CreateCoursePage() {
                     >
                       {formData.thumbnailPreview ? (
                         <div className="space-y-3">
-                          <img
+                          <Image
                             src={formData.thumbnailPreview}
                             alt="Preview"
+                            width={500}
+                            height={500}
                             className="w-full aspect-video object-cover rounded-lg"
                           />
                           <button
@@ -1131,7 +1129,7 @@ export default function CreateCoursePage() {
                                 {lang}
                               </button>
                             );
-                          }
+                          },
                         )}
                       </div>
                       {formData.languages?.length > 0 && (

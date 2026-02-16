@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, User } from "lucide-react";
+import { User } from "lucide-react";
 import type { CRMLead } from "@/lib/crmData";
 import { coursesOfInterest } from "@/lib/crmData";
 
@@ -25,7 +25,7 @@ export default function LogActivityModal({
 }: LogActivityModalProps) {
   const [customerName] = useState(lead.name);
   const [courseInterest, setCourseInterest] = useState(
-    lead.courseInterest || ""
+    lead.courseInterest || "",
   );
   const [pipelineStage, setPipelineStage] =
     useState<(typeof PIPELINE_STAGES)[number]>("CONTACTED");

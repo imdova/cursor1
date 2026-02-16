@@ -35,7 +35,15 @@ import "./group-detail.css";
 
 const STUDENTS_PER_PAGE = 4;
 
-const SCHEDULE_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
+const SCHEDULE_DAYS = [
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+  "Sun",
+] as const;
 
 function periodToDateInput(periodStr: string): string {
   if (!periodStr?.trim()) return "";
@@ -69,7 +77,7 @@ export default function GroupDetailPage() {
   >("students");
   const [studentPage, setStudentPage] = useState(1);
   const [enrolledStudents, setEnrolledStudents] = useState<EnrolledStudent[]>(
-    []
+    [],
   );
   const [addStudentSearch, setAddStudentSearch] = useState("");
   const [assignedLmsList, setAssignedLmsList] = useState<string[]>([]);
@@ -82,8 +90,11 @@ export default function GroupDetailPage() {
   const [scheduleEndDate, setScheduleEndDate] = useState("");
   const [scheduleStudyDays, setScheduleStudyDays] = useState<string[]>([]);
   const [enrollModalOpen, setEnrollModalOpen] = useState(false);
-  const [deleteStudent, setDeleteStudent] = useState<EnrolledStudent | null>(null);
-  const [transferStudent, setTransferStudent] = useState<EnrolledStudent | null>(null);
+  const [deleteStudent, setDeleteStudent] = useState<EnrolledStudent | null>(
+    null,
+  );
+  const [transferStudent, setTransferStudent] =
+    useState<EnrolledStudent | null>(null);
   const [transferTargetGroupId, setTransferTargetGroupId] = useState("");
   const [studentListSearch, setStudentListSearch] = useState("");
 
@@ -103,26 +114,13 @@ export default function GroupDetailPage() {
 
   const toggleScheduleDay = (day: string) => {
     setScheduleStudyDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day],
     );
   };
 
-  if (!data) {
-    return (
-      <div className="gd-page">
-        <div className="gd-not-found">
-          <p>Group not found.</p>
-          <Link href={ROUTES.ADMIN.GROUPS} className="gd-back-link">
-            ← Back to Groups
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   const enrolledIds = useMemo(
     () => new Set(enrolledStudents.map((s) => s.studentId)),
-    [enrolledStudents]
+    [enrolledStudents],
   );
   const searchResults = useMemo(() => {
     if (!addStudentSearch.trim()) return [];
@@ -130,7 +128,8 @@ export default function GroupDetailPage() {
     return SEARCHABLE_STUDENTS.filter(
       (s) =>
         !enrolledIds.has(s.studentId) &&
-        (s.name.toLowerCase().includes(q) || s.studentId.toLowerCase().includes(q))
+        (s.name.toLowerCase().includes(q) ||
+          s.studentId.toLowerCase().includes(q)),
     ).slice(0, 8);
   }, [addStudentSearch, enrolledIds]);
 
@@ -141,7 +140,7 @@ export default function GroupDetailPage() {
       (s) =>
         s.name.toLowerCase().includes(q) ||
         s.studentId.toLowerCase().includes(q) ||
-        (s.email ?? "").toLowerCase().includes(q)
+        (s.email ?? "").toLowerCase().includes(q),
     );
   }, [enrolledStudents, studentListSearch]);
 
@@ -157,14 +156,19 @@ export default function GroupDetailPage() {
       ? 0
       : Math.min(
           currentStudentPage * STUDENTS_PER_PAGE,
-          filteredEnrolledStudents.length
+          filteredEnrolledStudents.length,
         );
   const paginatedStudents = filteredEnrolledStudents.slice(
     (currentStudentPage - 1) * STUDENTS_PER_PAGE,
-    currentStudentPage * STUDENTS_PER_PAGE
+    currentStudentPage * STUDENTS_PER_PAGE,
   );
 
-  const addStudentToList = (studentId: string, name: string, initials: string, email?: string) => {
+  const addStudentToList = (
+    studentId: string,
+    name: string,
+    initials: string,
+    email?: string,
+  ) => {
     const newStudent: EnrolledStudent = {
       id: `added-${studentId}-${Date.now()}`,
       studentId,
@@ -182,16 +186,21 @@ export default function GroupDetailPage() {
     };
     setEnrolledStudents((prev) => [...prev, newStudent]);
     setAddStudentSearch("");
-    setStudentPage(Math.ceil((enrolledStudents.length + 1) / STUDENTS_PER_PAGE));
+    setStudentPage(
+      Math.ceil((enrolledStudents.length + 1) / STUDENTS_PER_PAGE),
+    );
   };
 
   const removeStudentFromList = (studentId: string) => {
     setEnrolledStudents((prev) => prev.filter((s) => s.id !== studentId));
   };
 
-  const updateStudentStatus = (studentId: string, status: EnrolledStudent["status"]) => {
+  const updateStudentStatus = (
+    studentId: string,
+    status: EnrolledStudent["status"],
+  ) => {
     setEnrolledStudents((prev) =>
-      prev.map((s) => (s.id === studentId ? { ...s, status } : s))
+      prev.map((s) => (s.id === studentId ? { ...s, status } : s)),
     );
   };
 
@@ -206,7 +215,7 @@ export default function GroupDetailPage() {
   };
 
   const availableLmsToAdd = AVAILABLE_LMS_COURSES.filter(
-    (c) => !assignedLmsList.includes(c.code)
+    (c) => !assignedLmsList.includes(c.code),
   );
 
   const addInstructorToGroup = (instructorId: string) => {
@@ -217,12 +226,12 @@ export default function GroupDetailPage() {
 
   const removeInstructorFromGroup = (instructorId: string) => {
     setAssignedInstructorsList((prev) =>
-      prev.filter((id) => id !== instructorId)
+      prev.filter((id) => id !== instructorId),
     );
   };
 
   const availableInstructorsToAdd = AVAILABLE_INSTRUCTORS.filter(
-    (i) => !assignedInstructorsList.includes(i.id)
+    (i) => !assignedInstructorsList.includes(i.id),
   );
 
   const tabs = [
@@ -235,6 +244,18 @@ export default function GroupDetailPage() {
     { id: "instructors" as const, label: "Instructors", icon: User },
     { id: "assigned-lms" as const, label: "Assigned LMS", icon: BookOpen },
   ];
+  if (!data) {
+    return (
+      <div className="gd-page">
+        <div className="gd-not-found">
+          <p>Group not found.</p>
+          <Link href={ROUTES.ADMIN.GROUPS} className="gd-back-link">
+            ← Back to Groups
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="gd-page">
@@ -267,31 +288,40 @@ export default function GroupDetailPage() {
           <p className="gd-course-name">{data.courseName}</p>
           <div className="gd-meta">
             <span className="gd-meta-item gd-meta-period">
-              <Calendar className="gd-meta-icon gd-meta-icon-period" strokeWidth={2} />
+              <Calendar
+                className="gd-meta-icon gd-meta-icon-period"
+                strokeWidth={2}
+              />
               <span className="gd-meta-label">Period</span>
               {formatPeriod(data.periodStart, data.periodEnd)}
             </span>
             <span className="gd-meta-item gd-meta-days">
-              <CalendarDays className="gd-meta-icon gd-meta-icon-days" strokeWidth={2} />
+              <CalendarDays
+                className="gd-meta-icon gd-meta-icon-days"
+                strokeWidth={2}
+              />
               <span className="gd-meta-label">Study Days</span>
               {data.studyDays?.length ? data.studyDays.join(", ") : "—"}
             </span>
             <span className="gd-meta-item gd-meta-created">
-              <Clock className="gd-meta-icon gd-meta-icon-created" strokeWidth={2} />
+              <Clock
+                className="gd-meta-icon gd-meta-icon-created"
+                strokeWidth={2}
+              />
               <span className="gd-meta-label">Created At</span>
               {data.createdAt || "—"}
             </span>
             <span className="gd-meta-item gd-meta-students">
-              <Users className="gd-meta-icon gd-meta-icon-students" strokeWidth={2} />
+              <Users
+                className="gd-meta-icon gd-meta-icon-students"
+                strokeWidth={2}
+              />
               {data.studentsEnrolled} Students Enrolled
             </span>
           </div>
         </div>
         <div className="gd-header-actions">
-          <Link
-            href={`${ROUTES.ADMIN.GROUP(id)}/edit`}
-            className="gd-btn-edit"
-          >
+          <Link href={`${ROUTES.ADMIN.GROUP(id)}/edit`} className="gd-btn-edit">
             <Pencil className="gd-btn-icon" strokeWidth={2} />
             Edit Group
           </Link>
@@ -324,7 +354,11 @@ export default function GroupDetailPage() {
           <div className="gd-tab-panel">
             <div className="gd-panel-header">
               <h2 className="gd-panel-title">
-                Enrolled Students ({studentListSearch.trim() ? filteredEnrolledStudents.length : enrolledStudents.length})
+                Enrolled Students (
+                {studentListSearch.trim()
+                  ? filteredEnrolledStudents.length
+                  : enrolledStudents.length}
+                )
               </h2>
               <div className="gd-panel-actions">
                 <div className="gd-panel-search-wrap">
@@ -386,7 +420,9 @@ export default function GroupDetailPage() {
                           <div className="gd-student-avatar">{s.initials}</div>
                           <div>
                             <span className="gd-student-name">{s.name}</span>
-                            <span className="gd-student-email">{s.email || "—"}</span>
+                            <span className="gd-student-email">
+                              {s.email || "—"}
+                            </span>
                           </div>
                         </div>
                       </td>
@@ -396,15 +432,29 @@ export default function GroupDetailPage() {
                       <td>{s.enrollmentDate}</td>
                       <td>{s.enrolledBy ?? "—"}</td>
                       <td className="gd-student-course">{s.course ?? "—"}</td>
-                      <td>{typeof s.paidAmount === "number" ? s.paidAmount.toLocaleString() : (s.paidAmount ?? "—")}</td>
-                      <td>{typeof s.remainingAmount === "number" ? s.remainingAmount.toLocaleString() : (s.remainingAmount ?? "—")}</td>
+                      <td>
+                        {typeof s.paidAmount === "number"
+                          ? s.paidAmount.toLocaleString()
+                          : (s.paidAmount ?? "—")}
+                      </td>
+                      <td>
+                        {typeof s.remainingAmount === "number"
+                          ? s.remainingAmount.toLocaleString()
+                          : (s.remainingAmount ?? "—")}
+                      </td>
                       <td className="gd-next-installment-cell">
-                        {s.nextInstallmentAmount != null && Number(s.nextInstallmentAmount) > 0 && s.nextInstallmentDate
+                        {s.nextInstallmentAmount != null &&
+                        Number(s.nextInstallmentAmount) > 0 &&
+                        s.nextInstallmentDate
                           ? `${typeof s.nextInstallmentAmount === "number" ? s.nextInstallmentAmount.toLocaleString() : s.nextInstallmentAmount} · ${s.nextInstallmentDate}`
-                          : s.nextInstallmentDate && s.nextInstallmentDate !== "—"
+                          : s.nextInstallmentDate &&
+                              s.nextInstallmentDate !== "—"
                             ? s.nextInstallmentDate
-                            : s.nextInstallmentAmount != null && Number(s.nextInstallmentAmount) > 0
-                              ? (typeof s.nextInstallmentAmount === "number" ? s.nextInstallmentAmount.toLocaleString() : String(s.nextInstallmentAmount))
+                            : s.nextInstallmentAmount != null &&
+                                Number(s.nextInstallmentAmount) > 0
+                              ? typeof s.nextInstallmentAmount === "number"
+                                ? s.nextInstallmentAmount.toLocaleString()
+                                : String(s.nextInstallmentAmount)
                               : "—"}
                       </td>
                       <td>
@@ -414,7 +464,10 @@ export default function GroupDetailPage() {
                           aria-checked={s.status === "Active"}
                           className={`gd-status-toggle ${s.status === "Active" ? "gd-status-toggle-on" : ""}`}
                           onClick={() =>
-                            updateStudentStatus(s.id, s.status === "Active" ? "On Leave" : "Active")
+                            updateStudentStatus(
+                              s.id,
+                              s.status === "Active" ? "On Leave" : "Active",
+                            )
                           }
                           title={s.status === "Active" ? "Active" : "On Leave"}
                         >
@@ -433,7 +486,10 @@ export default function GroupDetailPage() {
                             title="Transfer to another group"
                             aria-label="Transfer to another group"
                           >
-                            <ArrowRightLeft className="gd-action-svg" strokeWidth={2} />
+                            <ArrowRightLeft
+                              className="gd-action-svg"
+                              strokeWidth={2}
+                            />
                           </button>
                           <button
                             type="button"
@@ -453,8 +509,8 @@ export default function GroupDetailPage() {
             </div>
             <div className="gd-pagination">
               <p className="gd-pagination-text">
-                Showing {startItem} to {endItem} of {filteredEnrolledStudents.length}{" "}
-                students
+                Showing {startItem} to {endItem} of{" "}
+                {filteredEnrolledStudents.length} students
               </p>
               <div className="gd-pagination-controls">
                 <button
@@ -478,7 +534,7 @@ export default function GroupDetailPage() {
                     >
                       {p}
                     </button>
-                  )
+                  ),
                 )}
                 <button
                   type="button"
@@ -500,12 +556,18 @@ export default function GroupDetailPage() {
           <div className="gd-tab-panel">
             <div className="gd-schedule-card">
               <div className="gd-schedule-header">
-                <CalendarDays className="gd-schedule-header-icon" strokeWidth={2} />
+                <CalendarDays
+                  className="gd-schedule-header-icon"
+                  strokeWidth={2}
+                />
                 <h2 className="gd-schedule-title">Timeline & Schedule</h2>
               </div>
               <div className="gd-schedule-dates">
                 <div className="gd-schedule-field">
-                  <label htmlFor="gd-schedule-start" className="gd-schedule-label">
+                  <label
+                    htmlFor="gd-schedule-start"
+                    className="gd-schedule-label"
+                  >
                     Start Date
                   </label>
                   <div className="gd-schedule-date-wrap">
@@ -517,11 +579,18 @@ export default function GroupDetailPage() {
                       onChange={(e) => setScheduleStartDate(e.target.value)}
                       aria-label="Start date"
                     />
-                    <Calendar className="gd-schedule-date-icon" strokeWidth={2} aria-hidden />
+                    <Calendar
+                      className="gd-schedule-date-icon"
+                      strokeWidth={2}
+                      aria-hidden
+                    />
                   </div>
                 </div>
                 <div className="gd-schedule-field">
-                  <label htmlFor="gd-schedule-end" className="gd-schedule-label">
+                  <label
+                    htmlFor="gd-schedule-end"
+                    className="gd-schedule-label"
+                  >
                     End Date
                   </label>
                   <div className="gd-schedule-date-wrap">
@@ -533,7 +602,11 @@ export default function GroupDetailPage() {
                       onChange={(e) => setScheduleEndDate(e.target.value)}
                       aria-label="End date"
                     />
-                    <Calendar className="gd-schedule-date-icon" strokeWidth={2} aria-hidden />
+                    <Calendar
+                      className="gd-schedule-date-icon"
+                      strokeWidth={2}
+                      aria-hidden
+                    />
                   </div>
                 </div>
               </div>
@@ -545,7 +618,9 @@ export default function GroupDetailPage() {
                       key={day}
                       type="button"
                       className={`gd-schedule-day-pill ${
-                        scheduleStudyDays.includes(day) ? "gd-schedule-day-pill-active" : ""
+                        scheduleStudyDays.includes(day)
+                          ? "gd-schedule-day-pill-active"
+                          : ""
                       }`}
                       onClick={() => toggleScheduleDay(day)}
                       aria-pressed={scheduleStudyDays.includes(day)}
@@ -602,10 +677,15 @@ export default function GroupDetailPage() {
             {assignedInstructorsList.length > 0 ? (
               <ul className="gd-instructors-list">
                 {assignedInstructorsList.map((instId) => {
-                  const inst = AVAILABLE_INSTRUCTORS.find((i) => i.id === instId);
+                  const inst = AVAILABLE_INSTRUCTORS.find(
+                    (i) => i.id === instId,
+                  );
                   return (
                     <li key={instId} className="gd-instructors-item">
-                      <User className="gd-instructors-item-icon" strokeWidth={2} />
+                      <User
+                        className="gd-instructors-item-icon"
+                        strokeWidth={2}
+                      />
                       <span className="gd-instructors-item-name">
                         {inst?.name ?? instId}
                       </span>
@@ -662,7 +742,9 @@ export default function GroupDetailPage() {
                 <button
                   type="button"
                   className="gd-lms-add-btn"
-                  onClick={() => lmsCourseToAdd && addLmsToGroup(lmsCourseToAdd)}
+                  onClick={() =>
+                    lmsCourseToAdd && addLmsToGroup(lmsCourseToAdd)
+                  }
                   disabled={!lmsCourseToAdd}
                   aria-label="Add course"
                 >
@@ -673,13 +755,17 @@ export default function GroupDetailPage() {
             {assignedLmsList.length > 0 ? (
               <ul className="gd-lms-list">
                 {assignedLmsList.map((code) => {
-                  const course = AVAILABLE_LMS_COURSES.find((c) => c.code === code);
+                  const course = AVAILABLE_LMS_COURSES.find(
+                    (c) => c.code === code,
+                  );
                   return (
                     <li key={code} className="gd-lms-item">
                       <BookOpen className="gd-lms-item-icon" strokeWidth={2} />
                       <span className="gd-lms-item-code">{code}</span>
                       {course && (
-                        <span className="gd-lms-item-title">{course.title}</span>
+                        <span className="gd-lms-item-title">
+                          {course.title}
+                        </span>
                       )}
                       <button
                         type="button"
@@ -695,7 +781,10 @@ export default function GroupDetailPage() {
                 })}
               </ul>
             ) : (
-              <p className="gd-placeholder">No LMS courses assigned to this group yet. Use the dropdown above to add one.</p>
+              <p className="gd-placeholder">
+                No LMS courses assigned to this group yet. Use the dropdown
+                above to add one.
+              </p>
             )}
           </div>
         )}
@@ -708,11 +797,18 @@ export default function GroupDetailPage() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="gd-modal-enroll-title"
-          onClick={(e) => e.target === e.currentTarget && setEnrollModalOpen(false)}
+          onClick={(e) =>
+            e.target === e.currentTarget && setEnrollModalOpen(false)
+          }
         >
-          <div className="gd-modal gd-modal-enroll" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="gd-modal gd-modal-enroll"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="gd-modal-header">
-              <h2 id="gd-modal-enroll-title" className="gd-modal-title">Enroll student</h2>
+              <h2 id="gd-modal-enroll-title" className="gd-modal-title">
+                Enroll student
+              </h2>
               <button
                 type="button"
                 className="gd-modal-close"
@@ -723,7 +819,9 @@ export default function GroupDetailPage() {
               </button>
             </div>
             <div className="gd-modal-body">
-              <p className="gd-modal-desc">Search by name or ID and add students to this group.</p>
+              <p className="gd-modal-desc">
+                Search by name or ID and add students to this group.
+              </p>
               <div className="gd-modal-search-wrap">
                 <Search className="gd-modal-search-icon" strokeWidth={2} />
                 <input
@@ -741,13 +839,20 @@ export default function GroupDetailPage() {
                     <li key={s.id} className="gd-modal-student-item">
                       <span className="gd-modal-student-info">
                         <span className="gd-modal-student-name">{s.name}</span>
-                        <span className="gd-modal-student-id">{s.studentId}</span>
+                        <span className="gd-modal-student-id">
+                          {s.studentId}
+                        </span>
                       </span>
                       <button
                         type="button"
                         className="gd-modal-add-btn"
                         onClick={() => {
-                          addStudentToList(s.studentId, s.name, s.initials, s.email);
+                          addStudentToList(
+                            s.studentId,
+                            s.name,
+                            s.initials,
+                            s.email,
+                          );
                           setAddStudentSearch("");
                         }}
                         aria-label={`Add ${s.name}`}
@@ -759,7 +864,9 @@ export default function GroupDetailPage() {
                 </ul>
               )}
               {addStudentSearch.trim() && searchResults.length === 0 && (
-                <p className="gd-modal-no-results">No matching students or already enrolled.</p>
+                <p className="gd-modal-no-results">
+                  No matching students or already enrolled.
+                </p>
               )}
             </div>
             <div className="gd-modal-footer">
@@ -782,11 +889,18 @@ export default function GroupDetailPage() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="gd-modal-delete-title"
-          onClick={(e) => e.target === e.currentTarget && setDeleteStudent(null)}
+          onClick={(e) =>
+            e.target === e.currentTarget && setDeleteStudent(null)
+          }
         >
-          <div className="gd-modal gd-modal-delete" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="gd-modal gd-modal-delete"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="gd-modal-header">
-              <h2 id="gd-modal-delete-title" className="gd-modal-title">Remove from group</h2>
+              <h2 id="gd-modal-delete-title" className="gd-modal-title">
+                Remove from group
+              </h2>
               <button
                 type="button"
                 className="gd-modal-close"
@@ -798,7 +912,9 @@ export default function GroupDetailPage() {
             </div>
             <div className="gd-modal-body">
               <p className="gd-modal-desc">
-                Remove <strong>{deleteStudent.name}</strong> ({deleteStudent.studentId}) from this group? They will need to be re-enrolled to join again.
+                Remove <strong>{deleteStudent.name}</strong> (
+                {deleteStudent.studentId}) from this group? They will need to be
+                re-enrolled to join again.
               </p>
             </div>
             <div className="gd-modal-footer">
@@ -831,11 +947,18 @@ export default function GroupDetailPage() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="gd-modal-transfer-title"
-          onClick={(e) => e.target === e.currentTarget && setTransferStudent(null)}
+          onClick={(e) =>
+            e.target === e.currentTarget && setTransferStudent(null)
+          }
         >
-          <div className="gd-modal gd-modal-transfer" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="gd-modal gd-modal-transfer"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="gd-modal-header">
-              <h2 id="gd-modal-transfer-title" className="gd-modal-title">Transfer to another group</h2>
+              <h2 id="gd-modal-transfer-title" className="gd-modal-title">
+                Transfer to another group
+              </h2>
               <button
                 type="button"
                 className="gd-modal-close"
@@ -847,9 +970,13 @@ export default function GroupDetailPage() {
             </div>
             <div className="gd-modal-body">
               <p className="gd-modal-desc">
-                Transfer <strong>{transferStudent.name}</strong> ({transferStudent.studentId}) to another group.
+                Transfer <strong>{transferStudent.name}</strong> (
+                {transferStudent.studentId}) to another group.
               </p>
-              <label htmlFor="gd-transfer-group-select" className="gd-modal-label">
+              <label
+                htmlFor="gd-transfer-group-select"
+                className="gd-modal-label"
+              >
                 Select target group
               </label>
               <select
@@ -869,7 +996,9 @@ export default function GroupDetailPage() {
                   ))}
               </select>
               {groupsList.filter((g) => g.id !== id).length === 0 && (
-                <p className="gd-modal-no-results">No other groups available.</p>
+                <p className="gd-modal-no-results">
+                  No other groups available.
+                </p>
               )}
             </div>
             <div className="gd-modal-footer">

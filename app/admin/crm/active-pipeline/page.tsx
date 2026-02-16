@@ -112,7 +112,7 @@ export default function ActivePipelinePage() {
             >
               🔔
             </button>
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-pink-400" />
+            <div className="w-10 h-10 rounded-full bg-linear-to-br from-amber-400 to-pink-400" />
             <Link
               href="/admin/crm/leads/new"
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
@@ -221,7 +221,7 @@ export default function ActivePipelinePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {paginated.map((lead, idx) => (
+                  {paginated.map((lead) => (
                     <tr
                       key={lead.id}
                       className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors"
@@ -305,7 +305,7 @@ export default function ActivePipelinePage() {
             </div>
           ) : (
             <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {paginated.map((lead, idx) => (
+              {paginated.map((lead) => (
                 <Link
                   key={lead.id}
                   href={`/admin/crm/leads/${lead.id}`}

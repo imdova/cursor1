@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { courses, categories } from '@/lib/data';
 import { Course } from '@/types/course';
@@ -19,19 +19,19 @@ export default function EditCoursePage() {
     originalPrice: 0,
   });
 
-  useEffect(() => {
-    const course = courses.find((c) => c.id === courseId);
-    if (course) {
-      setFormData({
-        title: course.title,
-        category: course.category,
-        level: course.level,
-        description: course.description,
-        price: course.price,
-        originalPrice: course.originalPrice,
-      });
-    }
-  }, [courseId]);
+  // useEffect(() => {
+  //   const course = courses.find((c) => c.id === courseId);
+  //   if (course) {
+  //     setFormData({
+  //       title: course.title,
+  //       category: course.category,
+  //       level: course.level,
+  //       description: course.description,
+  //       price: course.price,
+  //       originalPrice: course.originalPrice,
+  //     });
+  //   }
+  // }, [courseId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -55,7 +55,7 @@ export default function EditCoursePage() {
       <div className="p-8">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Course not found</h2>
-          <p className="text-gray-600 mb-6">The course you're looking for doesn't exist.</p>
+          <p className="text-gray-600 mb-6">The course you&apos;re looking for doesn&apos;t exist.</p>
           <button
             onClick={() => router.push('/instructor/courses')}
             className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
@@ -131,7 +131,7 @@ export default function EditCoursePage() {
                       onClick={() => setFormData((prev) => ({ ...prev, level }))}
                       className={`flex-1 px-6 py-4 rounded-lg font-semibold transition-all duration-200 ${
                         formData.level === level
-                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg transform scale-105'
+                          ? 'bg-linear-to-r from-blue-600 to-indigo-600 text-white shadow-lg transform scale-105'
                           : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-blue-500 hover:bg-gray-50'
                       }`}
                     >
@@ -214,7 +214,7 @@ export default function EditCoursePage() {
             </button>
             <button
               type="submit"
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="px-8 py-3 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Save Changes
             </button>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { categories, courses } from "@/lib/data";
+import Image from "next/image";
 
 export default function CategoryMegaMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -150,9 +151,11 @@ export default function CategoryMegaMenu() {
                                 href={`/courses/${course.id}`}
                                 className="flex items-start space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                               >
-                                <img
+                                <Image
                                   src={course.image}
                                   alt={course.title}
+                                  width={100}
+                                  height={100}
                                   className="w-24 h-16 object-cover rounded"
                                 />
                                 <div className="flex-1">

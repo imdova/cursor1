@@ -5,7 +5,7 @@ import ExploreCategoriesSection from "@/components/ExploreCategoriesSection";
 import WhyChooseImetsSection from "@/components/WhyChooseImetsSection";
 import CourseSectionBanner from "@/components/CourseSectionBanner";
 import PopularCoursesSection from "@/components/PopularCoursesSection";
-import { Container, Section } from "@/components/ui";
+import { Section } from "@/components/ui";
 import { ROUTES } from "@/constants";
 import { categories } from "@/lib/data";
 import { courses, getBestsellers, getTopRated } from "@/lib/courses";
@@ -40,10 +40,12 @@ export default function Home() {
       {/* Featured Courses Section */}
       <Section className="bg-gray-50">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-12 gap-4">
-          <h2 className="text-2xl sm:text-3xl font-bold text-black">Featured Courses</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-black">
+            Featured Courses
+          </h2>
           <Link
             href={ROUTES.COURSES}
-            className="text-primary hover:text-primary/90  font-semibold" 
+            className="text-primary hover:text-primary/90  font-semibold"
           >
             View All →
           </Link>

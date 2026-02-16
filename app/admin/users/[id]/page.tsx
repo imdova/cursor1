@@ -29,13 +29,10 @@ import {
   Globe,
   Lock,
   Settings,
-  MessageCircle,
   GraduationCap,
   Percent,
   Wallet,
   Briefcase,
-  BookOpen,
-  Tag,
   Lightbulb,
   UserSearch,
   Database,
@@ -93,7 +90,6 @@ import {
   topCoursesSold,
   maxCourseSales,
   performanceInsightText,
-  type PerformanceKPI,
 } from "./performance-report-data";
 import {
   overviewKPIs,
@@ -107,8 +103,8 @@ import {
 } from "./overview-dashboard-data";
 import "./overview.css";
 
-const TAB_IDS = ["profile", "role", "performance", "activity"] as const;
-type TabId = (typeof TAB_IDS)[number];
+type TAB_IDS = ["profile", "role", "performance", "activity"];
+type TabId = TAB_IDS[number];
 
 function roleDisplay(role: string): string {
   const map: Record<string, string> = {
@@ -199,26 +195,26 @@ function renderActivityDescription(entry: ActivityTimelineEntry) {
   const parts: React.ReactNode[] = [];
   let key = 0;
   const segments = text.split(
-    /(\u0001[^\u0001]*\u0001|\u0002[^\u0002]*\u0002|\u0003[^\u0003]*\u0003)/g
+    /(\u0001[^\u0001]*\u0001|\u0002[^\u0002]*\u0002|\u0003[^\u0003]*\u0003)/g,
   );
   for (const seg of segments) {
     if (seg.startsWith("\u0001") && seg.endsWith("\u0001")) {
       parts.push(
         <span key={key++} className="uo-activity-link-inline">
           {seg.slice(1, -1)}
-        </span>
+        </span>,
       );
     } else if (seg.startsWith("\u0002") && seg.endsWith("\u0002")) {
       parts.push(
         <span key={key++} className="uo-activity-amount">
           {seg.slice(1, -1)}
-        </span>
+        </span>,
       );
     } else if (seg.startsWith("\u0003") && seg.endsWith("\u0003")) {
       parts.push(
         <span key={key++} className="uo-activity-status-badge">
           {seg.slice(1, -1)}
-        </span>
+        </span>,
       );
     } else {
       parts.push(seg);
@@ -251,8 +247,8 @@ export default function UserOverviewPage() {
   }
 
   const permissions = getPermissionsForUser(staff.id);
-  const kpi = getKPIForUser(staff.id);
-  const recentActivity = getRecentActivityForUser(staff.id);
+  const kpi = getKPIForUser();
+  const recentActivity = getRecentActivityForUser();
   const revenuePct = Math.round((kpi.revenueActual / kpi.revenueTarget) * 100);
 
   return (
@@ -724,8 +720,8 @@ export default function UserOverviewPage() {
                             k.label === "Total Enrollments" && k.trend === "up"
                               ? " uo-perf-kpi-value-trend-up"
                               : k.trend === "down"
-                              ? " uo-perf-kpi-value-trend-down"
-                              : ""
+                                ? " uo-perf-kpi-value-trend-down"
+                                : ""
                           }`}
                         >
                           {k.value}
@@ -796,7 +792,7 @@ export default function UserOverviewPage() {
                             content={(
                               props: LabelProps & {
                                 payload?: { target?: number; actual?: number };
-                              }
+                              },
                             ) => {
                               const val =
                                 typeof props.value === "number"
@@ -888,7 +884,7 @@ export default function UserOverviewPage() {
                               name: string | undefined,
                               item?: {
                                 payload?: (typeof conversionFunnelStages)[0];
-                              }
+                              },
                             ) => {
                               const p = item?.payload;
                               if (!p) return [val ?? "", name ?? ""];
@@ -931,7 +927,7 @@ export default function UserOverviewPage() {
                               content={(
                                 props: LabelProps & {
                                   payload?: (typeof conversionFunnelStages)[0];
-                                }
+                                },
                               ) => {
                                 const v =
                                   typeof props.value === "number"
@@ -973,7 +969,7 @@ export default function UserOverviewPage() {
                         </tr>
                       </thead>
                       <tbody>
-                        {weeklyPerformanceRows.map((row, i) => (
+                        {weeklyPerformanceRows.map((row) => (
                           <tr key={row.week}>
                             <td>{row.week}</td>
                             <td>{row.leads}</td>
@@ -988,7 +984,7 @@ export default function UserOverviewPage() {
                                   style={{
                                     width: `${Math.min(
                                       row.conversionPct * 5,
-                                      100
+                                      100,
                                     )}%`,
                                     background:
                                       row.conversionPct >= 18
@@ -1065,7 +1061,7 @@ export default function UserOverviewPage() {
                     <p className="uo-perf-insight-text">
                       {performanceInsightText.replace(
                         "John",
-                        staff.name.split(" ")[0]
+                        staff.name.split(" ")[0],
                       )}
                     </p>
                     <button type="button" className="uo-perf-insight-btn">
@@ -1148,7 +1144,7 @@ export default function UserOverviewPage() {
                     .filter(
                       (e) =>
                         activityModuleFilter === "all" ||
-                        e.module.toLowerCase() === activityModuleFilter
+                        e.module.toLowerCase() === activityModuleFilter,
                     )
                     .slice(0, activityVisibleCount);
                   const byGroup = {

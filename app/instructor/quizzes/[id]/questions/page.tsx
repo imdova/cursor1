@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { Pencil, Plus, X } from "lucide-react";
+import { X } from "lucide-react";
 import { mockQuizzes } from "@/lib/quizData";
 import { Question } from "@/types/quiz";
 
@@ -10,8 +10,9 @@ export default function QuestionsPage() {
   const router = useRouter();
   const params = useParams();
   const quizId = params.id as string;
+  const quiz = mockQuizzes.find((q) => q.id === quizId);
 
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<Question[]>(quiz?.questions || []);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const [formData, setFormData] = useState<Partial<Question>>({
@@ -23,17 +24,10 @@ export default function QuestionsPage() {
     explanation: "",
   });
 
-  useEffect(() => {
-    const quiz = mockQuizzes.find((q) => q.id === quizId);
-    if (quiz) {
-      setQuestions(quiz.questions);
-    }
-  }, [quizId]);
-
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -73,8 +67,8 @@ export default function QuestionsPage() {
         questions.map((q) =>
           q.id === editingQuestion.id
             ? ({ ...editingQuestion, ...formData } as Question)
-            : q
-        )
+            : q,
+        ),
       );
       setEditingQuestion(null);
     } else {
@@ -130,11 +124,9 @@ export default function QuestionsPage() {
     const file = e.target.files?.[0];
     if (!file) return;
     alert(
-      "Excel import functionality would parse the file and add questions. This requires a library like xlsx or exceljs."
+      "Excel import functionality would parse the file and add questions. This requires a library like xlsx or exceljs.",
     );
   };
-
-  const quiz = mockQuizzes.find((q) => q.id === quizId);
 
   if (!quiz) {
     return (
@@ -247,7 +239,7 @@ export default function QuestionsPage() {
 
       {showAddForm && (
         <div className="bg-white rounded-xl shadow-lg border-2 border-gray-200 overflow-hidden mb-6">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-b border-gray-200">
+          <div className="bg-linear-to-r from-blue-50 to-indigo-50 p-6 border-b border-gray-200">
             <h2 className="text-2xl font-bold text-gray-900 flex items-center">
               <span className="mr-3">{editingQuestion ? "✏️" : "➕"}</span>
               {editingQuestion ? "Edit Question" : "Add New Question"}
@@ -426,7 +418,7 @@ export default function QuestionsPage() {
               </button>
               <button
                 type="submit"
-                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="px-8 py-3 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 {editingQuestion ? "Update Question" : "Add Question"}
               </button>

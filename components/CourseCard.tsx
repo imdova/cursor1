@@ -20,6 +20,7 @@ import {
 } from "@/lib/courses";
 import { ROUTES } from "@/constants";
 import { StarRating } from "@/components/ui";
+import Image from "next/image";
 
 interface CourseCardProps {
   course: Course;
@@ -62,9 +63,11 @@ export default function CourseCard({ course, detailsPath, className }: CourseCar
       {/* Image/Video Thumbnail Area */}
       <Link href={courseDetailsPath} className="block relative">
         <div className="relative h-48 w-full bg-gray-200 overflow-hidden">
-          <img
+          <Image
             src={course.image}
             alt={course.title}
+            width={100}
+            height={100}
             className="w-full h-full object-cover"
           />
 
@@ -118,9 +121,11 @@ export default function CourseCard({ course, detailsPath, className }: CourseCar
         {/* Instructor and Rating */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
-            <img
+            <Image
               src={course.instructorImage ?? DEFAULT_INSTRUCTOR_IMAGE}
               alt={course.instructor}
+              width={100}
+              height={100}
               className="w-6 h-6 rounded-full mr-2"
             />
             <span className="text-sm text-gray-700">{course.instructor}</span>

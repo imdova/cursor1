@@ -21,7 +21,6 @@ interface CourseApplicationModalProps {
 
 export default function CourseApplicationModal({
   onClose,
-  courseTitle,
 }: CourseApplicationModalProps) {
   const [formData, setFormData] = useState({
     name: "",

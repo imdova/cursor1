@@ -1,14 +1,14 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { courses, getCourseLessonCount } from "@/lib/courses";
 import { ROUTES } from "@/constants/routes";
 import { ArrowLeft, Edit, Users, BookOpen, Clock } from "lucide-react";
+import Image from "next/image";
 
 export default function AdminCourseViewPage() {
   const params = useParams();
-  const router = useRouter();
   const id = typeof params.id === "string" ? params.id : "";
   const course = courses.find((c) => c.id === id);
 
@@ -47,10 +47,12 @@ export default function AdminCourseViewPage() {
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="aspect-video max-h-[320px] bg-gray-200">
-          <img
+          <Image
             src={course.image}
             alt={course.title}
             className="w-full h-full object-cover"
+            width={1920}
+            height={1080}
           />
         </div>
         <div className="p-6">

@@ -1,4 +1,4 @@
-import { Course, Category, SubCategory } from '@/types/course';
+import { Course, Category } from '@/types/course';
 
 export const categories: Category[] = [
   {

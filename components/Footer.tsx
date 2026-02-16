@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ROUTES } from "@/constants";
 import { Container } from "@/components/ui";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,9 +10,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <Link href={ROUTES.HOME} className="inline-block mb-4">
-              <img
+              <Image
                 src="/images/logo.png"
                 alt="IMETS school of business"
+                width={100}
+                height={100}
                 className="h-10 w-auto"
               />
             </Link>

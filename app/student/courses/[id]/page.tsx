@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import "./course-detail.css";
@@ -58,6 +59,7 @@ import {
   instructorBio,
 } from "./course-detail-data";
 import type { StudyMaterialsModule } from "./course-detail-data";
+import Image from "next/image";
 
 type TabId = "overview" | "study-materials" | "assignments" | "certificate" | "transcript" | "feedback";
 
@@ -146,7 +148,7 @@ export default function StudentCourseOverviewPage() {
         <div className="sc-header-inner">
           <div className="sc-header-thumb" aria-hidden>
             {course.imageUrl ? (
-              <img src={course.imageUrl} alt="" className="sc-course-img" />
+              <Image width={100} height={100} src={course.imageUrl} alt="" className="sc-course-img" />
             ) : (
               <div className="sc-course-img-placeholder" />
             )}
@@ -650,7 +652,7 @@ export default function StudentCourseOverviewPage() {
                     <div key={inst.id} className="sc-fb-instructor">
                       <div className="sc-fb-instructor-head">
                         <div className="sc-fb-instructor-avatar" aria-hidden>
-                          {inst.imageUrl ? <img src={inst.imageUrl} alt="" /> : <span>{inst.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}</span>}
+                          {inst.imageUrl ? <Image width={100} height={100} src={inst.imageUrl} alt="" /> : <span>{inst.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}</span>}
                         </div>
                         <div className="sc-fb-instructor-info">
                           <span className="sc-fb-instructor-name">{inst.name}</span>

@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { ROUTES } from "@/constants";
 import "./instructors.css";
+import Image from "next/image";
 
 type InstructorStatus = "active" | "inactive" | "pending";
 
@@ -183,7 +184,7 @@ function engagementBarColor(pct: number): string {
 }
 
 const SPECIALTIES = Array.from(
-  new Set(MOCK_INSTRUCTORS.map((i) => i.specialty))
+  new Set(MOCK_INSTRUCTORS.map((i) => i.specialty)),
 ).sort();
 
 const STATUS_OPTIONS: { value: "" | InstructorStatus; label: string }[] = [
@@ -193,10 +194,16 @@ const STATUS_OPTIONS: { value: "" | InstructorStatus; label: string }[] = [
   { value: "pending", label: "Pending" },
 ];
 
-const ROLE_OPTIONS = ["Senior Faculty", "Lead Instructor", "Faculty", "Instructor"];
+const ROLE_OPTIONS = [
+  "Senior Faculty",
+  "Lead Instructor",
+  "Faculty",
+  "Instructor",
+];
 
 export default function AdminInstructorsPage() {
-  const [instructorsList, setInstructorsList] = useState<InstructorRow[]>(MOCK_INSTRUCTORS);
+  const [instructorsList, setInstructorsList] =
+    useState<InstructorRow[]>(MOCK_INSTRUCTORS);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterSpecialty, setFilterSpecialty] = useState("");
   const [filterStatus, setFilterStatus] = useState<"" | InstructorStatus>("");
@@ -248,7 +255,14 @@ export default function AdminInstructorsPage() {
       return sortDir === "asc" ? cmp : -cmp;
     });
     return list;
-  }, [instructorsList, searchTerm, filterSpecialty, filterStatus, sortBy, sortDir]);
+  }, [
+    instructorsList,
+    searchTerm,
+    filterSpecialty,
+    filterStatus,
+    sortBy,
+    sortDir,
+  ]);
 
   const handleAddInstructor = (e: React.FormEvent) => {
     e.preventDefault();
@@ -290,7 +304,7 @@ export default function AdminInstructorsPage() {
     setPage(1);
   };
 
-  const SortIcon = ({ column }: { column: SortKey }) =>
+  const sortIcon = (column: SortKey) =>
     sortBy !== column ? null : sortDir === "asc" ? (
       <ChevronUp className="ai-sort-icon" strokeWidth={2} aria-hidden />
     ) : (
@@ -350,9 +364,17 @@ export default function AdminInstructorsPage() {
             <Star className="ai-stat-icon" strokeWidth={2} />
             <div className="ai-stat-main">
               <span className="ai-stat-value">{AVG_RATING}</span>
-              <div className="ai-stat-stars" aria-label={`${AVG_RATING} out of 5`}>
+              <div
+                className="ai-stat-stars"
+                aria-label={`${AVG_RATING} out of 5`}
+              >
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} className="ai-stat-star" fill="currentColor" strokeWidth={0} />
+                  <Star
+                    key={i}
+                    className="ai-stat-star"
+                    fill="currentColor"
+                    strokeWidth={0}
+                  />
                 ))}
               </div>
               <span className="ai-stat-label">Avg. Instructor Rating</span>
@@ -396,7 +418,8 @@ export default function AdminInstructorsPage() {
                   className="ai-btn-add-instructor ai-btn-add-instructor-secondary"
                   onClick={() => setShowAddModal(true)}
                 >
-                  <UserPlus className="w-4 h-4" strokeWidth={2} /> Add Instructor
+                  <UserPlus className="w-4 h-4" strokeWidth={2} /> Add
+                  Instructor
                 </button>
                 <button type="button" className="ai-btn-secondary">
                   <Filter className="w-4 h-4" strokeWidth={2} /> Filter
@@ -408,7 +431,10 @@ export default function AdminInstructorsPage() {
             </div>
             <div className="ai-filters-row">
               <div className="ai-filter-group">
-                <label htmlFor="ai-filter-specialty" className="ai-filter-label">
+                <label
+                  htmlFor="ai-filter-specialty"
+                  className="ai-filter-label"
+                >
                   Specialty
                 </label>
                 <select
@@ -438,7 +464,9 @@ export default function AdminInstructorsPage() {
                   className="ai-filter-select"
                   value={filterStatus}
                   onChange={(e) => {
-                    setFilterStatus((e.target.value || "") as "" | InstructorStatus);
+                    setFilterStatus(
+                      (e.target.value || "") as "" | InstructorStatus,
+                    );
                     setPage(1);
                   }}
                   aria-label="Filter by status"
@@ -460,10 +488,16 @@ export default function AdminInstructorsPage() {
                         type="button"
                         className="ai-th-sort-btn"
                         onClick={() => handleSort("name")}
-                        aria-sort={sortBy === "name" ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
+                        aria-sort={
+                          sortBy === "name"
+                            ? sortDir === "asc"
+                              ? "ascending"
+                              : "descending"
+                            : undefined
+                        }
                       >
                         INSTRUCTOR
-                        <SortIcon column="name" />
+                        {sortIcon("name")}
                       </button>
                     </th>
                     <th className="ai-th-sortable">
@@ -471,10 +505,16 @@ export default function AdminInstructorsPage() {
                         type="button"
                         className="ai-th-sort-btn"
                         onClick={() => handleSort("specialty")}
-                        aria-sort={sortBy === "specialty" ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
+                        aria-sort={
+                          sortBy === "specialty"
+                            ? sortDir === "asc"
+                              ? "ascending"
+                              : "descending"
+                            : undefined
+                        }
                       >
                         SPECIALTY
-                        <SortIcon column="specialty" />
+                        {sortIcon("specialty")}
                       </button>
                     </th>
                     <th className="ai-th-sortable">
@@ -482,10 +522,16 @@ export default function AdminInstructorsPage() {
                         type="button"
                         className="ai-th-sort-btn"
                         onClick={() => handleSort("groups")}
-                        aria-sort={sortBy === "groups" ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
+                        aria-sort={
+                          sortBy === "groups"
+                            ? sortDir === "asc"
+                              ? "ascending"
+                              : "descending"
+                            : undefined
+                        }
                       >
                         ASSIGNED GROUPS
-                        <SortIcon column="groups" />
+                        {sortIcon("groups")}
                       </button>
                     </th>
                     <th className="ai-th-sortable">
@@ -493,10 +539,16 @@ export default function AdminInstructorsPage() {
                         type="button"
                         className="ai-th-sort-btn"
                         onClick={() => handleSort("rating")}
-                        aria-sort={sortBy === "rating" ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
+                        aria-sort={
+                          sortBy === "rating"
+                            ? sortDir === "asc"
+                              ? "ascending"
+                              : "descending"
+                            : undefined
+                        }
                       >
                         RATING
-                        <SortIcon column="rating" />
+                        {sortIcon("rating")}
                       </button>
                     </th>
                     <th className="ai-th-sortable">
@@ -504,10 +556,16 @@ export default function AdminInstructorsPage() {
                         type="button"
                         className="ai-th-sort-btn"
                         onClick={() => handleSort("engagement")}
-                        aria-sort={sortBy === "engagement" ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
+                        aria-sort={
+                          sortBy === "engagement"
+                            ? sortDir === "asc"
+                              ? "ascending"
+                              : "descending"
+                            : undefined
+                        }
                       >
                         ENGAGEMENT
-                        <SortIcon column="engagement" />
+                        {sortIcon("engagement")}
                       </button>
                     </th>
                     <th>STATUS</th>
@@ -519,9 +577,11 @@ export default function AdminInstructorsPage() {
                       <td>
                         <div className="ai-cell-instructor">
                           {row.image ? (
-                            <img
+                            <Image
                               src={row.image}
                               alt=""
+                              width={40}
+                              height={40}
                               className="ai-instructor-avatar"
                             />
                           ) : (
@@ -539,7 +599,9 @@ export default function AdminInstructorsPage() {
                             >
                               {row.name}
                             </Link>
-                            <span className="ai-instructor-role">{row.role}</span>
+                            <span className="ai-instructor-role">
+                              {row.role}
+                            </span>
                           </div>
                         </div>
                       </td>
@@ -559,7 +621,11 @@ export default function AdminInstructorsPage() {
                       </td>
                       <td>
                         <div className="ai-rating-cell">
-                          <Star className="ai-rating-star" fill="currentColor" strokeWidth={0} />
+                          <Star
+                            className="ai-rating-star"
+                            fill="currentColor"
+                            strokeWidth={0}
+                          />
                           <span>{row.rating.toFixed(1)}</span>
                         </div>
                       </td>
@@ -571,12 +637,17 @@ export default function AdminInstructorsPage() {
                               style={{ width: `${row.engagement}%` }}
                             />
                           </div>
-                          <span className="ai-engagement-pct">{row.engagement}%</span>
+                          <span className="ai-engagement-pct">
+                            {row.engagement}%
+                          </span>
                         </div>
                       </td>
                       <td>
-                        <span className={`ai-status-badge ai-status-${row.status}`}>
-                          {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
+                        <span
+                          className={`ai-status-badge ai-status-${row.status}`}
+                        >
+                          {row.status.charAt(0).toUpperCase() +
+                            row.status.slice(1)}
                         </span>
                       </td>
                     </tr>
@@ -586,7 +657,8 @@ export default function AdminInstructorsPage() {
             </div>
             <div className="ai-pagination">
               <span className="ai-pagination-text">
-                Showing {start + 1}-{Math.min(start + PER_PAGE, filtered.length)} of{" "}
+                Showing {start + 1}-
+                {Math.min(start + PER_PAGE, filtered.length)} of{" "}
                 {filtered.length} instructors
               </span>
               <div className="ai-pagination-btns">
@@ -620,7 +692,8 @@ export default function AdminInstructorsPage() {
                 <div>
                   <h3 className="ai-smart-match-title">Smart Match</h3>
                   <p className="ai-smart-match-subtitle">
-                    AI-suggested instructors for unassigned groups based on expertise.
+                    AI-suggested instructors for unassigned groups based on
+                    expertise.
                   </p>
                 </div>
               </div>
@@ -629,21 +702,29 @@ export default function AdminInstructorsPage() {
                   <li key={item.groupId} className="ai-smart-match-item">
                     <span
                       className={`ai-match-badge ${
-                        item.matchPercent >= 95 ? "ai-match-high" : "ai-match-mid"
+                        item.matchPercent >= 95
+                          ? "ai-match-high"
+                          : "ai-match-mid"
                       }`}
                     >
                       {item.matchPercent}% Match
                     </span>
                     <p className="ai-match-course">{item.courseName}</p>
                     <div className="ai-match-instructor">
-                      <img
+                      <Image
                         src={item.instructorImage}
                         alt=""
+                        width={40}
+                        height={40}
                         className="ai-match-avatar"
                       />
                       <div>
-                        <span className="ai-match-name">{item.instructorName}</span>
-                        <span className="ai-match-avail">{item.availability}</span>
+                        <span className="ai-match-name">
+                          {item.instructorName}
+                        </span>
+                        <span className="ai-match-avail">
+                          {item.availability}
+                        </span>
                       </div>
                     </div>
                     <button type="button" className="ai-quick-assign">
@@ -668,7 +749,10 @@ export default function AdminInstructorsPage() {
                 <div className="ai-sat-content">
                   <span className="ai-sat-label">Resource Access</span>
                   <div className="ai-sat-bar-wrap">
-                    <div className="ai-sat-bar ai-sat-bar-green" style={{ width: "94%" }} />
+                    <div
+                      className="ai-sat-bar ai-sat-bar-green"
+                      style={{ width: "94%" }}
+                    />
                   </div>
                 </div>
               </div>
@@ -679,7 +763,10 @@ export default function AdminInstructorsPage() {
                 <div className="ai-sat-content">
                   <span className="ai-sat-label">Work-Life Balance</span>
                   <div className="ai-sat-bar-wrap">
-                    <div className="ai-sat-bar ai-sat-bar-blue" style={{ width: "88%" }} />
+                    <div
+                      className="ai-sat-bar ai-sat-bar-blue"
+                      style={{ width: "88%" }}
+                    />
                   </div>
                 </div>
               </div>
@@ -697,10 +784,7 @@ export default function AdminInstructorsPage() {
           aria-modal="true"
           aria-labelledby="ai-modal-title"
         >
-          <div
-            className="ai-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="ai-modal" onClick={(e) => e.stopPropagation()}>
             <div className="ai-modal-header">
               <h2 id="ai-modal-title" className="ai-modal-title">
                 Add Instructor
@@ -724,7 +808,9 @@ export default function AdminInstructorsPage() {
                   type="text"
                   className="ai-modal-input"
                   value={addForm.name}
-                  onChange={(e) => setAddForm((f) => ({ ...f, name: e.target.value }))}
+                  onChange={(e) =>
+                    setAddForm((f) => ({ ...f, name: e.target.value }))
+                  }
                   placeholder="e.g. Dr. Jane Smith"
                   required
                 />
@@ -738,7 +824,9 @@ export default function AdminInstructorsPage() {
                   type="email"
                   className="ai-modal-input"
                   value={addForm.email}
-                  onChange={(e) => setAddForm((f) => ({ ...f, email: e.target.value }))}
+                  onChange={(e) =>
+                    setAddForm((f) => ({ ...f, email: e.target.value }))
+                  }
                   placeholder="e.g. jane.smith@imets.edu"
                 />
               </div>
@@ -751,7 +839,9 @@ export default function AdminInstructorsPage() {
                     id="ai-add-role"
                     className="ai-modal-input"
                     value={addForm.role}
-                    onChange={(e) => setAddForm((f) => ({ ...f, role: e.target.value }))}
+                    onChange={(e) =>
+                      setAddForm((f) => ({ ...f, role: e.target.value }))
+                    }
                   >
                     {ROLE_OPTIONS.map((r) => (
                       <option key={r} value={r}>
@@ -768,7 +858,9 @@ export default function AdminInstructorsPage() {
                     id="ai-add-specialty"
                     className="ai-modal-input"
                     value={addForm.specialty}
-                    onChange={(e) => setAddForm((f) => ({ ...f, specialty: e.target.value }))}
+                    onChange={(e) =>
+                      setAddForm((f) => ({ ...f, specialty: e.target.value }))
+                    }
                   >
                     {SPECIALTIES.map((s) => (
                       <option key={s} value={s}>
@@ -787,7 +879,10 @@ export default function AdminInstructorsPage() {
                   className="ai-modal-input"
                   value={addForm.status}
                   onChange={(e) =>
-                    setAddForm((f) => ({ ...f, status: e.target.value as InstructorStatus }))
+                    setAddForm((f) => ({
+                      ...f,
+                      status: e.target.value as InstructorStatus,
+                    }))
                   }
                 >
                   <option value="pending">Pending</option>

@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Mail,
   Phone,
@@ -15,25 +15,23 @@ import {
   Calendar,
   ArrowLeftRight,
   CheckSquare,
-  User,
   UserX,
   Lightbulb,
   Paperclip,
   AtSign,
   Eye,
   Clock,
-  Image,
   Bell,
   Plus,
   Pencil,
   X,
-  Target,
-  ThumbsDown,
-  TrendingUp,
-  Flame,
-  MessageSquare,
+  ImageIcon,
 } from "lucide-react";
-import { crmLeads, leadSpecialtyOptions, type LeadSpecialty } from "@/lib/crmData";
+import {
+  crmLeads,
+  leadSpecialtyOptions,
+  type LeadSpecialty,
+} from "@/lib/crmData";
 import { ROUTES } from "@/constants";
 import "./lead-profile.css";
 
@@ -219,14 +217,15 @@ export default function LeadProfilePage() {
 
   const handleLeadStatusChange = (value: LeadStatusOption) => {
     setLeadStatusOption(value);
-    if (value === "student") router.push(ROUTES.ADMIN.CRM_LEAD_ADD_TO_GROUP(id));
+    if (value === "student")
+      router.push(ROUTES.ADMIN.CRM_LEAD_ADD_TO_GROUP(id));
   };
 
   const lead = crmLeads.find((l) => l.id === id);
 
-  useEffect(() => {
-    if (lead) setSpecialtyDisplay(lead.specialty ?? "");
-  }, [lead?.id, lead?.specialty]);
+  // useEffect(() => {
+  //   if (lead) setSpecialtyDisplay(lead.specialty ?? "");
+  // }, [lead?.id, lead?.specialty]);
 
   if (!lead) {
     return (
@@ -385,7 +384,9 @@ export default function LeadProfilePage() {
                 </li>
                 <li className="lp-extra-numbers-li">
                   <div className="lp-extra-numbers-block">
-                    <p className="lp-extra-numbers-title">Extra phone / WhatsApp</p>
+                    <p className="lp-extra-numbers-title">
+                      Extra phone / WhatsApp
+                    </p>
                     {extraNumbers.length > 0 && (
                       <ul className="lp-extra-numbers-list">
                         {extraNumbers.map((en) => (
@@ -396,9 +397,14 @@ export default function LeadProfilePage() {
                                 strokeWidth={2}
                               />
                             ) : (
-                              <Phone className="lp-extra-numbers-icon" strokeWidth={2} />
+                              <Phone
+                                className="lp-extra-numbers-icon"
+                                strokeWidth={2}
+                              />
                             )}
-                            <span className="lp-extra-numbers-value">{en.number}</span>
+                            <span className="lp-extra-numbers-value">
+                              {en.number}
+                            </span>
                             <button
                               type="button"
                               className="lp-extra-numbers-remove"
@@ -481,7 +487,9 @@ export default function LeadProfilePage() {
                   className="lp-specialty-select"
                   value={specialtyDisplay}
                   onChange={(e) =>
-                    setSpecialtyDisplay((e.target.value || "") as LeadSpecialty | "")
+                    setSpecialtyDisplay(
+                      (e.target.value || "") as LeadSpecialty | "",
+                    )
                   }
                   aria-label="Update specialty"
                 >
@@ -709,18 +717,25 @@ export default function LeadProfilePage() {
             </div>
 
             {/* Lead status */}
-            <div className="lp-card lp-lead-status-card" style={{ marginBottom: "24px" }}>
+            <div
+              className="lp-card lp-lead-status-card"
+              style={{ marginBottom: "24px" }}
+            >
               <h3 className="lp-lead-status-title">Lead status</h3>
               <div className="lp-lead-status-current-badge-wrap">
                 <span className="lp-lead-status-label">Current status</span>
                 <span
                   className={`lp-lead-status-badge lp-lead-status-badge-${leadStatusOption.replace(/\s+/g, "-")}`}
                 >
-                  {leadStatusOption.charAt(0).toUpperCase() + leadStatusOption.slice(1)}
+                  {leadStatusOption.charAt(0).toUpperCase() +
+                    leadStatusOption.slice(1)}
                 </span>
               </div>
               <div className="lp-lead-status-dropdown-wrap">
-                <label className="lp-lead-status-label" htmlFor="lp-lead-status-select">
+                <label
+                  className="lp-lead-status-label"
+                  htmlFor="lp-lead-status-select"
+                >
                   Update status
                 </label>
                 <select
@@ -850,7 +865,7 @@ export default function LeadProfilePage() {
                 {DOCUMENTS_MOCK.map((doc, idx) => (
                   <li key={doc.id} className="lp-doc-item">
                     {doc.icon === "image" ? (
-                      <Image
+                      <ImageIcon
                         className="lp-doc-icon lp-doc-icon-yellow"
                         strokeWidth={2}
                       />

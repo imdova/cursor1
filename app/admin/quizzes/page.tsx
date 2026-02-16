@@ -75,7 +75,7 @@ export default function AdminQuizzesPage() {
         (statusFilter === "not-published" && !quiz.isPublished);
       return matchesSearch && matchesStatus;
     });
-  }, [searchTerm, statusFilter, dateRangeFilter]);
+  }, [searchTerm, statusFilter]);
 
   const totalCount = filteredQuizzes.length;
 

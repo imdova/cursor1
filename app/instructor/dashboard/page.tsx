@@ -5,7 +5,7 @@ export default function InstructorDashboard() {
     <div className="p-4 sm:p-6 lg:p-8">
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-        <p className="text-sm sm:text-base text-gray-600">Welcome back, Alex! Here's your overview.</p>
+        <p className="text-sm sm:text-base text-gray-600">Welcome back, Alex! Here&apos;s your overview.</p>
       </div>
 
       {/* Stats Cards */}
@@ -89,34 +89,34 @@ export default function InstructorDashboard() {
         <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Recent Activity</h2>
         <div className="space-y-3 sm:space-y-4">
           <div className="flex items-start sm:items-center space-x-3 sm:space-x-4 pb-3 sm:pb-4 border-b border-gray-200">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center shrink-0">
               <span className="text-sm sm:text-base">✓</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-gray-900 text-sm sm:text-base">New student enrolled</p>
-              <p className="text-xs sm:text-sm text-gray-600 truncate">John Doe enrolled in "Complete React Development Bootcamp"</p>
+              <p className="text-xs sm:text-sm text-gray-600 truncate">John Doe enrolled in &quot;Complete React Development Bootcamp&quot;</p>
             </div>
-            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap flex-shrink-0">2h ago</span>
+            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap shrink-0">2h ago</span>
           </div>
           <div className="flex items-start sm:items-center space-x-3 sm:space-x-4 pb-3 sm:pb-4 border-b border-gray-200">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
               <span className="text-sm sm:text-base">📝</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-gray-900 text-sm sm:text-base">Course updated</p>
-              <p className="text-xs sm:text-sm text-gray-600 truncate">You updated "Python for Data Science"</p>
+              <p className="text-xs sm:text-sm text-gray-600 truncate">You updated &quot;Python for Data Science&quot;</p>
             </div>
-            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap flex-shrink-0">1d ago</span>
+            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap shrink-0">1d ago</span>
           </div>
           <div className="flex items-start sm:items-center space-x-3 sm:space-x-4">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-yellow-100 rounded-full flex items-center justify-center shrink-0">
               <span className="text-sm sm:text-base">💰</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-gray-900 text-sm sm:text-base">New sale</p>
-              <p className="text-xs sm:text-sm text-gray-600 truncate">"UI/UX Design Masterclass" was purchased</p>
+              <p className="text-xs sm:text-sm text-gray-600 truncate">&quot;UI/UX Design Masterclass&quot; was purchased</p>
             </div>
-            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap flex-shrink-0">2d ago</span>
+            <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap shrink-0">2d ago</span>
           </div>
         </div>
       </div>

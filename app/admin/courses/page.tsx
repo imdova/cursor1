@@ -6,6 +6,7 @@ import { Check, X, Eye, Plus } from "lucide-react";
 import { courses, getDiscountPercentage } from "@/lib/courses";
 import type { Course } from "@/types/course";
 import { ROUTES } from "@/constants/routes";
+import Image from "next/image";
 
 type ViewMode = "grid" | "list";
 type CourseEdits = Record<string, { price: number; originalPrice?: number }>;
@@ -26,14 +27,12 @@ export default function AdminCoursesPage() {
   const [deletedIds, setDeletedIds] = useState<Set<string>>(new Set());
   const [duplicatedCourses, setDuplicatedCourses] = useState<Course[]>([]);
   const [seoByCourseId, setSeoByCourseId] = useState<Record<string, boolean>>(
-    () => ({})
+    () => ({}),
   );
   const [seoMetaByCourseId, setSeoMetaByCourseId] = useState<
     Record<string, SeoMeta>
   >({});
-  const [seoModalCourseId, setSeoModalCourseId] = useState<string | null>(
-    null
-  );
+  const [seoModalCourseId, setSeoModalCourseId] = useState<string | null>(null);
   const [seoModalDraft, setSeoModalDraft] = useState<SeoMeta>({
     metaTitle: "",
     metaDescription: "",
@@ -51,7 +50,7 @@ export default function AdminCoursesPage() {
         metaTitle: "",
         metaDescription: "",
         metaKeywords: "",
-      }
+      },
     );
   };
 
@@ -69,7 +68,7 @@ export default function AdminCoursesPage() {
 
   const categories = useMemo(
     () => ["all", ...Array.from(new Set(courses.map((c) => c.category)))],
-    []
+    [],
   );
   const subCategories = useMemo(
     () =>
@@ -81,11 +80,11 @@ export default function AdminCoursesPage() {
               new Set(
                 courses
                   .filter((c) => c.category === mainCategory && c.subCategory)
-                  .map((c) => c.subCategory!)
-              )
+                  .map((c) => c.subCategory!),
+              ),
             ),
           ],
-    [mainCategory]
+    [mainCategory],
   );
 
   const baseCourseList = useMemo(
@@ -93,7 +92,7 @@ export default function AdminCoursesPage() {
       ...courses.filter((c) => !deletedIds.has(c.id)),
       ...duplicatedCourses,
     ],
-    [deletedIds, duplicatedCourses]
+    [deletedIds, duplicatedCourses],
   );
 
   const filteredCourses = useMemo(() => {
@@ -143,7 +142,7 @@ export default function AdminCoursesPage() {
   };
 
   const handleDuplicate = (course: Course) => {
-    const newId = `dup-${course.id}-${Date.now()}`;
+    const newId = `dup-${course.id}-${crypto.randomUUID()}`;
     setDuplicatedCourses((prev) => [
       ...prev,
       { ...course, id: newId, title: `${course.title} (Copy)` },
@@ -181,7 +180,12 @@ export default function AdminCoursesPage() {
         String(price * c.studentCount),
       ];
     });
-    const csv = [headers.join(","), ...rows.map((r) => r.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","))].join("\n");
+    const csv = [
+      headers.join(","),
+      ...rows.map((r) =>
+        r.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","),
+      ),
+    ].join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -193,15 +197,15 @@ export default function AdminCoursesPage() {
 
   const totalStudents = useMemo(
     () => courses.reduce((sum, c) => sum + c.studentCount, 0),
-    []
+    [],
   );
   const totalRevenue = useMemo(
     () =>
       courses.reduce(
         (sum, c) => sum + (c.priceEGP ?? c.price) * c.studentCount,
-        0
+        0,
       ),
-    []
+    [],
   );
   const publishedCount = courses.length;
   const draftCount = 0;
@@ -303,7 +307,7 @@ export default function AdminCoursesPage() {
         <div className="p-5 border-b border-gray-100 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <h2 className="text-lg font-bold text-gray-900">All Courses</h2>
-            <span className="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
+            <span className="inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
               {filteredCourses.length}
             </span>
           </div>
@@ -460,10 +464,12 @@ export default function AdminCoursesPage() {
                     className="bg-gray-50 rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
                   >
                     <div className="aspect-video bg-gray-200 relative">
-                      <img
+                      <Image
                         src={course.image}
                         alt={course.title}
                         className="w-full h-full object-cover"
+                        width={500}
+                        height={500}
                       />
                       <div className="absolute top-2 right-2 flex items-center gap-0.5 bg-white/90 rounded-lg shadow-sm p-1">
                         <Link
@@ -685,11 +691,13 @@ export default function AdminCoursesPage() {
                     >
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
-                            <img
+                          <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden shrink-0">
+                            <Image
                               src={course.image}
                               alt={course.title}
                               className="w-full h-full object-cover"
+                              width={500}
+                              height={500}
                             />
                           </div>
                           <div>
@@ -926,7 +934,7 @@ export default function AdminCoursesPage() {
                 </h2>
                 {(() => {
                   const title = baseCourseList.find(
-                    (c) => c.id === seoModalCourseId
+                    (c) => c.id === seoModalCourseId,
                   )?.title;
                   return title ? (
                     <p className="text-sm text-gray-500 mt-0.5 line-clamp-1">

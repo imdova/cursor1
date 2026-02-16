@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { courses, categories } from '@/lib/data';
 import { Course } from '@/types/course';
 import CourseCard from '@/components/CourseCard';
+import Image from 'next/image';
 
 export default function InstructorCoursesPage() {
   const [courseList, setCourseList] = useState<Course[]>(courses.slice(0, 6)); // Simulating instructor's courses
@@ -355,9 +356,11 @@ export default function InstructorCoursesPage() {
                         <tr key={course.id} className="hover:bg-gray-50">
                           <td className="px-4 py-3">
                             <div className="flex items-center space-x-3">
-                              <img
+                              <Image
                                 src={course.image}
                                 alt={course.title}
+                                width={500}
+                                height={500}
                                 className="w-16 h-10 object-cover rounded"
                               />
                               <div className="min-w-0">
@@ -440,10 +443,12 @@ export default function InstructorCoursesPage() {
                   return (
                     <div key={course.id} className="p-4">
                       <div className="flex items-start space-x-3 mb-3">
-                        <img
+                        <Image
                           src={course.image}
                           alt={course.title}
-                          className="w-20 h-12 object-cover rounded flex-shrink-0"
+                          width={500}
+                          height={500}
+                          className="w-20 h-12 object-cover rounded shrink-0"
                         />
                         <div className="flex-1 min-w-0">
                           <Link

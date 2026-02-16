@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { FileText, Users } from "lucide-react";
 import { Course } from "@/types/course";
+import Image from "next/image";
 
 interface RelevantCoursesCarouselProps {
   courses: Course[];
@@ -12,7 +13,6 @@ interface RelevantCoursesCarouselProps {
 
 export default function RelevantCoursesCarousel({
   courses,
-  currentId,
 }: RelevantCoursesCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -69,9 +69,11 @@ export default function RelevantCoursesCarousel({
               className="shrink-0 w-72 bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
             >
               <div className="relative h-36 bg-gray-200">
-                <img
+                <Image
                   src={course.image}
                   alt={course.title}
+                  width={100}
+                  height={100}
                   className="w-full h-full object-cover"
                 />
               </div>

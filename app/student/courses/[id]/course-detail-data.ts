@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Mock data for student course overview page (Advanced Data Structures design).
  */

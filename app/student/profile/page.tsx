@@ -42,15 +42,13 @@ export default function StudentProfilePage() {
   const [firstName, setFirstName] = useState("Alexander");
   const [lastName, setLastName] = useState("Pierce");
   const [dob, setDob] = useState("05/14/1998");
-  const [contactEmail, setContactEmail] = useState(
-    "alexander.p@student.imets.edu"
-  );
+  const [contactEmail] = useState("alexander.p@student.imets.edu");
   const [street, setStreet] = useState("452 University Avenue, Suite 102");
   const [city, setCity] = useState("Palo Alto");
   const [stateProvince, setStateProvince] = useState("California");
   const [zipCode, setZipCode] = useState("94301");
   const [aboutMe, setAboutMe] = useState(
-    "Third-year Computer Science student passionate about Machine Learning and AI. I'm currently leading the IMETS Tech Society and working on a research paper regarding neural networks."
+    "Third-year Computer Science student passionate about Machine Learning and AI. I'm currently leading the IMETS Tech Society and working on a research paper regarding neural networks.",
   );
 
   return (

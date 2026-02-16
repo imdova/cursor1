@@ -40,6 +40,7 @@ import {
 import { ROUTES } from "@/constants";
 import { getInstructorDetail } from "./instructor-detail-data";
 import "./instructor-detail.css";
+import Image from "next/image";
 
 const TABS = [
   { id: "profile", label: "Professional Profile" },
@@ -65,7 +66,7 @@ export default function InstructorDetailPage() {
   const groupsPaginated = groupsData
     ? groupsData.cohorts.slice(
         (groupsPage - 1) * GROUPS_PER_PAGE,
-        groupsPage * GROUPS_PER_PAGE
+        groupsPage * GROUPS_PER_PAGE,
       )
     : [];
 
@@ -97,7 +98,13 @@ export default function InstructorDetailPage() {
           <div className="id-header-left">
             <div className="id-avatar-wrap">
               {data.image ? (
-                <img src={data.image} alt="" className="id-avatar" />
+                <Image
+                  src={data.image}
+                  alt=""
+                  className="id-avatar"
+                  width={100}
+                  height={100}
+                />
               ) : (
                 <div className="id-avatar id-avatar-placeholder">
                   {data.name
@@ -141,7 +148,8 @@ export default function InstructorDetailPage() {
               <span className="id-kpi-label">Students Taught</span>
             </div>
             <span className="id-kpi-trend id-trend-up">
-              <TrendingUp className="w-3 h-3" strokeWidth={2} /> {data.studentsTaughtTrend}
+              <TrendingUp className="w-3 h-3" strokeWidth={2} />{" "}
+              {data.studentsTaughtTrend}
             </span>
           </div>
           <div className="id-kpi-card">
@@ -151,7 +159,8 @@ export default function InstructorDetailPage() {
               <span className="id-kpi-label">Avg. Rating</span>
             </div>
             <span className="id-kpi-trend id-trend-up">
-              <TrendingUp className="w-3 h-3" strokeWidth={2} /> {data.avgRatingTrend}
+              <TrendingUp className="w-3 h-3" strokeWidth={2} />{" "}
+              {data.avgRatingTrend}
             </span>
           </div>
           <div className="id-kpi-card">
@@ -161,7 +170,8 @@ export default function InstructorDetailPage() {
               <span className="id-kpi-label">Completion Rate</span>
             </div>
             <span className="id-kpi-trend id-trend-up">
-              <TrendingUp className="w-3 h-3" strokeWidth={2} /> {data.completionRateTrend}
+              <TrendingUp className="w-3 h-3" strokeWidth={2} />{" "}
+              {data.completionRateTrend}
             </span>
           </div>
           <div className="id-kpi-card">
@@ -170,8 +180,11 @@ export default function InstructorDetailPage() {
               <span className="id-kpi-value">{data.sessionAttendance}%</span>
               <span className="id-kpi-label">Session Attendance</span>
             </div>
-            <span className={`id-kpi-trend ${data.sessionAttendanceTrendUp ? "id-trend-up" : "id-trend-down"}`}>
-              <TrendingDown className="w-3 h-3" strokeWidth={2} /> {data.sessionAttendanceTrend}
+            <span
+              className={`id-kpi-trend ${data.sessionAttendanceTrendUp ? "id-trend-up" : "id-trend-down"}`}
+            >
+              <TrendingDown className="w-3 h-3" strokeWidth={2} />{" "}
+              {data.sessionAttendanceTrend}
             </span>
           </div>
         </div>
@@ -199,7 +212,9 @@ export default function InstructorDetailPage() {
                   <p className="id-bio">{data.bio}</p>
                 </section>
                 <section className="id-section">
-                  <h2 className="id-section-title">Certifications & Credentials</h2>
+                  <h2 className="id-section-title">
+                    Certifications & Credentials
+                  </h2>
                   <div className="id-pills">
                     {data.certifications.map((c) => (
                       <span key={c} className="id-pill">
@@ -255,7 +270,9 @@ export default function InstructorDetailPage() {
                             <td>{row.program}</td>
                             <td>{row.students} Students</td>
                             <td>
-                              <span className={`id-cohort-status id-status-${row.status.toLowerCase().replace(" ", "-")}`}>
+                              <span
+                                className={`id-cohort-status id-status-${row.status.toLowerCase().replace(" ", "-")}`}
+                              >
                                 {row.status}
                               </span>
                             </td>
@@ -265,7 +282,10 @@ export default function InstructorDetailPage() {
                                 className="id-btn-icon"
                                 aria-label="Actions"
                               >
-                                <MoreHorizontal className="w-4 h-4" strokeWidth={2} />
+                                <MoreHorizontal
+                                  className="w-4 h-4"
+                                  strokeWidth={2}
+                                />
                               </button>
                             </td>
                           </tr>
@@ -286,7 +306,9 @@ export default function InstructorDetailPage() {
                       <span className="id-groups-card-value">
                         {groupsData.totalActiveGroups}
                       </span>
-                      <span className="id-groups-card-label">Total Active Groups</span>
+                      <span className="id-groups-card-label">
+                        Total Active Groups
+                      </span>
                     </div>
                     <span className="id-groups-trend id-trend-up">
                       <TrendingUp className="w-3 h-3" strokeWidth={2} />{" "}
@@ -299,7 +321,9 @@ export default function InstructorDetailPage() {
                       <span className="id-groups-card-value">
                         {groupsData.currentStudentReach}
                       </span>
-                      <span className="id-groups-card-label">Current Student Reach</span>
+                      <span className="id-groups-card-label">
+                        Current Student Reach
+                      </span>
                       <span className="id-groups-capacity">
                         Capacity utilization: {groupsData.capacityUtilization}%
                       </span>
@@ -314,7 +338,8 @@ export default function InstructorDetailPage() {
                         <Filter className="w-4 h-4" strokeWidth={2} /> Filter
                       </button>
                       <button type="button" className="id-btn-primary">
-                        <Plus className="w-4 h-4" strokeWidth={2} /> Assign Group
+                        <Plus className="w-4 h-4" strokeWidth={2} /> Assign
+                        Group
                       </button>
                     </div>
                   </div>
@@ -334,7 +359,9 @@ export default function InstructorDetailPage() {
                       <tbody>
                         {groupsPaginated.map((row) => (
                           <tr key={row.id}>
-                            <td className="id-groups-cell-name">{row.groupName}</td>
+                            <td className="id-groups-cell-name">
+                              {row.groupName}
+                            </td>
                             <td>{row.courseTitle}</td>
                             <td>
                               {row.periodStart} - {row.periodEnd}
@@ -390,7 +417,7 @@ export default function InstructorDetailPage() {
                       Showing {(groupsPage - 1) * GROUPS_PER_PAGE + 1}-
                       {Math.min(
                         groupsPage * GROUPS_PER_PAGE,
-                        groupsData.cohorts.length
+                        groupsData.cohorts.length,
                       )}{" "}
                       of {groupsData.totalAssignedGroups} assigned groups
                     </span>
@@ -408,7 +435,9 @@ export default function InstructorDetailPage() {
                         type="button"
                         className="id-pagination-btn"
                         onClick={() =>
-                          setGroupsPage((p) => Math.min(groupsTotalPages, p + 1))
+                          setGroupsPage((p) =>
+                            Math.min(groupsTotalPages, p + 1),
+                          )
                         }
                         disabled={groupsPage >= groupsTotalPages}
                         aria-label="Next page"
@@ -429,7 +458,10 @@ export default function InstructorDetailPage() {
               <div className="id-tab-panel id-feedback-tab">
                 <div className="id-feedback-head">
                   <div className="id-feedback-search-wrap">
-                    <Search className="id-feedback-search-icon" strokeWidth={2} />
+                    <Search
+                      className="id-feedback-search-icon"
+                      strokeWidth={2}
+                    />
                     <input
                       type="search"
                       placeholder="Search reviews..."
@@ -438,21 +470,30 @@ export default function InstructorDetailPage() {
                     />
                   </div>
                   <button type="button" className="id-btn-primary">
-                    <Download className="w-4 h-4" strokeWidth={2} /> Export Review Report
+                    <Download className="w-4 h-4" strokeWidth={2} /> Export
+                    Review Report
                   </button>
                 </div>
                 <div className="id-feedback-cards id-feedback-row1">
                   <div className="id-fb-card id-fb-overall">
                     <h3 className="id-fb-card-title">Overall Rating</h3>
                     <p className="id-fb-overall-value">
-                      {data.feedbackTab.overallRating} <span className="id-fb-overall-max">/ 5.0</span>
+                      {data.feedbackTab.overallRating}{" "}
+                      <span className="id-fb-overall-max">/ 5.0</span>
                     </p>
-                    <div className="id-fb-stars" aria-label={`${data.feedbackTab.overallRating} out of 5`}>
+                    <div
+                      className="id-fb-stars"
+                      aria-label={`${data.feedbackTab.overallRating} out of 5`}
+                    >
                       {[1, 2, 3, 4, 5].map((i) => (
                         <Star
                           key={i}
                           className={`id-fb-star ${i <= Math.floor(data.feedbackTab.overallRating) ? "id-fb-star-full" : ""}`}
-                          fill={i <= data.feedbackTab.overallRating ? "currentColor" : "none"}
+                          fill={
+                            i <= data.feedbackTab.overallRating
+                              ? "currentColor"
+                              : "none"
+                          }
                           strokeWidth={0}
                         />
                       ))}
@@ -466,17 +507,23 @@ export default function InstructorDetailPage() {
                     <div className="id-fb-sentiment-bar">
                       <div
                         className="id-fb-sentiment-seg id-fb-sentiment-positive"
-                        style={{ width: `${data.feedbackTab.sentiment.positive}%` }}
+                        style={{
+                          width: `${data.feedbackTab.sentiment.positive}%`,
+                        }}
                         title={`${data.feedbackTab.sentiment.positive}% Positive`}
                       />
                       <div
                         className="id-fb-sentiment-seg id-fb-sentiment-neutral"
-                        style={{ width: `${data.feedbackTab.sentiment.neutral}%` }}
+                        style={{
+                          width: `${data.feedbackTab.sentiment.neutral}%`,
+                        }}
                         title={`${data.feedbackTab.sentiment.neutral}% Neutral`}
                       />
                       <div
                         className="id-fb-sentiment-seg id-fb-sentiment-negative"
-                        style={{ width: `${data.feedbackTab.sentiment.negative}%` }}
+                        style={{
+                          width: `${data.feedbackTab.sentiment.negative}%`,
+                        }}
                         title={`${data.feedbackTab.sentiment.negative}% Negative`}
                       />
                     </div>
@@ -494,27 +541,40 @@ export default function InstructorDetailPage() {
                   </div>
                   <div className="id-fb-card id-fb-insights">
                     <h3 className="id-fb-card-title">
-                      <Sparkles className="w-4 h-4" strokeWidth={2} /> Smart Insights
+                      <Sparkles className="w-4 h-4" strokeWidth={2} /> Smart
+                      Insights
                     </h3>
                     <div className="id-fb-insight-item id-fb-insight-strength">
                       <Plus className="id-fb-insight-icon" strokeWidth={2} />
                       <p>
                         {data.feedbackTab.smartInsights.strength}{" "}
-                        <strong>{data.feedbackTab.smartInsights.strengthHighlight}</strong> in the last 90 days.
+                        <strong>
+                          {data.feedbackTab.smartInsights.strengthHighlight}
+                        </strong>{" "}
+                        in the last 90 days.
                       </p>
                     </div>
                     <div className="id-fb-insight-item id-fb-insight-growth">
-                      <TrendingUp className="id-fb-insight-icon" strokeWidth={2} />
+                      <TrendingUp
+                        className="id-fb-insight-icon"
+                        strokeWidth={2}
+                      />
                       <p>
                         {data.feedbackTab.smartInsights.growth}{" "}
-                        <strong>{data.feedbackTab.smartInsights.growthHighlight}</strong> {data.feedbackTab.smartInsights.growthSuffix}
+                        <strong>
+                          {data.feedbackTab.smartInsights.growthHighlight}
+                        </strong>{" "}
+                        {data.feedbackTab.smartInsights.growthSuffix}
                       </p>
                     </div>
                     <div className="id-fb-insight-item id-fb-insight-tip">
                       <Info className="id-fb-insight-icon" strokeWidth={2} />
                       <p>{data.feedbackTab.smartInsights.tip}</p>
                     </div>
-                    <button type="button" className="id-btn-secondary id-fb-action-plan">
+                    <button
+                      type="button"
+                      className="id-btn-secondary id-fb-action-plan"
+                    >
                       VIEW ACTION PLAN
                     </button>
                   </div>
@@ -522,7 +582,8 @@ export default function InstructorDetailPage() {
                 <div className="id-feedback-row2">
                   <div className="id-fb-card id-fb-trends">
                     <h3 className="id-fb-card-title">
-                      <LineChart className="w-4 h-4" strokeWidth={2} /> Rating Trends (6 Months)
+                      <LineChart className="w-4 h-4" strokeWidth={2} /> Rating
+                      Trends (6 Months)
                     </h3>
                     <div className="id-fb-chart-placeholder">
                       <span className="id-fb-chart-ax">JAN</span>
@@ -535,7 +596,8 @@ export default function InstructorDetailPage() {
                   </div>
                   <div className="id-fb-card id-fb-categories">
                     <h3 className="id-fb-card-title">
-                      <BarChart3 className="w-4 h-4" strokeWidth={2} /> Average Category Scores
+                      <BarChart3 className="w-4 h-4" strokeWidth={2} /> Average
+                      Category Scores
                     </h3>
                     <ul className="id-fb-cat-list">
                       {data.feedbackTab.categoryScores.map((c) => (
@@ -568,15 +630,25 @@ export default function InstructorDetailPage() {
                       <li key={r.id} className="id-fb-review-card">
                         <div className="id-fb-review-meta">
                           {r.reviewerAvatar ? (
-                            <img src={r.reviewerAvatar} alt="" className="id-fb-review-avatar" />
+                            <Image
+                              src={r.reviewerAvatar}
+                              alt=""
+                              className="id-fb-review-avatar"
+                              width={100}
+                              height={100}
+                            />
                           ) : (
                             <div className="id-fb-review-avatar id-fb-review-avatar-ph">
                               {r.reviewerName.slice(0, 2).toUpperCase()}
                             </div>
                           )}
                           <div className="id-fb-review-info">
-                            <span className="id-fb-review-name">{r.reviewerName}</span>
-                            <span className="id-fb-review-course">Course: {r.course}</span>
+                            <span className="id-fb-review-name">
+                              {r.reviewerName}
+                            </span>
+                            <span className="id-fb-review-course">
+                              Course: {r.course}
+                            </span>
                             <div className="id-fb-review-rating">
                               {[1, 2, 3, 4, 5].map((i) => (
                                 <Star
@@ -586,21 +658,33 @@ export default function InstructorDetailPage() {
                                   strokeWidth={0}
                                 />
                               ))}
-                              <span className="id-fb-review-date">{r.date}</span>
+                              <span className="id-fb-review-date">
+                                {r.date}
+                              </span>
                             </div>
                           </div>
                         </div>
                         <div className="id-fb-review-strengths">
-                          <ThumbsUp className="id-fb-review-section-icon" strokeWidth={2} />
+                          <ThumbsUp
+                            className="id-fb-review-section-icon"
+                            strokeWidth={2}
+                          />
                           <div>
-                            <span className="id-fb-review-section-label">STRENGTHS:</span>
+                            <span className="id-fb-review-section-label">
+                              STRENGTHS:
+                            </span>
                             <p>{r.strengths}</p>
                           </div>
                         </div>
                         <div className="id-fb-review-weaknesses">
-                          <FileText className="id-fb-review-section-icon" strokeWidth={2} />
+                          <FileText
+                            className="id-fb-review-section-icon"
+                            strokeWidth={2}
+                          />
                           <div>
-                            <span className="id-fb-review-section-label">WEAKNESSES:</span>
+                            <span className="id-fb-review-section-label">
+                              WEAKNESSES:
+                            </span>
                             <p>{r.weaknesses}</p>
                           </div>
                         </div>
@@ -617,21 +701,44 @@ export default function InstructorDetailPage() {
             {activeTab === "feedback" && data.feedbackTab ? (
               <>
                 <div className="id-sidebar-card">
-                  <h3 className="id-sidebar-title id-fb-sidebar-title">COURSE PERFORMANCE</h3>
+                  <h3 className="id-sidebar-title id-fb-sidebar-title">
+                    COURSE PERFORMANCE
+                  </h3>
                   <ul className="id-fb-course-perf">
                     {data.feedbackTab.coursePerformance.map((c) => (
                       <li key={c.courseName} className="id-fb-course-perf-item">
-                        {c.icon === "truck" && <Truck className="id-fb-course-icon" strokeWidth={2} />}
-                        {c.icon === "building" && <Building2 className="id-fb-course-icon" strokeWidth={2} />}
-                        {c.icon === "clipboard" && <ClipboardList className="id-fb-course-icon" strokeWidth={2} />}
-                        <span className="id-fb-course-name">{c.courseName}</span>
+                        {c.icon === "truck" && (
+                          <Truck
+                            className="id-fb-course-icon"
+                            strokeWidth={2}
+                          />
+                        )}
+                        {c.icon === "building" && (
+                          <Building2
+                            className="id-fb-course-icon"
+                            strokeWidth={2}
+                          />
+                        )}
+                        {c.icon === "clipboard" && (
+                          <ClipboardList
+                            className="id-fb-course-icon"
+                            strokeWidth={2}
+                          />
+                        )}
+                        <span className="id-fb-course-name">
+                          {c.courseName}
+                        </span>
                         <span className="id-fb-course-score">{c.score}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <button type="button" className="id-btn-primary id-fb-bulk-reply">
-                  <MessageCircle className="w-4 h-4" strokeWidth={2} /> Bulk Reply to Feedback
+                <button
+                  type="button"
+                  className="id-btn-primary id-fb-bulk-reply"
+                >
+                  <MessageCircle className="w-4 h-4" strokeWidth={2} /> Bulk
+                  Reply to Feedback
                 </button>
               </>
             ) : activeTab === "groups" && groupsData ? (
@@ -642,11 +749,13 @@ export default function InstructorDetailPage() {
                     Workload Analytics
                   </h3>
                   <p className="id-wa-weekly">
-                    Weekly Teaching Hours <strong>{groupsData.workloadWeeklyHours}h</strong>
+                    Weekly Teaching Hours{" "}
+                    <strong>{groupsData.workloadWeeklyHours}h</strong>
                   </p>
                   <div className="id-wa-bar-wrap">
                     <span className="id-wa-bar-label">
-                      {data.name}: {groupsData.workloadWeeklyHours} / {groupsData.workloadMaxHours} hrs
+                      {data.name}: {groupsData.workloadWeeklyHours} /{" "}
+                      {groupsData.workloadMaxHours} hrs
                     </span>
                     <div className="id-wa-bar">
                       <div
@@ -659,7 +768,8 @@ export default function InstructorDetailPage() {
                   </div>
                   <div className="id-wa-bar-wrap">
                     <span className="id-wa-bar-label">
-                      Department Avg.: {groupsData.workloadDeptAvgHours} / {groupsData.workloadDeptMaxHours} hrs
+                      Department Avg.: {groupsData.workloadDeptAvgHours} /{" "}
+                      {groupsData.workloadDeptMaxHours} hrs
                     </span>
                     <div className="id-wa-bar">
                       <div
@@ -685,7 +795,8 @@ export default function InstructorDetailPage() {
                     <div className="id-wa-legend">
                       {groupsData.groupDistribution.map((d) => (
                         <span key={d.label} className="id-wa-legend-item">
-                          <i className={`id-wa-legend-dot id-wa-${d.color}`} /> {d.label}: {d.percent}%
+                          <i className={`id-wa-legend-dot id-wa-${d.color}`} />{" "}
+                          {d.label}: {d.percent}%
                         </span>
                       ))}
                     </div>
@@ -698,13 +809,16 @@ export default function InstructorDetailPage() {
                 <div className="id-sidebar-card">
                   <h3 className="id-sidebar-title">Quick Shortcuts</h3>
                   <Link href="#" className="id-shortcut-link">
-                    <Calendar className="w-4 h-4" strokeWidth={2} /> Group Schedule
+                    <Calendar className="w-4 h-4" strokeWidth={2} /> Group
+                    Schedule
                   </Link>
                   <Link href="#" className="id-shortcut-link">
-                    <Download className="w-4 h-4" strokeWidth={2} /> Export Current Cohorts
+                    <Download className="w-4 h-4" strokeWidth={2} /> Export
+                    Current Cohorts
                   </Link>
                   <Link href="#" className="id-shortcut-link">
-                    <Mail className="w-4 h-4" strokeWidth={2} /> Blast All Students
+                    <Mail className="w-4 h-4" strokeWidth={2} /> Blast All
+                    Students
                   </Link>
                 </div>
               </>
@@ -713,22 +827,33 @@ export default function InstructorDetailPage() {
                 <div className="id-sidebar-card">
                   <div className="id-sidebar-card-head">
                     <h3 className="id-sidebar-title">Workload Health</h3>
-                    <button type="button" className="id-btn-icon-sm" aria-label="Info">
+                    <button
+                      type="button"
+                      className="id-btn-icon-sm"
+                      aria-label="Info"
+                    >
                       <Info className="w-4 h-4" strokeWidth={2} />
                     </button>
                   </div>
                   <div className="id-workload-circle-wrap">
                     <div
                       className="id-workload-circle"
-                      style={{ "--pct": data.workloadPercent } as React.CSSProperties}
+                      style={
+                        { "--pct": data.workloadPercent } as React.CSSProperties
+                      }
                     >
-                      <span className="id-workload-value">{data.workloadPercent}%</span>
-                      <span className="id-workload-label">{data.workloadLabel}</span>
+                      <span className="id-workload-value">
+                        {data.workloadPercent}%
+                      </span>
+                      <span className="id-workload-label">
+                        {data.workloadLabel}
+                      </span>
                     </div>
                   </div>
                   <div className="id-workload-bar-wrap">
                     <span className="id-workload-bar-label">
-                      Teaching Hours: {data.teachingHours}/{data.teachingHoursMax} hrs
+                      Teaching Hours: {data.teachingHours}/
+                      {data.teachingHoursMax} hrs
                     </span>
                     <div className="id-workload-bar">
                       <div
@@ -739,7 +864,9 @@ export default function InstructorDetailPage() {
                       />
                     </div>
                   </div>
-                  <p className="id-workload-pending">Grading Queue: {data.gradingPending} pending.</p>
+                  <p className="id-workload-pending">
+                    Grading Queue: {data.gradingPending} pending.
+                  </p>
                 </div>
 
                 <div className="id-sidebar-card">
@@ -749,22 +876,30 @@ export default function InstructorDetailPage() {
                     Next Payout: Expected {data.nextPayoutDate}
                   </p>
                   <p className="id-payout-amount">{data.nextPayoutAmount}</p>
-                  <button type="button" className="id-btn-secondary id-btn-full">
+                  <button
+                    type="button"
+                    className="id-btn-secondary id-btn-full"
+                  >
                     Manage Contract
                   </button>
                   <Link href="#" className="id-sidebar-link">
-                    Download Tax Forms <ArrowRight className="w-4 h-4" strokeWidth={2} />
+                    Download Tax Forms{" "}
+                    <ArrowRight className="w-4 h-4" strokeWidth={2} />
                   </Link>
                   <Link href="#" className="id-sidebar-link">
-                    Payment History <ArrowRight className="w-4 h-4" strokeWidth={2} />
+                    Payment History{" "}
+                    <ArrowRight className="w-4 h-4" strokeWidth={2} />
                   </Link>
                 </div>
 
                 <div className="id-sidebar-card id-quick-action">
                   <span className="id-quick-action-badge">QUICK ACTION</span>
-                  <h3 className="id-quick-action-title">Annual Performance Review</h3>
+                  <h3 className="id-quick-action-title">
+                    Annual Performance Review
+                  </h3>
                   <p className="id-quick-action-desc">
-                    Schedule the yearly assessment with this instructor to review student feedback and set new targets.
+                    Schedule the yearly assessment with this instructor to
+                    review student feedback and set new targets.
                   </p>
                   <button type="button" className="id-quick-action-btn">
                     Initiate Review

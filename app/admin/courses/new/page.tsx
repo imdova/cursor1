@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useMemo } from "react";
@@ -20,6 +21,7 @@ import {
   DiscountCoupon,
   CourseFormData,
 } from "@/types/courseForm";
+import Image from "next/image";
 
 const COURSE_TYPES = [
   "Certificate",
@@ -89,7 +91,6 @@ export default function CreateCoursePage() {
     return cat?.subCategories ?? [];
   }, [formData.category]);
 
-  const progressPercentage = Math.round((currentStep / steps.length) * 100);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -194,13 +195,13 @@ export default function CreateCoursePage() {
   };
 
   const addLesson = (moduleId: string) => {
-    const module = formData.modules.find((m) => m.id === moduleId);
-    if (!module) return;
+    const targetModule = formData.modules.find((m) => m.id === moduleId);
+    if (!targetModule) return;
 
     const newLesson: CourseLesson = {
       id: `lesson-${Date.now()}`,
       title: "",
-      order: module.lessons.length + 1,
+      order: targetModule.lessons.length + 1,
       contentType: "video",
       isPreview: false,
     };
@@ -311,9 +312,9 @@ export default function CreateCoursePage() {
 
   // Calculate completeness metrics
   const videoCount = formData.modules.reduce(
-    (acc, module) =>
+    (acc, m) =>
       acc +
-      module.lessons.filter((l) => l.contentType === "video" && l.contentUrl)
+      m.lessons.filter((l) => l.contentType === "video" && l.contentUrl)
         .length,
     0
   );
@@ -540,7 +541,7 @@ export default function CreateCoursePage() {
                       </div>
                       {/* Row 1: EGP (always visible) */}
                       <div className="mb-4 flex flex-wrap items-start gap-4">
-                        <div className="flex items-center gap-2 min-w-[4.5rem] shrink-0 pt-6">
+                        <div className="flex items-center gap-2 min-w-18 shrink-0 pt-6">
                           <span
                             className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-amber-700"
                             aria-hidden
@@ -609,7 +610,7 @@ export default function CreateCoursePage() {
                       {pricingExpanded && (
                         <>
                           <div className="mb-4 flex flex-wrap items-start gap-4">
-                            <div className="flex items-center gap-2 min-w-[4.5rem] shrink-0 pt-6">
+                            <div className="flex items-center gap-2 min-w-18 shrink-0 pt-6">
                               <span
                                 className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"
                                 aria-hidden
@@ -676,7 +677,7 @@ export default function CreateCoursePage() {
                             </div>
                           </div>
                           <div className="flex flex-wrap items-start gap-4">
-                            <div className="flex items-center gap-2 min-w-[4.5rem] shrink-0 pt-6">
+                            <div className="flex items-center gap-2 min-w-18 shrink-0 pt-6">
                               <span
                                 className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-100 text-sky-700"
                                 aria-hidden
@@ -1002,10 +1003,12 @@ export default function CreateCoursePage() {
                     >
                       {formData.thumbnailPreview ? (
                         <div className="space-y-3">
-                          <img
+                          <Image
                             src={formData.thumbnailPreview}
                             alt="Preview"
                             className="w-full aspect-video object-cover rounded-lg"
+                            width={500}
+                            height={500}
                           />
                           <button
                             type="button"

@@ -10,19 +10,11 @@ export const routeConfigs: RouteConfig[] = [
     headerType: "none",
   },
   {
-    pattern: "/instructor",
+    pattern: "/instructor/*",
     headerType: "none",
   },
   {
-    pattern: "/instructor",
-    headerType: "none",
-  },
-  {
-    pattern: "/admin",
-    headerType: "none",
-  },
-  {
-    pattern: "/dashboard/*",
+    pattern: "/admin/*",
     headerType: "none",
   },
   // Default

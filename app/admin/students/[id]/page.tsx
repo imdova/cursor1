@@ -45,6 +45,7 @@ import "../students.css";
 import "./student-overview.css";
 import "./student-payment-history.css";
 import "./student-enrolled-groups.css";
+import Image from "next/image";
 
 const TABS = [
   { id: "overview", label: "Overview" },
@@ -120,7 +121,7 @@ export default function AdminStudentProfilePage() {
             <div className="asm-so-profile">
               <div className="asm-so-avatar-wrap">
                 {student.image ? (
-                  <img src={student.image} alt="" className="asm-so-avatar" />
+                  <Image src={student.image} width={40} height={40} alt="" className="asm-so-avatar" />
                 ) : (
                   <div className="asm-so-avatar-initials">
                     {student.name

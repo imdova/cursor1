@@ -15,7 +15,7 @@ export default function LimitedOfferBanner({ course }: LimitedOfferBannerProps) 
   useEffect(() => {
     const t = setInterval(() => {
       setCountdown((prev) => {
-        let { h, m, s } = prev;
+        const { h, m, s } = prev;
         if (s > 0) return { ...prev, s: s - 1 };
         if (m > 0) return { h, m: m - 1, s: 59 };
         if (h > 0) return { h: h - 1, m: 59, s: 59 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, Suspense, useEffect, useCallback } from "react";
+import { useState, useMemo, Suspense, useCallback } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -24,14 +24,13 @@ import {
   type CategoryRecord,
   type SubCategoryRecord,
   type TagRecord,
-  type VariableRecord,
 } from "@/lib/courseSettingsData";
 import "./course-settings-variables.css";
 
 function reorderByRank<T extends { id: string; rank: number }>(
   list: T[],
   draggedId: string,
-  targetId: string
+  targetId: string,
 ): T[] {
   const fromIdx = list.findIndex((x) => x.id === draggedId);
   const toIdx = list.findIndex((x) => x.id === targetId);
@@ -64,7 +63,7 @@ function CourseSettingsContent() {
   const tab: TabId =
     tabParam && TABS.some((t) => t.id === tabParam) ? tabParam : "categories";
   const [categoriesOrdered, setCategoriesOrdered] = useState<CategoryRecord[]>(
-    () => [...courseSettingsCategories]
+    () => [...courseSettingsCategories],
   );
   const [subCategoriesOrdered, setSubCategoriesOrdered] = useState<
     SubCategoryRecord[]
@@ -79,14 +78,14 @@ function CourseSettingsContent() {
   const [tagsPerPage, setTagsPerPage] = useState(20);
   const [tagsPage, setTagsPage] = useState(1);
   const [draggedCategoryId, setDraggedCategoryId] = useState<string | null>(
-    null
+    null,
   );
-  const [draggedSubCategoryId, setDraggedSubCategoryId] = useState<string | null>(
-    null
-  );
-  const [dropTargetCategoryId, setDropTargetCategoryId] = useState<string | null>(
-    null
-  );
+  const [draggedSubCategoryId, setDraggedSubCategoryId] = useState<
+    string | null
+  >(null);
+  const [dropTargetCategoryId, setDropTargetCategoryId] = useState<
+    string | null
+  >(null);
   const [dropTargetSubCategoryId, setDropTargetSubCategoryId] = useState<
     string | null
   >(null);
@@ -103,7 +102,7 @@ function CourseSettingsContent() {
       e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.setData("application/x-category-id", id);
     },
-    []
+    [],
   );
   const handleCategoryDragEnd = useCallback(() => {
     setDraggedCategoryId(null);
@@ -116,7 +115,7 @@ function CourseSettingsContent() {
       if (draggedCategoryId && draggedCategoryId !== id)
         setDropTargetCategoryId(id);
     },
-    [draggedCategoryId]
+    [draggedCategoryId],
   );
   const handleCategoryDragLeave = useCallback(() => {
     setDropTargetCategoryId(null);
@@ -131,7 +130,7 @@ function CourseSettingsContent() {
       setDraggedCategoryId(null);
       setDropTargetCategoryId(null);
     },
-    []
+    [],
   );
 
   const handleSubCategoryDragStart = useCallback(
@@ -146,7 +145,7 @@ function CourseSettingsContent() {
       e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.setData("application/x-subcategory-id", id);
     },
-    []
+    [],
   );
   const handleSubCategoryDragEnd = useCallback(() => {
     setDraggedSubCategoryId(null);
@@ -159,7 +158,7 @@ function CourseSettingsContent() {
       if (draggedSubCategoryId && draggedSubCategoryId !== id)
         setDropTargetSubCategoryId(id);
     },
-    [draggedSubCategoryId]
+    [draggedSubCategoryId],
   );
   const handleSubCategoryDragLeave = useCallback(() => {
     setDropTargetSubCategoryId(null);
@@ -174,11 +173,11 @@ function CourseSettingsContent() {
       setDraggedSubCategoryId(null);
       setDropTargetSubCategoryId(null);
     },
-    []
+    [],
   );
 
   const [selectedVariableId, setSelectedVariableId] = useState(
-    courseSettingsVariables[0]?.id ?? ""
+    courseSettingsVariables[0]?.id ?? "",
   );
   const [variableName, setVariableName] = useState("");
   const [variableOptions, setVariableOptions] = useState<string[]>([]);
@@ -186,23 +185,25 @@ function CourseSettingsContent() {
   const selectedVariable = useMemo(
     () =>
       courseSettingsVariables.find((v) => v.id === selectedVariableId) ?? null,
-    [selectedVariableId]
+    [selectedVariableId],
   );
 
-  useEffect(() => {
-    if (selectedVariable) {
-      setVariableName(selectedVariable.name);
-      setVariableOptions([...selectedVariable.options]);
+  const handleSelectVariable = (id: string) => {
+    setSelectedVariableId(id);
+
+    const variable = courseSettingsVariables.find((v) => v.id === id);
+
+    if (variable) {
+      setVariableName(variable.name);
+      setVariableOptions([...variable.options]);
     }
-  }, [selectedVariable]);
+  };
 
   const addVariableOption = () => {
     setVariableOptions((prev) => [...prev, ""]);
   };
   const updateVariableOption = (index: number, value: string) => {
-    setVariableOptions((prev) =>
-      prev.map((o, i) => (i === index ? value : o))
-    );
+    setVariableOptions((prev) => prev.map((o, i) => (i === index ? value : o)));
   };
   const removeVariableOption = (index: number) => {
     setVariableOptions((prev) => prev.filter((_, i) => i !== index));
@@ -211,31 +212,31 @@ function CourseSettingsContent() {
   const filteredCategories = useMemo(
     () =>
       categoriesOrdered.filter((c) =>
-        c.name.toLowerCase().includes(categorySearch.toLowerCase())
+        c.name.toLowerCase().includes(categorySearch.toLowerCase()),
       ),
-    [categoriesOrdered, categorySearch]
+    [categoriesOrdered, categorySearch],
   );
   const filteredSubCategories = useMemo(
     () =>
       subCategoriesOrdered.filter((s) =>
-        s.name.toLowerCase().includes(subCategorySearch.toLowerCase())
+        s.name.toLowerCase().includes(subCategorySearch.toLowerCase()),
       ),
-    [subCategoriesOrdered, subCategorySearch]
+    [subCategoriesOrdered, subCategorySearch],
   );
   const filteredTags = useMemo(
     () =>
       courseSettingsTags.filter(
         (t) =>
           t.name.toLowerCase().includes(tagSearch.toLowerCase()) ||
-          t.slug.toLowerCase().includes(tagSearch.toLowerCase())
+          t.slug.toLowerCase().includes(tagSearch.toLowerCase()),
       ),
-    [tagSearch]
+    [tagSearch],
   );
   const tagsTotalPages = Math.ceil(filteredTags.length / tagsPerPage) || 1;
   const paginatedTags = useMemo(
     () =>
       filteredTags.slice((tagsPage - 1) * tagsPerPage, tagsPage * tagsPerPage),
-    [filteredTags, tagsPage, tagsPerPage]
+    [filteredTags, tagsPage, tagsPerPage],
   );
 
   const handleAddTag = (e: React.FormEvent) => {
@@ -275,7 +276,7 @@ function CourseSettingsContent() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <h2 className="text-xl font-bold text-gray-900">
                 All Categories
-                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
+                <span className="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
                   {filteredCategories.length}
                 </span>
               </h2>
@@ -373,7 +374,7 @@ function CourseSettingsContent() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <h2 className="text-xl font-bold text-gray-900">
                 All Sub Categories
-                <span className="ml-2 inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
+                <span className="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-primary text-white text-sm font-semibold">
                   {filteredSubCategories.length}
                 </span>
               </h2>
@@ -696,7 +697,7 @@ function CourseSettingsContent() {
                       className={`acv-variable-item ${
                         selectedVariableId === v.id ? "active" : ""
                       }`}
-                      onClick={() => setSelectedVariableId(v.id)}
+                      onClick={() => handleSelectVariable(v.id)}
                     >
                       <Settings2
                         className="acv-variable-item-icon"
@@ -877,7 +878,7 @@ function CategoryRow({
           role="switch"
           aria-checked={status === "Active"}
           onClick={() => setStatus(status === "Active" ? "Inactive" : "Active")}
-          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
             status === "Active" ? "bg-primary" : "bg-gray-200"
           }`}
         >
@@ -989,7 +990,7 @@ function SubCategoryRow({
           role="switch"
           aria-checked={status === "Active"}
           onClick={() => setStatus(status === "Active" ? "Inactive" : "Active")}
-          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
             status === "Active" ? "bg-primary" : "bg-gray-200"
           }`}
         >
@@ -1053,7 +1054,7 @@ function TagRow({ tag }: { tag: TagRecord }) {
           role="switch"
           aria-checked={status === "Active"}
           onClick={() => setStatus(status === "Active" ? "Inactive" : "Active")}
-          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
             status === "Active" ? "bg-primary" : "bg-gray-200"
           }`}
         >

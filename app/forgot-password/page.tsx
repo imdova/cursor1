@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Lightbulb } from "lucide-react";
+import Image from "next/image";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -23,7 +24,9 @@ export default function ForgotPasswordPage() {
             href="/"
             className="inline-flex items-center justify-center mb-3 sm:mb-4"
           >
-            <img
+            <Image
+              width={100}
+              height={100}
               src="/images/logo.png"
               alt="IMETS school of business"
               className="h-10 sm:h-12 w-auto"
@@ -54,7 +57,7 @@ export default function ForgotPasswordPage() {
                         How it works
                       </p>
                       <p className="text-xs text-[#030256]/90">
-                        Enter your email address and we'll send you a link to
+                        Enter your email address and we&apos;ll send you a link to
                         reset your password.
                       </p>
                     </div>
@@ -78,7 +81,7 @@ export default function ForgotPasswordPage() {
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-[#030256] to-[#0a0a7d] text-white px-8 py-3 rounded-lg font-semibold hover:from-[#04036a] hover:to-[#0a0a7d] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                    className="w-full bg-linear-to-r from-[#030256] to-[#0a0a7d] text-white px-8 py-3 rounded-lg font-semibold hover:from-[#04036a] hover:to-[#0a0a7d] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                   >
                     Send Reset Link
                   </button>
@@ -93,11 +96,11 @@ export default function ForgotPasswordPage() {
                   Check your email
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  We've sent a password reset link to <strong>{email}</strong>
+                  We&apos;ve sent a password reset link to <strong>{email}</strong>
                 </p>
                 <div className="space-y-3">
                   <p className="text-sm text-gray-500">
-                    Didn't receive the email? Check your spam folder or
+                    Didn&apos;t receive the email? Check your spam folder or
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}

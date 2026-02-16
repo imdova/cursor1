@@ -164,6 +164,7 @@ export default function AddNewLMSPage() {
     );
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const removeItem = (moduleId: string, itemId: string) => {
     setModules((prev) =>
       prev.map((m) =>

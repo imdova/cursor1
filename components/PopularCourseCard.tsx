@@ -1,10 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Library, CalendarDays, Users, Monitor, ArrowRight } from "lucide-react";
+import {
+  Library,
+  CalendarDays,
+  Users,
+  Monitor,
+  ArrowRight,
+} from "lucide-react";
 import type { Course } from "@/types/course";
 import { ROUTES } from "@/constants";
 import { StarRating } from "@/components/ui";
+import Image from "next/image";
 
 interface PopularCourseCardProps {
   course: Course;
@@ -22,10 +29,12 @@ export default function PopularCourseCard({ course }: PopularCourseCardProps) {
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <Link href={detailsPath} className="block relative">
         <div className="relative h-40 sm:h-44 w-full bg-gray-200 overflow-hidden">
-          <img
+          <Image
             src={course.image}
             alt={course.title}
             className="w-full h-full object-cover"
+            width={100}
+            height={100}
           />
           {course.isBestSeller && (
             <div className="absolute top-2 left-2 bg-primary text-white px-2.5 py-1 rounded text-xs font-semibold">
@@ -47,19 +56,31 @@ export default function PopularCourseCard({ course }: PopularCourseCardProps) {
         />
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-gray-600 mb-3">
           <span className="flex items-center gap-1.5">
-            <Library className="h-3.5 w-3.5 text-[#0a47c2] shrink-0" strokeWidth={2} />
+            <Library
+              className="h-3.5 w-3.5 text-[#0a47c2] shrink-0"
+              strokeWidth={2}
+            />
             {lectureCount} Lectures
           </span>
           <span className="flex items-center gap-1.5">
-            <CalendarDays className="h-3.5 w-3.5 text-amber-600 shrink-0" strokeWidth={2} />
+            <CalendarDays
+              className="h-3.5 w-3.5 text-amber-600 shrink-0"
+              strokeWidth={2}
+            />
             {freq}
           </span>
           <span className="flex items-center gap-1.5">
-            <Users className="h-3.5 w-3.5 text-emerald-600 shrink-0" strokeWidth={2} />
+            <Users
+              className="h-3.5 w-3.5 text-emerald-600 shrink-0"
+              strokeWidth={2}
+            />
             {course.studentCount.toLocaleString()} Students
           </span>
           <span className="flex items-center gap-1.5">
-            <Monitor className="h-3.5 w-3.5 text-gray-500 shrink-0" strokeWidth={2} />
+            <Monitor
+              className="h-3.5 w-3.5 text-gray-500 shrink-0"
+              strokeWidth={2}
+            />
             {delivery}
           </span>
         </div>

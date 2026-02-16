@@ -13,14 +13,12 @@ import {
   Calendar,
   User,
   Settings,
-  HelpCircle,
 } from "lucide-react";
 import { ROUTES } from "@/constants";
 import {
   billingSummary,
   transactions,
   upcomingPayments,
-  type Transaction,
   type TransactionStatus,
   type UpcomingPayment,
 } from "./billing-data";

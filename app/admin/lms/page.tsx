@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo} from "react";
 import Link from "next/link";
 import { ROUTES } from "@/constants";
 import {
@@ -49,11 +49,11 @@ export default function AdminLMSManagementPage() {
     return SUBCATEGORIES_BY_CATEGORY[category] ?? ["All Subcategories"];
   }, [category]);
 
-  useEffect(() => {
-    if (!subcategoryOptions.includes(subcategory)) {
-      setSubcategory("All Subcategories");
-    }
-  }, [category, subcategoryOptions, subcategory]);
+  // useEffect(() => {
+  //   if (!subcategoryOptions.includes(subcategory)) {
+  //     setSubcategory("All Subcategories");
+  //   }
+  // }, [category, subcategoryOptions, subcategory]);
 
   const filteredCourses = useMemo(() => {
     return lmsCourses.filter((c) => {
@@ -279,7 +279,7 @@ export default function AdminLMSManagementPage() {
                 key={p}
                 type="button"
                 onClick={() => setPage(p)}
-                className={`min-w-[2.25rem] h-9 rounded-lg text-sm font-medium transition-colors ${
+                className={`min-w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
                   currentPage === p
                     ? "bg-primary text-white"
                     : "border border-gray-200 text-gray-700 hover:bg-gray-50"

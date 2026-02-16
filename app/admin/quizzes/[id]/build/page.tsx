@@ -37,22 +37,10 @@ export default function QuizBuildPage() {
   const quizId = typeof params.id === "string" ? params.id : "";
   const quiz = getQuizById(quizId);
 
-  if (!quiz) {
-    return (
-      <div className="qzb-page">
-        <div className="qzb-error">
-          <p>Quiz not found.</p>
-          <Link href="/admin/quizzes" className="qzb-btn-back">
-            <ChevronLeft className="w-4 h-4" />
-            Back to Quizzes
-          </Link>
-        </div>
-      </div>
-    );
-  }
+
 
   const [localQuestions, setLocalQuestions] = useState<Question[]>(() =>
-    [...quiz.questions].sort((a, b) => a.order - b.order)
+    quiz ? [...quiz.questions].sort((a, b) => a.order - b.order) : []
   );
   const [importError, setImportError] = useState<string | null>(null);
   const [importSuccess, setImportSuccess] = useState<string | null>(null);
@@ -126,6 +114,20 @@ export default function QuizBuildPage() {
     setImportSuccess(`Imported ${newQuestions.length} question(s).`);
   };
 
+    if (!quiz) {
+    return (
+      <div className="qzb-page">
+        <div className="qzb-error">
+          <p>Quiz not found.</p>
+          <Link href="/admin/quizzes" className="qzb-btn-back">
+            <ChevronLeft className="w-4 h-4" />
+            Back to Quizzes
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <div className="qzb-page">
       <header className="qzb-header">

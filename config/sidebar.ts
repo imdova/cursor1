@@ -2,7 +2,6 @@ import { ROUTES } from "@/constants";
 import type {
   SidebarNavItem,
   SidebarFooterLink,
-  SidebarFooterProfile,
   SidebarProps,
 } from "@/types/navigation";
 

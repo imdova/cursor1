@@ -21,7 +21,6 @@ import {
   learningStats,
   type MyCourseCard,
 } from "./courses-data";
-import { DEFAULT_LESSON_SLUG } from "./[id]/lesson/[lessonId]/lesson-data";
 
 type FilterKey = "all" | "active" | "completed" | "favorites";
 
