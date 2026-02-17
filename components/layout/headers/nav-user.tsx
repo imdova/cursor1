@@ -19,7 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export function NavUser() {
   const { user, logout, status } = useAuth();
 
-  if (status === "idle" || status === "loading") return <Skeleton className="h-8 w-8 rounded-lg" />;
+  if (status === "idle") return <Skeleton className="h-8 w-8 rounded-lg" />;
 
   if (!user)
     return (
@@ -53,9 +53,7 @@ export function NavUser() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-        side="bottom"
-        align="start"
-        sideOffset={4}
+        align="end"
       >
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
@@ -85,7 +83,7 @@ export function NavUser() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout}>
+        <DropdownMenuItem variant="destructive" onClick={logout}>
           <LogOut />
           Log out
         </DropdownMenuItem>

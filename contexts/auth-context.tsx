@@ -95,9 +95,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Check session on mount
   // =======================
   useEffect(() => {
-    if (state.status !== "idle") return;
     const checkSession = async () => {
-      dispatch({ type: "SET_LOADING" });
       const user = await getCookie<User>(USER_COOKIE_KEY);
       if (user) {
         dispatch({ type: "SET_USER", payload: user });
@@ -105,7 +103,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         dispatch({ type: "SET_UNAUTHENTICATED" });
       }
     };
-    checkSession();
+    if (state.status === "idle") {
+      checkSession();
+    }
   }, [state.status]);
 
   // =======================
@@ -234,9 +234,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     router.push(ROUTES.HOME);
   }, [router]);
 
-  const clearError = useCallback(() => {
-    dispatch({ type: "CLEAR_ERROR" });
-  }, []);
 
   // =======================
   // Memoized Context Value
@@ -250,9 +247,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       login,
       signup,
       logout,
-      clearError,
     }),
-    [state.user, state.status, state.error, login, signup, logout, clearError],
+    [state.user, state.status, state.error, login, signup, logout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

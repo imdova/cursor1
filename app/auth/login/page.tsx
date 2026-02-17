@@ -21,14 +21,18 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useAuth } from "@/contexts/auth-context";
 import { LoginFormValues, loginSchema } from "@/lib/validations/login.schema";
-import { Loader2 } from "lucide-react";
+import { AlertTriangleIcon, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { ROUTES } from "@/constants";
+import { API_FACEBOOK_LOGIN, API_GOOGLE_LOGIN } from "@/constants/api/auth";
+import { useRouter } from "next/navigation";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function LoginPage() {
-  const { login, status, error, clearError } = useAuth();
-
+  const { login, status, error } = useAuth();
+  const router = useRouter();
   const loading = status === "loading";
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -37,11 +41,6 @@ export default function LoginPage() {
       rememberMe: false,
     },
   });
-
-  const onSubmit = async (data: LoginFormValues) => {
-    clearError();
-    await login(data);
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 px-4">
@@ -68,6 +67,7 @@ export default function LoginPage() {
             <div className="space-y-3">
               <Button
                 disabled={loading}
+                onClick={() => router.push(API_GOOGLE_LOGIN)}
                 variant="outline"
                 size="lg"
                 className="w-full"
@@ -77,6 +77,7 @@ export default function LoginPage() {
               </Button>
               <Button
                 disabled={loading}
+                onClick={() => router.push(API_FACEBOOK_LOGIN)}
                 variant="outline"
                 size="lg"
                 className="w-full"
@@ -93,10 +94,7 @@ export default function LoginPage() {
               <Separator className="flex-1" />
             </div>
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
-              >
+              <form onSubmit={form.handleSubmit(login)} className="space-y-6">
                 {/* Email */}
                 <FormField
                   control={form.control}
@@ -162,9 +160,10 @@ export default function LoginPage() {
                   )}
                 />
                 {error && (
-                  <div className="rounded-md bg-destructive/10 p-2">
-                    <p className="text-sm text-destructive">{error}</p>
-                  </div>
+                  <Alert variant="destructive">
+                    <AlertTriangleIcon />
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
                 )}
                 <Button
                   disabled={loading}

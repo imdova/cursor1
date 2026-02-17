@@ -13,6 +13,6 @@ export const API_REFRESH_TOKEN = AUTH + "/refresh"; // POST (send refresh token 
 
 // Social Login
 export const API_GOOGLE_LOGIN = AUTH + "/google"; // GET
-export const API_GOOGLE_LOGIN_REDIRECT = AUTH + "/google/redirect"; // GET
+export const API_GOOGLE_LOGIN_REDIRECT = AUTH + "/google/redirect"; // GET ?code&scope
 export const API_FACEBOOK_LOGIN = AUTH + "/facebook"; // GET
 export const API_FACEBOOK_LOGIN_REDIRECT = AUTH + "/facebook/redirect"; // GET

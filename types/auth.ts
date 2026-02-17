@@ -34,5 +34,4 @@ export interface AuthContextType extends AuthState {
   login: (data: LoginFormValues) => Promise<void>;
   signup: (data: SignupFormValues) => Promise<void>;
   logout: () => Promise<void>;
-  clearError: () => void;
 }

@@ -21,17 +21,21 @@ import FaceBookIcon from "@/components/icons/facebook";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useAuth } from "@/contexts/auth-context";
-import { Loader2 } from "lucide-react";
+import { AlertTriangleIcon, Loader2 } from "lucide-react";
 import {
   SignupFormValues,
   signupSchema,
 } from "@/lib/validations/signup.schema";
 import Image from "next/image";
 import { ROUTES } from "@/constants";
+import { useRouter } from "next/navigation";
+import { API_FACEBOOK_LOGIN, API_GOOGLE_LOGIN } from "@/constants/api/auth";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function SignupPage() {
-  const { signup, status, error, clearError } = useAuth();
-
+  const { signup, status, error } = useAuth();
+  const router = useRouter();
+  const loading = status === "loading";
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -42,11 +46,6 @@ export default function SignupPage() {
       terms: false,
     },
   });
-
-  const onSubmit = async (data: SignupFormValues) => {
-    clearError();
-    await signup(data);
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8 px-4">
@@ -73,13 +72,25 @@ export default function SignupPage() {
         <Card>
           <CardContent>
             <div className="space-y-3">
-              <Button variant="outline" size="lg" className="w-full">
+              <Button
+                disabled={loading}
+                onClick={() => router.push(API_GOOGLE_LOGIN)}
+                variant="outline"
+                size="lg"
+                className="w-full"
+              >
                 <GoogleIcon />
-                Sign up with Google
+                Continue with Google
               </Button>
-              <Button variant="outline" size="lg" className="w-full">
+              <Button
+                disabled={loading}
+                onClick={() => router.push(API_FACEBOOK_LOGIN)}
+                variant="outline"
+                size="lg"
+                className="w-full"
+              >
                 <FaceBookIcon />
-                Sign up with Facebook
+                Continue with Facebook
               </Button>
             </div>
             <div className="flex items-center gap-2 my-4">
@@ -90,10 +101,7 @@ export default function SignupPage() {
               <Separator className="flex-1" />
             </div>
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
-              >
+              <form onSubmit={form.handleSubmit(signup)} className="space-y-6">
                 {/* Full Name */}
                 <FormField
                   control={form.control}
@@ -211,18 +219,19 @@ export default function SignupPage() {
                 />
 
                 {error && (
-                  <div className="rounded-md border border-destructive bg-destructive/10 p-3">
-                    <p className="text-sm text-destructive">{error}</p>
-                  </div>
+                  <Alert variant="destructive">
+                    <AlertTriangleIcon />
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
                 )}
 
                 <Button
-                  disabled={status === "loading"}
+                  disabled={loading}
                   type="submit"
                   size="lg"
                   className="w-full"
                 >
-                  {status === "loading" ? (
+                  {loading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Creating account...
